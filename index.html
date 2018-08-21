@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>FoxCalendar - A fork of the Pure JS Calendar</title>
+
+    <link type="text/css" rel="stylesheet" href="css/demo.css" />
+    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+
+
+    <link type="text/css" rel="stylesheet" href="css/fox-calendar.css?ver=0.1.0" />
+    <script type="text/javascript" src="js/fox-calendar.js?ver=0.1.0"></script>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="title">Fox JS Calendar</div>
+            <div class="github">
+                <a href="https://github.com/SamBrishes/FoxCalendar">Find on GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="fox-demonstration">
+                <div class="fox-calendar">
+                    <h1>DateTime Picker with Range</h1>
+                    <input type="text" id="datetime-1" name="datetime-1" value="" />
+                    <button>Toggle Calendar</button>
+                </div>
+
+                <div class="fox-calendar">
+                    <h1>Date Picker (starts Monday)</h1>
+                    <input type="text" id="datetime-2" name="datetime-2" value="" />
+                    <button>Toggle Calendar</button>
+                </div>
+
+                <div class="fox-calendar">
+                    <h1>Time Picker</h1>
+                    <input type="text" id="datetime-3" name="datetime-3" value="" />
+                    <button>Toggle Calendar</button>
+                </div>
+
+                <div class="fox-calendar">
+                    <h1>Pre-Defined Date</h1>
+                    <input type="text" id="datetime-4" name="datetime-4" value="March 17, 1993 20:15:35" />
+                    <button>Toggle Calendar</button>
+                </div>
+
+                <div class="fox-calendar">
+                    <h1>Position Left</h1>
+                    <input type="text" id="datetime-5" name="datetime-5" value="" />
+                    <button>Toggle Calendar</button>
+                </div>
+
+                <div class="fox-calendar">
+                    <h1>Position Right</h1>
+                    <input type="text" id="datetime-6" name="datetime-6" value="" />
+                    <button>Toggle Calendar</button>
+                </div>
+
+                <div class="fox-calendar">
+                    <h1>Position Top</h1>
+                    <input type="text" id="datetime-7" name="datetime-7" value="" />
+                    <button>Toggle Calendar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function(){
+            var datetime1 = FoxCalendar("#datetime-1", {
+                dateRange: [new Date(2018, 7, 10), new Date(2018, 7, 29)]
+            });
+            document.querySelector("#datetime-1 + button").addEventListener("click", function(){
+                datetime1.toggle();
+            });
+
+            var datetime2 = FoxCalendar("#datetime-2", {
+                timeFormat: false,
+                weekStart: "MON",
+            });
+            document.querySelector("#datetime-2 + button").addEventListener("click", function(){
+                datetime2.toggle();
+            });
+
+            var datetime3 = FoxCalendar("#datetime-3", {
+                dateFormat: false
+            });
+            document.querySelector("#datetime-3 + button").addEventListener("click", function(){
+                datetime3.toggle();
+            });
+
+            var datetime4 = FoxCalendar("#datetime-4", {
+                dateFormat: "F, d YYYY"
+            });
+            document.querySelector("#datetime-4 + button").addEventListener("click", function(){
+                datetime4.toggle();
+            });
+
+            var datetime5 = FoxCalendar("#datetime-5", {
+                position: "left"
+            });
+            document.querySelector("#datetime-5 + button").addEventListener("click", function(){
+                datetime4.toggle();
+            });
+
+            var datetime6 = FoxCalendar("#datetime-6", {
+                position: "right"
+            });
+            document.querySelector("#datetime-6 + button").addEventListener("click", function(){
+                datetime4.toggle();
+            });
+
+            var datetime7 = FoxCalendar("#datetime-7", {
+                position: "top"
+            });
+            document.querySelector("#datetime-7 + button").addEventListener("click", function(){
+                datetime4.toggle();
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+/* @start CORE */
+*, *:before, *:after{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+html, body{
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 14px;
+    line-height: 20px;
+    font-family: 'Roboto', "Open Sans", Calibri, Arial, sans-serif;
+}
+body > div{
+    width: 500px;
+    height: 150px;
+    margin: 0 auto;
+    display: block;
+}
+.container{
+    width: 1150px;
+    margin: 0 auto;
+    padding: 0 25px;
+    display: block;
+}
+/* @end CORE */
+
+/* @start HEADER */
+.header{
+    width: 100%;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    display: block;
+    background-color: #618ba9;
+    background-image: -moz-linear-gradient(top, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%);
+    background-image: -webkit-linear-gradient(top, rgba(255,255,255,0.15) 0%,rgba(0,0,0,0.15) 100%);
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%,rgba(0,0,0,0.15) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80ffffff', endColorstr='#80000000',GradientType=0 );
+}
+.header .title{
+    color: #fff;
+    width: auto;
+    height: 80px;
+    display: inline-block;
+    font-size: 28px;
+    line-height: 80px;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3125);
+}
+.header .github{
+    float: right;
+    width: auto;
+    height: 80px;
+    padding: 20px 0;
+    display: inline-block;
+}
+.header .github a{
+    color: #fff;
+    margin: 0;
+    padding: 3px 15px;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 30px;
+    text-decoration: none;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.3125);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.25);
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+}
+/* @end HEADER */
+
+/* @start DEMONSTRATION */
+.content, .fox-demonstration{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+.fox-demonstration{
+    padding: 25px 0;
+}
+.fox-demonstration .fox-calendar{
+    width: 50%;
+    height: 200px;
+    text-align: center;
+    vertical-align: top;
+}
+.fox-demonstration .fox-calendar:nth-child(odd){
+    float: left;
+}
+.fox-demonstration .fox-calendar:nth-child(even){
+    float: right;
+}
+.fox-demonstration .fox-calendar h1{
+    text-align: center;
+    font-weight: normal;
+}
+/* @end DEMONSTRATION */
