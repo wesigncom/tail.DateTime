@@ -1,128 +1,415 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>FoxCalendar - A fork of the Pure JS Calendar</title>
+		<title>FoxCalendar - 0.1.1 (Alpha)</title>
 
-    <link type="text/css" rel="stylesheet" href="css/demo.css" />
-    <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700" />
+        <!-- Demonstration Page -->
+		<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css?ver=4.7.0" />
+		<link type="text/css" rel="stylesheet" href="css/tail.demo.css?ver=2.0.0" />
+		<script type="text/javascript" src="js/tail.demo.js?ver=2.0.0"></script>
+		<script type="text/javascript" src="js/highlight.pack.js?ver=9.8.0"></script>
+		<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
 
+        <!-- FoxCalendar Script -->
+		<link type="text/css" rel="stylesheet" href="css/fox-calendar.css?ver=0.1.1" />
+		<script type="text/javascript" src="js/fox-calendar.js?ver=0.1.1"></script>
+	</head>
+	<body>
+		<div class="tail-demo">
+			<div class="header">
+				<div class="container">
+					<div class="header-title">
+						<div class="title-logo">
+							<div class="logo-tail"><img src="images/fox.png" /></div>
+						</div>
+						<div class="title-text">
+							<div class="title-name"><span>Fox</span>Calendar</div>
+							<div class="title-version">0.1.1 - <span>Alpha</span></div>
+						</div>
+					</div>
+					<div class="header-navi">
+						<ul	class="navi">
+							<li class="navi-item item-intern"><a href="#demo" title="View Demonstration">Demo</a></li>
+							<li class="navi-item item-intern"><a href="https://github.com/SamBrishes/FoxCalendar" title="Read Documentation">Docs</a></li>
+							<li class="navi-item item-extern"><a href="https://github.com/SamBrishes/FoxCalendar" title="Visit the GitHub Page"><span class="fa fa-github"></span>GitHub</a></li>
+							<li class="navi-item item-extern"><a href="https://github.com/SamBrishes/FoxCalendar/archive/master.zip" title="Download on Github"><span class="fa fa-download"></span>Download</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
 
-    <link type="text/css" rel="stylesheet" href="css/fox-calendar.css?ver=0.1.0" />
-    <script type="text/javascript" src="js/fox-calendar.js?ver=0.1.0"></script>
-</head>
-<body>
-    <div class="header">
-        <div class="container">
-            <div class="title">Fox JS Calendar</div>
-            <div class="github">
-                <a href="https://github.com/SamBrishes/FoxCalendar">Find on GitHub</a>
-            </div>
-        </div>
-    </div>
+			<div class="topbar">
+				<div class="container">
+					<div class="topbar-left">
+						<div class="topbar-meta meta-vanilla" title="This Script is available for JS Vanilla">
+							<span>JS</span>
+							<span>Vanilla</span>
+						</div>
+					</div>
+					<div class="topbar-right">
+						<div class="topbar-meta meta-ie" title="Untested" data-tooltip="">
+							<span><span class="fa fa-internet-explorer"></span></span>
+							<span>NaN</span>
+						</div>
 
-    <div class="content">
-        <div class="container">
-            <div class="fox-demonstration">
-                <div class="fox-calendar">
-                    <h1>DateTime Picker with Range</h1>
-                    <input type="text" id="datetime-1" name="datetime-1" value="" />
-                    <button>Toggle Calendar</button>
-                </div>
+						<div class="topbar-meta meta-chrome" title="Untested" data-tooltip="">
+							<span><span class="fa fa-chrome"></span></span>
+							<span>NaN</span>
+						</div>
 
-                <div class="fox-calendar">
-                    <h1>Date Picker (starts Monday)</h1>
-                    <input type="text" id="datetime-2" name="datetime-2" value="" />
-                    <button>Toggle Calendar</button>
-                </div>
+						<div class="topbar-meta meta-firefox" title="Untested" data-tooltip="">
+							<span><span class="fa fa-firefox"></span></span>
+							<span>NaN</span>
+						</div>
 
-                <div class="fox-calendar">
-                    <h1>Time Picker</h1>
-                    <input type="text" id="datetime-3" name="datetime-3" value="" />
-                    <button>Toggle Calendar</button>
-                </div>
+						<div class="topbar-meta meta-opera" title="Untested" data-tooltip="">
+							<span><span class="fa fa-opera"></span></span>
+							<span>NaN</span>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                <div class="fox-calendar">
-                    <h1>Pre-Defined Date</h1>
-                    <input type="text" id="datetime-4" name="datetime-4" value="March 17, 1993 20:15:35" />
-                    <button>Toggle Calendar</button>
-                </div>
+			<div class="content">
+				<div class="container">
+					<div id="demo" class="content-page" data-page="demo">
+						<div class="content-area content-area-2">
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">DateTime Picker</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-1" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime1 = FoxCalendar("#datetime-1");
+d.querySelector("#datetime-1 + button").addEventListener("click", function(){
+    datetime1.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
 
-                <div class="fox-calendar">
-                    <h1>Position Left</h1>
-                    <input type="text" id="datetime-5" name="datetime-5" value="" />
-                    <button>Toggle Calendar</button>
-                </div>
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">DateTime Picker with Range</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-2" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime2 = FoxCalendar("#datetime-2", {
+    dateRange: [new Date(2018, 7, 10), new Date(2018, 7, 29)]
+});
+d.querySelector("#datetime-2 + button").addEventListener("click", function(){
+    datetime2.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
+                        </div>
 
-                <div class="fox-calendar">
-                    <h1>Position Right</h1>
-                    <input type="text" id="datetime-6" name="datetime-6" value="" />
-                    <button>Toggle Calendar</button>
-                </div>
+						<div class="content-area content-area-2">
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">Date Picker (with Monday as first Day)</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-3" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime3 = FoxCalendar("#datetime-3", {
+    timeFormat: false,
+    weekStart: "MON",
+});
+d.querySelector("#datetime-3 + button").addEventListener("click", function(){
+    datetime3.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
 
-                <div class="fox-calendar">
-                    <h1>Position Top</h1>
-                    <input type="text" id="datetime-7" name="datetime-7" value="" />
-                    <button>Toggle Calendar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">Time Picker</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-4" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime4 = FoxCalendar("#datetime-4", {
+    dateFormat: false
+});
+d.querySelector("#datetime-4 + button").addEventListener("click", function(){
+    datetime4.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
+                        </div>
 
+						<div class="content-area content-area-2">
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">DateTime Picker (with Pre-Defined Date)</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-5" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime5 = FoxCalendar("#datetime-5", {
+    dateFormat: "F, d YYYY"
+});
+d.querySelector("#datetime-5 + button").addEventListener("click", function(){
+    datetime5.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
 
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
-            var datetime1 = FoxCalendar("#datetime-1", {
-                dateRange: [new Date(2018, 7, 10), new Date(2018, 7, 29)]
-            });
-            document.querySelector("#datetime-1 + button").addEventListener("click", function(){
-                datetime1.toggle();
-            });
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">DateTime Picker (with Left Position)</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-6" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime6 = FoxCalendar("#datetime-6", {
+    position: "left"
+});
+d.querySelector("#datetime-6 + button").addEventListener("click", function(){
+    datetime6.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
+                        </div>
 
-            var datetime2 = FoxCalendar("#datetime-2", {
-                timeFormat: false,
-                weekStart: "MON",
-            });
-            document.querySelector("#datetime-2 + button").addEventListener("click", function(){
-                datetime2.toggle();
-            });
+						<div class="content-area content-area-2">
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">DateTime Picker (with Right Position)</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-7" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime7 = FoxCalendar("#datetime-7", {
+    position: "right"
+});
+d.querySelector("#datetime-7 + button").addEventListener("click", function(){
+    datetime7.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
 
-            var datetime3 = FoxCalendar("#datetime-3", {
-                dateFormat: false
-            });
-            document.querySelector("#datetime-3 + button").addEventListener("click", function(){
-                datetime3.toggle();
-            });
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">DateTime Picker (with Top Position)</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+                                        <div>
+    										<input type="text" id="datetime-8" value="" />
+                                            <button>Toggle Calendar</button>
+                                        </div>
+									</article>
+									<article class="show-source">
+<pre class="lang-javascript"><code>var datetime8 = FoxCalendar("#datetime-8", {
+    position: "top"
+});
+d.querySelector("#datetime-8 + button").addEventListener("click", function(){
+    datetime8.toggle();
+});
+</code></pre>
+									</article>
+								</div>
+							</div>
+						</div>
+					</div>
 
-            var datetime4 = FoxCalendar("#datetime-4", {
-                dateFormat: "F, d YYYY"
-            });
-            document.querySelector("#datetime-4 + button").addEventListener("click", function(){
-                datetime4.toggle();
-            });
+					<div id="docs" class="content-page" data-page="docs">
+						<div class="content-area">
+							<div class="content-inner">
+								<div class="widget">
+									<header>
+										<div class="widget-title">Widget Title</div>
+										<div class="widget-options">
+											<div class="widget-option" data-option="show-example|show-source" title="Show Example|Show Source Code">
+												<span class="fa fa-eye" data-icon="fa fa-code"></span>
+											</div>
+										</div>
+									</header>
+									<article class="show-example">
+										Example
+									</article>
+									<article class="show-source">
+										Source
+									</article>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            var datetime5 = FoxCalendar("#datetime-5", {
-                position: "left"
-            });
-            document.querySelector("#datetime-5 + button").addEventListener("click", function(){
-                datetime5.toggle();
-            });
+			<div class="footer">
+				<div class="container">
 
-            var datetime6 = FoxCalendar("#datetime-6", {
-                position: "right"
-            });
-            document.querySelector("#datetime-6 + button").addEventListener("click", function(){
-                datetime6.toggle();
-            });
+				</div>
+			</div>
 
-            var datetime7 = FoxCalendar("#datetime-7", {
-                position: "top"
-            });
-            document.querySelector("#datetime-7 + button").addEventListener("click", function(){
-                datetime7.toggle();
-            });
-        });
-    </script>
-</body>
+			<div class="js-footer">
+                <script type="text/javascript">
+                    document.addEventListener("DOMContentLoaded", function(){
+                        var d = document;
+
+                        // Default DateTime
+                        var datetime1 = FoxCalendar("#datetime-1");
+                        d.querySelector("#datetime-1 + button").addEventListener("click", function(){
+                            datetime1.toggle();
+                        });
+
+                        // DateTime with Range
+                        var datetime2 = FoxCalendar("#datetime-2", {
+                            dateRange: [new Date(2018, 7, 10), new Date(2018, 7, 29)]
+                        });
+                        d.querySelector("#datetime-2 + button").addEventListener("click", function(){
+                            datetime2.toggle();
+                        });
+
+                        // Date with Monday
+                        var datetime3 = FoxCalendar("#datetime-3", {
+                            timeFormat: false,
+                            weekStart: "MON",
+                        });
+                        d.querySelector("#datetime-3 + button").addEventListener("click", function(){
+                            datetime3.toggle();
+                        });
+
+                        // Time only
+                        var datetime4 = FoxCalendar("#datetime-4", {
+                            dateFormat: false
+                        });
+                        d.querySelector("#datetime-4 + button").addEventListener("click", function(){
+                            datetime4.toggle();
+                        });
+
+                        // DateTime with Pre-Defined Date
+                        var datetime5 = FoxCalendar("#datetime-5", {
+                            dateFormat: "F, d YYYY"
+                        });
+                        d.querySelector("#datetime-5 + button").addEventListener("click", function(){
+                            datetime5.toggle();
+                        });
+
+                        // DateTime with Left Position
+                        var datetime6 = FoxCalendar("#datetime-6", {
+                            position: "left"
+                        });
+                        d.querySelector("#datetime-6 + button").addEventListener("click", function(){
+                            datetime6.toggle();
+                        });
+
+                        // DateTime with Left Position
+                        var datetime7 = FoxCalendar("#datetime-7", {
+                            position: "right"
+                        });
+                        d.querySelector("#datetime-7 + button").addEventListener("click", function(){
+                            datetime7.toggle();
+                        });
+
+                        // DateTime with Top Position
+                        var datetime8 = FoxCalendar("#datetime-8", {
+                            position: "top"
+                        });
+                        d.querySelector("#datetime-8 + button").addEventListener("click", function(){
+                            datetime8.toggle();
+                        });
+                    });
+                </script>
+			</div>
+		</div>
+	</body>
 </html>
