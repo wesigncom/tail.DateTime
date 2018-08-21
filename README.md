@@ -51,7 +51,7 @@ The time format, use false to disable the time picker.
 The range of valid, selectable dates. Allows an array with up to 2 Date objects, the first marks the beginning of the date range, the last one the ending of it.
 
 ### weekStart
-The short code of the first day in the week, depending on the repsective global variable: "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT".
+The short code of the first day in the week, depending on the translation/string global variable: "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT".
 
 Date/Time Format
 ----------------
@@ -66,7 +66,7 @@ Date/Time Format
     </tr>
     <tr>
         <th>G</th>
-        <td>12-hour format of an hour, use `HH` for leading zeros!</td>
+        <td>12-hour format of an hour, use `GG` for leading zeros!</td>
     </tr>
     <tr>
         <th>A</th>
@@ -125,17 +125,17 @@ Methods
     calendar.<method>();
 ```
 
-### show()
-This method shows the calendar popup, if it isn't already displayed!
+### open()
+This method opens the calendar popup, if it isn't already open!
 
-### hide()
-This method shows the calendar popup, if it is still displayed!
+### close()
+This method closes the calendar popup, if it is still open!
 
 ### toggle()
-This method toggles the show/hide option of the calendar popup.
+This method toggles the open/close option of the calendar popup.
 
 ### switchMonth(monthNum, year)
-This method changes the disabled month (starts with 0). You can also use "prev" or "next" to just browse forward and back.
+This method changes the shown month (monthNum starts with 0). You can also use "prev" or "next" to just browse forward and back.
 
 ### switchYear(year)
 This method changes the year within the month view. You can also use "prev" or "next" to just browse forward and back.
