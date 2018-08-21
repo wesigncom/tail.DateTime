@@ -18,6 +18,8 @@ new backend of the FoxCMS, the Use outside of this may be possible but isn't sup
 -   Default value depending on the input field
 -   "Translatable" Strings through the global variable
 
+[Simple Demonstration](https://sambrishes.github.io/FoxCalendar/)
+
 Work in Progress
 ----------------
 The script is still **Work in Progress** and hasn't been tested much!
