@@ -1,6 +1,6 @@
 Fox Calendar
 ============
-> Version: 0.1.0 (Alpha)<br />
+> Version: 0.1.1 (Alpha)<br />
 > License: X11 / MIT<br />
 > Author: SamBrishes, MrGuiseppe
 

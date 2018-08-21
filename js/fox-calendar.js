@@ -1,6 +1,6 @@
 /*
  |  FoxCalendar     A fork of the pureJSCalendar script!
- |  @version        0.1.0 - Alpha
+ |  @version        0.1.1 - Alpha
  |
  |  @author         SamBrishes <https://github.com/MrGuiseppe/FoxCalendar/>
  |                  MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
@@ -41,8 +41,11 @@
         this.options = Object.assign({}, FoxCalendar.defaults, (typeof(options) == "object")? options: {});
         return this.init();
     };
+    FoxCalendar.version = "0.1.1";
+    FoxCalendar.status = "alpha";
     FoxCalendar.count = 0;
     FoxCalendar.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+    FoxCalendar.cache = {};
     FoxCalendar.instances = {};
 
     /*
@@ -59,7 +62,6 @@
 
     /*
      |  STORAGE :: STRINGS
-     |  @since  0.1.0
      */
     FoxCalendar.strings = {
         months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -70,19 +72,13 @@
     };
 
     /*
-     |  STORAGE :: CACHE
-     |  @since  0.1.0
-     */
-    FoxCalendar.cache = {};
-
-    /*
      |  METHODS
-     |  @since  0.1.0
      */
     FoxCalendar.prototype = {
         element:        null,       // The Input Element for the result
         calendar:       null,       // The current calendar element
         current:        {           // The current calendar data
+            day:        0,
             month:      0,
             year:       0,
             content:    0,
@@ -96,13 +92,14 @@
         /*
          |  HANDLE :: INIT CALENDAR
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         init:           function(){
             if(this.calendar){
                 return this.calendar;
             }
             this.calendar = d.createElement("DIV");
-            this.calendar.id = "data-fox-calendar-" + FoxCalendar.count++;
+            this.calendar.id = "data-fox-calendar-" + ++FoxCalendar.count;
             this.calendar.className = "fox-js-calendar";
             this.calendar.setAttribute("data-fox-calendar", "close");
 
@@ -267,8 +264,8 @@
             });
 
             // Store Instance and Return
-            this.element.setAttribute("data-fox-calendar", "fox-" + (FoxCalendar.count-1));
-            FoxCalendar.instances["fox-" + (FoxCalendar.count-1)] = this;
+            this.element.setAttribute("data-fox-calendar", "fox-" + FoxCalendar.count);
+            FoxCalendar.instances["fox-" + FoxCalendar.count] = this;
             return this;
         },
 
@@ -437,10 +434,11 @@
         /*
          |  ACTION :: OPEN CALENDAR
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         open:               function(){
             if(this.calendar.getAttribute("data-fox-calendar") != "close"){
-                return;
+                return this;
             }
 
             this.calendar.style.opacity = 0;
@@ -455,15 +453,17 @@
                     clearInterval(self.animate);
                 }
             }, 10, this);
+            return this;
         },
 
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         close:              function(){
             if(this.calendar.getAttribute("data-fox-calendar") != "open"){
-                return;
+                return this;
             }
 
             this.calendar.style.opacity = 1.0;
@@ -478,26 +478,28 @@
                     clearInterval(self.animate);
                 }
             }, 10, this);
+            return this;
         },
 
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         toggle:             function(){
             if(this.calendar.getAttribute("data-fox-calendar") == "idle"){
                 return;
             }
             if(this.calendar.getAttribute("data-fox-calendar") == "open"){
-                this.close();
-            } else {
-                this.open();
+                return this.close();
             }
+            return this.open();
         },
 
         /*
          |  ACTION :: SWITCH MONTH
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         switchMonth:    function(month, year){
             if(month == "prev"){
@@ -511,11 +513,13 @@
                 this.current.month = month;
             }
             this.switchView("day");
+            return this;
         },
 
         /*
          |  ACTION :: SWITCH YEAR
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         switchYear:     function(year){
             if(year == "prev"){
@@ -524,11 +528,13 @@
                 this.current.year = this.current.year+1;
             }
             this.switchView("month");
+            return this;
         },
 
         /*
          |  ACTION :: SELECT A DATE
          |  @since  0.1.0
+         |  @update 0.1.1
          */
         selectDate:     function(Y, M, D, h, i, s){
             var n = new Date();
@@ -545,6 +551,7 @@
                 (Y)?Y:n.getFullYear(), (M)?M:n.getMonth(), (D)?D:n.getDate(),
                 (h)?h:0, (i)?i:0, (s)?s:0
             ), f);
+            return this;
         },
         selectTime:     function(h, i, s){
             return this.selectDate(false, false, false, h, i, s);
