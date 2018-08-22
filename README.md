@@ -1,11 +1,10 @@
 Fox Calendar
 ============
-> Version: 0.1.1 (Alpha)<br />
+> Version: 0.1.2 (Alpha)<br />
 > License: X11 / MIT<br />
 > Author: SamBrishes, MrGuiseppe
 
-**The Fox Calendar is a Fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar) script!** This JavaScript is written / adapted especially for the
-new backend of the FoxCMS, the Use outside of this may be possible but isn't supported. The Fox Calendar script offers the following changes compared to the Pure JS Calendar:
+**The FoxCalendar script is a fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), written by [MrGuiseppe](https://github.com/MrGuiseppe).** It is specially designed for the new, yet unpublished, backend theme for the FoxCMS. The Fox Calendar script offers the following changes compared to the Pure JS Calendar:
 
 -   A Time Picker (Hours, Minutes, Seconds)
 -   A Month-Based browse view

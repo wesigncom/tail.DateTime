@@ -1,6 +1,6 @@
 /*
  |  FoxCalendar     A fork of the pureJSCalendar script!
- |  @version        0.1.1 - Alpha
+ |  @version        0.1.2 - Alpha
  |
  |  @author         SamBrishes <https://github.com/MrGuiseppe/FoxCalendar/>
  |                  MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
@@ -10,6 +10,30 @@
  */
 ;(function(w, d){
     "use strict";
+
+    /*
+     |  HELPER METHODs
+     |  @since  0.1.2
+     */
+    var Fox = {
+        hasClass:       function(element, classname){
+            var regex = new RegExp("(|\s+)" + classname + "(\s+|)");
+            return regex.test(element.className);
+        },
+        addClass:       function(element, classname){
+            if(!this.hasClass(element, classname)){
+                element.className = (element.className.trim() + " " + classname.trim()).trim();
+            }
+            return element;
+        },
+        removeClass:    function(element, classname){
+            var regex = new RegExp("(|\s+)(" + classname + ")(\s+|)");
+            if(regex.test(element.className)){
+                element.className = (element.className.replace(regex, "$1$3")).trim();
+            }
+            return element;
+        }
+    };
 
     /*
      |  CONSTRUCTOR
@@ -41,7 +65,7 @@
         this.options = Object.assign({}, FoxCalendar.defaults, (typeof(options) == "object")? options: {});
         return this.init();
     };
-    FoxCalendar.version = "0.1.1";
+    FoxCalendar.version = "0.1.2";
     FoxCalendar.status = "alpha";
     FoxCalendar.count = 0;
     FoxCalendar.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
@@ -53,11 +77,11 @@
      |  @since  0.1.0
      */
     FoxCalendar.defaults = {
-        position:       "bottom",
-        dateFormat:     "YYYY-mm-dd",
-        timeFormat:     "HH:ii:ss",
-        dateRange:      [],
-        weekStart:      "SUN"
+        position: "bottom",
+        dateFormat: "YYYY-mm-dd",
+        timeFormat: "HH:ii:ss",
+        dateRange: [],
+        weekStart: "SUN"
     };
 
     /*
@@ -75,41 +99,38 @@
      |  METHODS
      */
     FoxCalendar.prototype = {
-        element:        null,       // The Input Element for the result
-        calendar:       null,       // The current calendar element
-        current:        {           // The current calendar data
-            day:        0,
-            month:      0,
-            year:       0,
-            content:    0,
-            render:     function(){
+        element: null,          // The Input Element for the result
+        calendar: null,         // The current calendar element
+        current: {              // The current calendar data
+            date: null,
+            content: "",
+            render: function(){
                 return this.content.querySelector("tbody").innerHTML;
             }
         },
-        options:        {},         // The current calendar options
-        view:           "day",      // The current calendar view
+        options: {},            // The current calendar options
+        view: "day",            // The current calendar view
 
         /*
          |  HANDLE :: INIT CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        init:           function(){
+        init: function(){
             if(this.calendar){
                 return this.calendar;
             }
             this.calendar = d.createElement("DIV");
             this.calendar.id = "data-fox-calendar-" + ++FoxCalendar.count;
-            this.calendar.className = "fox-js-calendar";
-            this.calendar.setAttribute("data-fox-calendar", "close");
+            this.calendar.className = "fox-js-calendar calendar-close";
 
             // Create Calendar Structure
             if(this.options.dateFormat){
                 this.calendar.innerHTML = '' +
                     '<div class="calendar-navi">' +
-                    '    <span data-fox-navi="prev" class="calendar-button button-prev">&lsaquo;</span>' +
+                    '    <span data-fox-navi="prev" class="calendar-button button-prev"></span>' +
                     '    <span data-fox-navi="switch" class="calendar-label"></span>' +
-                    '    <span data-fox-navi="next" class="calendar-button button-next">&rsaquo;</span>' +
+                    '    <span data-fox-navi="next" class="calendar-button button-next"></span>' +
                     '</div>' +
                     '<div class="calendar-date"></div>' +
                     ((this.options.timeFormat)? '<div class="calendar-time">' + this.renderTime() + '</div>': '');
@@ -124,21 +145,25 @@
             }
 
             // Set Calendar Data
-            var setDefault = new Date(Date.parse(this.element.value));
-            if(setDefault && !isNaN(setDefault)){
-                this.current.year = setDefault.getFullYear();
-                this.current.month = setDefault.getMonth();
-                this.current.day = setDefault.getDate();
-                if(this.options.timeFormat){
-                    this.calendar.querySelector(".calendar-field-h > input").value = setDefault.getHours();
-                    this.calendar.querySelector(".calendar-field-m > input").value = setDefault.getMinutes();
-                    this.calendar.querySelector(".calendar-field-s > input").value = setDefault.getSeconds();
-                }
+            if(this.element.hasAttribute("data-fox-value")){
+                this.current.date = new Date(Date.parse(this.element.getAttribute("data-fox-value")));
+            } else if(this.element.value && !isNaN(new Date(Date.parse(this.element.value)))){
+                this.current.date = new Date(Date.parse(this.element.value));
             } else {
-                this.current.year = new Date().getFullYear();
-                this.current.month = new Date().getMonth();
+                this.current.date = new Date();
             }
-            this.switchMonth(this.current.month, this.current.year);
+            if(this.options.timeFormat){
+                this.calendar.querySelector(".calendar-field-h > input").value = this.current.date.getHours();
+                this.calendar.querySelector(".calendar-field-m > input").value = this.current.date.getMinutes();
+                this.calendar.querySelector(".calendar-field-s > input").value = this.current.date.getSeconds();
+            }
+
+            this.switchMonth(this.current.date.getMonth(), this.current.date.getFullYear());
+            if(this.element.hasAttribute("data-fox-value")){
+                this.selectDate();
+            } else {
+                this.element.setAttribute("data-fox-value", this.convertDate(this.current.date, "YYYY-mm-dd HH:ii:ss"));
+            }
 
             // Configure Calendar Widget
             this.calendar.style.zIndex = 99;
@@ -227,11 +252,11 @@
                 self.open();
             });
             d.addEventListener("keyup", function(event){
-                if(self.calendar.getAttribute("data-fox-calendar") == "open" && event.keyCode == 27){
+                if(Fox.hasClass(self.calendar, "calendar-open") && event.keyCode == 27){
                     self.close();
                     self.element.blur();
                 }
-                if(self.calendar.getAttribute("data-fox-calendar") == "open" && event.keyCode == 13){
+                if(Fox.hasClass(self.calendar, "calendar-open") && event.keyCode == 13){
                     if(self.options.dateFormat){
                         var day = self.calendar.children[1].querySelector("td.today") || self.calendar.children[1].querySelector("td:not(.empty)"),
                             time = !!self.options.timeFormat,
@@ -256,6 +281,9 @@
                 }
             });
             d.addEventListener("click", function(event){
+                if(!Fox.hasClass(self.calendar, "calendar-open")){
+                    return;
+                }
                 if(!self.calendar.contains(event.target) && !self.element.contains(event.target)){
                     if(event.target != self.calendar && event.target != self.element){
                         self.close();
@@ -272,8 +300,9 @@
         /*
          |  HANDLE :: SWITCH VIEW
          |  @since  0.1.0
+         |  @update 0.1.2
          */
-        switchView:     function(view){
+        switchView: function(view){
             if(!this.options.dateFormat){
                 return false;
             }
@@ -281,16 +310,17 @@
             // Render View
             this.view = view;
             if(view == "month"){
-                this.calendar.children[1].innerHTML = this.renderMonth();
-                this.calendar.querySelector(".calendar-label").innerText = this.current.year;
+                this.calendar.children[1].innerHTML = "";
+                this.calendar.children[1].insertAdjacentHTML("afterbegin", this.renderMonth());
+                this.calendar.querySelector(".calendar-label").innerText = this.current.date.getFullYear();
             } else {
                 this.calendar.children[1].innerHTML = this.renderDay();
-                this.calendar.querySelector(".calendar-label").innerText = FoxCalendar.strings.months[this.current.month] + " " + this.current.year;
+                this.calendar.querySelector(".calendar-label").innerText = FoxCalendar.strings.months[this.current.date.getMonth()] + " " + this.current.date.getFullYear();
 
                 // Disable on Range
                 var range = this.options.dateRange,
-                    year  = this.current.year,
-                    month = this.current.month;
+                    year  = this.current.date.getFullYear(),
+                    month = this.current.date.getMonth();
                 if(range.length && range[0] instanceof Date){
                     if(year < range[0].getFullYear() || year <= range[0].getFullYear() && month <= range[0].getMonth()){
                         var disable = this.calendar.querySelectorAll("tbody td:not(.empty)");
@@ -320,6 +350,7 @@
                 for(var i = 0; i < listen.length; i++){
                     listen[i].addEventListener("click", function(event){
                         event.preventDefault();
+                        event.stopPropagation();
 
                         var regex = new RegExp("(|\s+)disable(\s+|)"),
                             time = !!self.options.timeFormat;
@@ -328,8 +359,7 @@
                         }
 
                         if(self.view == "month"){
-                            self.switchMonth(parseInt(this.getAttribute("data-fox-month")), self.current.year);
-                            self.switchView("day");
+                            self.switchMonth(parseInt(this.getAttribute("data-fox-month")), self.current.date.getFullYear());
                         } else {
                             self.selectDate(
                                 self.current.year, self.current.month, parseInt(this.innerText),
@@ -347,10 +377,11 @@
         /*
          |  RENDER :: DAY VIEW
          |  @since  0.1.0
+         |  @update 0.1.2
          */
-        renderDay:          function(){
+        renderDay: function(){
             var start = FoxCalendar.strings.shorts.indexOf(this.options.weekStart),
-                week  = FoxCalendar.strings.shorts.slice(start, FoxCalendar.strings.shorts.length);
+                week  = FoxCalendar.strings.shorts.slice(start);
                 week  = week.concat(FoxCalendar.strings.shorts.slice(0, start));
 
             return '' +
@@ -367,7 +398,7 @@
                 '        </tr>' +
                 '    </thead>' +
                 '    <tbody>' +
-                this.createCalendar(this.current.month, this.current.year).render() +
+                this.createCalendar(this.current.date.getMonth(), this.current.date.getFullYear()).render() +
                 '   </tbody>' +
                 '</table>';
         },
@@ -375,8 +406,9 @@
         /*
          |  RENDER :: MONTH VIEW
          |  @since  0.1.0
+         |  @update 0.1.2
          */
-        renderMonth:    function(){
+        renderMonth: function(){
             var strings = FoxCalendar.strings.months;
 
             return '' +
@@ -388,24 +420,24 @@
                 '    </thead>' +
                 '    <tbody>' +
                 '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="0">' + strings[0] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="1">' + strings[1] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="2">' + strings[2] + '</td>' +
+                '           <td class="calendar-month" data-fox-month="0"><span>' + strings[0] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="1"><span>' + strings[1] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="2"><span>' + strings[2] + '</span></td>' +
                 '       </tr>' +
                 '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="3">' + strings[3] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="4">' + strings[4] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="5">' + strings[5] + '</td>' +
+                '           <td class="calendar-month" data-fox-month="3"><span>' + strings[3] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="4"><span>' + strings[4] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="5"><span>' + strings[5] + '</span></td>' +
                 '       </tr>' +
                 '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="6">' + strings[6] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="7">' + strings[7] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="8">' + strings[8] + '</td>' +
+                '           <td class="calendar-month" data-fox-month="6"><span>' + strings[6] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="7"><span>' + strings[7] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="8"><span>' + strings[8] + '</span></td>' +
                 '       </tr>' +
                 '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="9">' + strings[9] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="10">' + strings[10] + '</td>' +
-                '           <td class="calendar-month" data-fox-month="11">' + strings[11] + '</td>' +
+                '           <td class="calendar-month" data-fox-month="9"><span>' + strings[9] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="10"><span>' + strings[10] + '</span></td>' +
+                '           <td class="calendar-month" data-fox-month="11"><span>' + strings[11] + '</span></td>' +
                 '       </tr>' +
                 '   </tbody>' +
                 '</table>';
@@ -415,7 +447,7 @@
          |  RENDER :: TIME VIEW
          |  @since  0.1.0
          */
-        renderTime:     function(){
+        renderTime: function(){
             return '' +
                 '<div class="calendar-field calendar-field-h">' +
                 '    <input type="number" value="' + new Date().getHours() + '" min="00" max="23" step="1" />' +
@@ -434,22 +466,22 @@
         /*
          |  ACTION :: OPEN CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        open:               function(){
-            if(this.calendar.getAttribute("data-fox-calendar") != "close"){
+        open: function(){
+            if(!Fox.hasClass(this.calendar, "calendar-close")){
                 return this;
             }
+            Fox.removeClass(this.calendar, "calendar-close");
+            Fox.addClass(this.calendar, "calendar-idle");
 
             this.calendar.style.opacity = 0;
             this.calendar.style.display = "block";
-            this.calendar.setAttribute("data-fox-calendar", "idle");
             this.animate = setInterval(function(self){
                 self.calendar.style.opacity = parseFloat(self.calendar.style.opacity) + 0.1;
                 if(parseFloat(self.calendar.style.opacity) >= 1){
-                    self.calendar.style.opacity = 1;
-                    self.calendar.style.display = "block";
-                    self.calendar.setAttribute("data-fox-calendar", "open");
+                    Fox.removeClass(self.calendar, "calendar-idle");
+                    Fox.addClass(self.calendar, "calendar-open");
                     clearInterval(self.animate);
                 }
             }, 10, this);
@@ -459,22 +491,22 @@
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        close:              function(){
-            if(this.calendar.getAttribute("data-fox-calendar") != "open"){
+        close: function(){
+            if(!Fox.hasClass(this.calendar, "calendar-open")){
                 return this;
             }
+            Fox.removeClass(this.calendar, "calendar-open");
+            Fox.addClass(this.calendar, "calendar-idle");
 
-            this.calendar.style.opacity = 1.0;
-            this.calendar.style.display = "block";
-            this.calendar.setAttribute("data-fox-calendar", "idle");
             this.animate = setInterval(function(self){
                 self.calendar.style.opacity = parseFloat(self.calendar.style.opacity) - 0.1;
                 if(parseFloat(self.calendar.style.opacity) <= 0){
-                    self.calendar.style.opacity = 0;
+                    Fox.removeClass(self.calendar, "calendar-idle");
+                    Fox.addClass(self.calendar, "calendar-close");
+
                     self.calendar.style.display = "none";
-                    self.calendar.setAttribute("data-fox-calendar", "close");
                     clearInterval(self.animate);
                 }
             }, 10, this);
@@ -484,33 +516,30 @@
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        toggle:             function(){
-            if(this.calendar.getAttribute("data-fox-calendar") == "idle"){
-                return;
-            }
-            if(this.calendar.getAttribute("data-fox-calendar") == "open"){
+        toggle: function(){
+            if(Fox.hasClass(this.calendar, "calendar-open")){
                 return this.close();
+            } else if(Fox.hasClass(this.calendar, "calendar-close")){
+                return this.open();
             }
-            return this.open();
+            return this;
         },
 
         /*
          |  ACTION :: SWITCH MONTH
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        switchMonth:    function(month, year){
+        switchMonth: function(month, year){
             if(month == "prev"){
-                this.current.year  = (this.current.month == 0)? this.current.year-1: this.current.year;
-                this.current.month = (this.current.month == 0)? 11: this.current.month-1;
+                this.current.date.setMonth(this.current.date.getMonth()-1)
             } else if(month == "next"){
-                this.current.year  = (this.current.month == 11)? this.current.year+1: this.current.year;
-                this.current.month = (this.current.month == 11)? 0: this.current.month+1;
+                this.current.date.setMonth(this.current.date.getMonth()+1);
             } else {
-                this.current.year  = year;
-                this.current.month = month;
+                this.current.date.setMonth(month);
+                this.current.date.setFullYear(year);
             }
             this.switchView("day");
             return this;
@@ -519,13 +548,15 @@
         /*
          |  ACTION :: SWITCH YEAR
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        switchYear:     function(year){
+        switchYear: function(year){
             if(year == "prev"){
-                this.current.year = this.current.year-1;
+                this.current.date.setFullYear(this.current.date.getFullYear()-1);
             } else if(year == "next"){
-                this.current.year = this.current.year+1;
+                this.current.date.setFullYear(this.current.date.getFullYear()+1);
+            } else {
+                this.current.date.setFullYear(year);
             }
             this.switchView("month");
             return this;
@@ -534,32 +565,40 @@
         /*
          |  ACTION :: SELECT A DATE
          |  @since  0.1.0
-         |  @update 0.1.1
+         |  @update 0.1.2
          */
-        selectDate:     function(Y, M, D, h, i, s){
+        selectDate: function(Y, M, D, h, i, s){
             var n = new Date();
 
             // Format
             var f = [
                 (this.options.dateFormat)? this.options.dateFormat: "",
                 (this.options.timeFormat)? this.options.timeFormat: "",
-            ];
-            f = f.join(" ").trim();
+            ].join(" ").trim();
+
+            // Date
+            var date = new Date(
+                ((Y)? Y: ((Y == undefined)? this.current.date.getFullYear(): n.getFullYear())),
+                ((M)? M: ((M == undefined)? this.current.date.getMonth(): n.getMonth())),
+                ((D)? D: ((D == undefined)? this.current.date.getDate(): n.getDate())),
+                ((h)? h: (h == undefined)? this.current.date.getHours(): 0),
+                ((i)? i: (i == undefined)? this.current.date.getMinutes(): 0),
+                ((s)? s: (s == undefined)? this.current.date.getSeconds(): 0),
+            );
 
             // Value
-            this.element.value = this.convertDate(new Date(
-                (Y)?Y:n.getFullYear(), (M)?M:n.getMonth(), (D)?D:n.getDate(),
-                (h)?h:0, (i)?i:0, (s)?s:0
-            ), f);
+            this.element.value = this.convertDate(date, f);
+            this.element.setAttribute("data-fox-value", this.convertDate(date, "YYYY-mm-dd HH:ii:ss"));
             return this;
         },
-        selectTime:     function(h, i, s){
+        selectTime: function(h, i, s){
             return this.selectDate(false, false, false, h, i, s);
         },
 
         /*
          |  ACTION :: SELECT CALENDAR
          |  @since  0.1.0
+         |  @update 0.1.2
          */
         createCalendar: function(month, year){
             var day = 1, haveDays = true,
@@ -630,11 +669,11 @@
             }
 
             // Return
-            this.current = FoxCalendar.cache[this.options.weekStart + "_" + year][month] = {
-                month: month, year: year, content: render, render: function(){
-                    return this.content.querySelector("tbody").innerHTML;
-                }
-            };
+            this.current.date.setMonth(month);
+            this.current.date.setFullYear(year);
+            this.current = FoxCalendar.cache[this.options.weekStart + "_" + year][month] = Object.assign({}, this.current, {
+                content: render
+            });
             return FoxCalendar.cache[this.options.weekStart + "_" + year][month];
         },
 
@@ -642,7 +681,7 @@
          |  CONVERT DATE
          |  @since  0.1.0
          */
-        convertDate:    function(inDate, format){
+        convertDate: function(inDate, format){
             var dateObject = {
                 H: String("00" + inDate.getHours()).toString().slice(-2),
                 G: function(hours){

@@ -1,6 +1,6 @@
 /*
  |  FoxCalendar     A fork of the pureJSCalendar script!
- |  @version        0.1.1 - Alpha
+ |  @version        0.1.2 - Alpha
  |
  |  @author         SamBrishes <https://github.com/MrGuiseppe/FoxCalendar/>
  |                  MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
@@ -52,8 +52,8 @@
     text-align: center;
     line-height: 30px;
     text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.15);
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 .fox-js-calendar .calendar-navi span:first-child,
 .fox-js-calendar .calendar-navi span:last-child{
@@ -61,29 +61,20 @@
     padding: 0 0 5px 0;
     font-size: 22px;
 }
-.fox-js-calendar .calendar-navi span:first-child{
-    border-left: 0;
-    border-right: 1px solid rgba(0, 0, 0, 0.15);
-}
-.fox-js-calendar .calendar-navi span:last-child{
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    border-right: 0;
-}
-.fox-js-calendar .calendar-navi span:first-child:hover,
-.fox-js-calendar .calendar-navi span:last-child:hover{
+.fox-js-calendar .calendar-navi span:hover{
     background-color: rgba(0, 0, 0, 0.15)
 }
+.fox-js-calendar .calendar-navi span.button-prev{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggZmlsbD0iI2ZmZmZmZiIgaWQ9IlNoYXBlIiBkPSJtMTYsN2wtMTIuMjAwMDEyLDBsNS42MDAwMDYsLTUuNmwtMS4zOTk5OTQsLTEuNGwtOCw4bDgsOGwxLjM5OTk5NCwtMS40bC01LjYwMDAwNiwtNS42bDEyLjIwMDAxMiwwbDAsLTJsMCwweiIvPjwvZz48L3N2Zz4=);
+}
+.fox-js-calendar .calendar-navi span.button-next{
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGc+PHBhdGggdHJhbnNmb3JtPSJyb3RhdGUoLTE4MCwgOCwgOCkiIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTE2LDdsLTEyLjIwMDAxMiwwbDUuNjAwMDA2LC01LjZsLTEuMzk5OTk0LC0xLjRsLTgsOGw4LDhsMS4zOTk5OTQsLTEuNGwtNS42MDAwMDYsLTUuNmwxMi4yMDAwMTIsMGwwLC0ybDAsMHoiLz48L2c+PC9zdmc+);
+}
 .fox-js-calendar .calendar-navi span.button-check{
-    fill: #fff;
     background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTQuOTk5OTk5OTk5OTk5OTk4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTYsMTAuNzAwMDAxbC00LjIwMDAxMiwtNC4yMDAwMDFsLTEuMzk5OTk0LDEuNDAwMDAybDUuNjAwMDA2LDUuNTk5OTk4bDEyLC0xMmwtMS4zOTk5OTQsLTEuNDAwMDAybC0xMC42MDAwMDYsMTAuNjAwMDAyeiIvPjwvZz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 .fox-js-calendar .calendar-navi span.button-close{
-    fill: #fff;
     background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iMTQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+IDxnPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJTaGFwZSIgZD0ibTE0LDEuNDAwMDAybC0xLjM5OTk5NCwtMS40MDAwMDJsLTUuNjAwMDA2LDUuNTk5OTk4bC01LjYwMDAwNiwtNS41OTk5OThsLTEuMzk5OTk0LDEuNDAwMDAybDUuNjAwMDA2LDUuNTk5OTk4bC01LjYwMDAwNiw1LjU5OTk5OGwxLjM5OTk5NCwxLjQwMDAwMmw1LjYwMDAwNiwtNS41OTk5OThsNS42MDAwMDYsNS41OTk5OThsMS4zOTk5OTQsLTEuNDAwMDAybC01LjYwMDAwNiwtNS41OTk5OThsNS42MDAwMDYsLTUuNTk5OTk4eiIvPjwvZz48L3N2Zz4=);
-    background-repeat: no-repeat;
-    background-position: center center;
 }
 .fox-js-calendar .calendar-date{
     margin: 0;
@@ -160,11 +151,21 @@
 /* Select A Month */
 .fox-js-calendar .calendar-date table.calendar-month tbody tr > *{
     width: 81.66666666666667px;
+    padding: 5px;
+    line-height: 25px;
 }
-.fox-js-calendar .calendar-date table.calendar-month tbody tr > *:hover{
-    color: #ffffff;
-    background-color: #3296C8;
-    box-shadow: inset 0 0 0 5px #fff;
+.fox-js-calendar .calendar-date table.calendar-month tbody tr > * span{
+    display: block;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.fox-js-calendar .calendar-date table.calendar-month tbody tr > *:hover span{
+    border-color: #d0d0d0;
+    box-shadow: 0 1px 0 0 #efefef;
+    -webkit-box-shadow: 0 1px 0 0 #efefef;
 }
 
 /* Select a Time */
@@ -198,8 +199,10 @@
     margin: 0;
     padding: 3px 4px;
     text-align: center;
-    border: 1px solid #d0d0d0;
-    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d0d0d0;
+    background-color: #ffffff;
     border-radius: 3px;
     -webkit-border-radius: 3px;
 }
