@@ -1,11 +1,10 @@
 Fox Calendar
 ============
-> Version: 0.1.0 (Alpha)<br />
+> Version: 0.1.1 (Alpha)<br />
 > License: X11 / MIT<br />
 > Author: SamBrishes, MrGuiseppe
 
-**The Fox Calendar is a Fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar) script!** This JavaScript is written / adapted especially for the
-new backend of the FoxCMS, the Use outside of this may be possible but isn't supported. The Fox Calendar script offers the following changes compared to the Pure JS Calendar:
+**The FoxCalendar script is a fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), written by [MrGuiseppe](https://github.com/MrGuiseppe). It is specially designed for the new, yet published, backend theme for the FoxCMS. The Fox Calendar script offers the following changes compared to the Pure JS Calendar:
 
 -   A Time Picker (Hours, Minutes, Seconds)
 -   A Month-Based browse view
@@ -17,6 +16,8 @@ new backend of the FoxCMS, the Use outside of this may be possible but isn't sup
 -   Instance Caching + Calendar Caching with the first day in the week
 -   Default value depending on the input field
 -   "Translatable" Strings through the global variable
+
+[Simple Demonstration](https://sambrishes.github.io/FoxCalendar/)
 
 Work in Progress
 ----------------
@@ -49,7 +50,7 @@ The time format, use false to disable the time picker.
 The range of valid, selectable dates. Allows an array with up to 2 Date objects, the first marks the beginning of the date range, the last one the ending of it.
 
 ### weekStart
-The short code of the first day in the week, depending on the repsective global variable: "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT".
+The short code of the first day in the week, depending on the translation/string global variable: "SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT".
 
 Date/Time Format
 ----------------
@@ -64,7 +65,7 @@ Date/Time Format
     </tr>
     <tr>
         <th>G</th>
-        <td>12-hour format of an hour, use `HH` for leading zeros!</td>
+        <td>12-hour format of an hour, use `GG` for leading zeros!</td>
     </tr>
     <tr>
         <th>A</th>
@@ -123,17 +124,17 @@ Methods
     calendar.<method>();
 ```
 
-### show()
-This method shows the calendar popup, if it isn't already displayed!
+### open()
+This method opens the calendar popup, if it isn't already open!
 
-### hide()
-This method shows the calendar popup, if it is still displayed!
+### close()
+This method closes the calendar popup, if it is still open!
 
 ### toggle()
-This method toggles the show/hide option of the calendar popup.
+This method toggles the open/close option of the calendar popup.
 
 ### switchMonth(monthNum, year)
-This method changes the disabled month (starts with 0). You can also use "prev" or "next" to just browse forward and back.
+This method changes the shown month (monthNum starts with 0). You can also use "prev" or "next" to just browse forward and back.
 
 ### switchYear(year)
 This method changes the year within the month view. You can also use "prev" or "next" to just browse forward and back.
