@@ -1,22 +1,59 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta charset="utf-8" />
+        <meta http-equiv="content-language" content="en" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<title>FoxCalendar - 0.1.2 (Alpha)</title>
+        <title>tail.DateTime - A pure, vanilla JavaScript DateTime Picker</title>
 
-        <!-- Demonstration Page -->
-		<link type="text/css" rel="stylesheet" href="css/font-awesome.min.css?ver=4.7.0" />
-		<link type="text/css" rel="stylesheet" href="css/tail.demo.css?ver=2.0.0" />
-		<script type="text/javascript" src="js/tail.demo.js?ver=2.0.0"></script>
-		<script type="text/javascript" src="js/highlight.pack.js?ver=9.8.0"></script>
+        <!-- Common -->
+        <meta name="author" content="SamBrishes, pytesNET" />
+        <meta name="publisher" content="SamBrishes, pytesNET" />
+        <meta name="copyright" content="SamBrishes, pytesNET" />
+
+        <meta name="name" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+        <meta name="keywords" content="Date, DateTime, Time, Picker, Calendar, Clock, JavaScript, JS, Vanilla, Pure, Form, Formular, Input, GitHub, OpenSource, Free." />
+
+        <meta itemprop="name" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta itemprop="description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+        <meta itemprop="keywords" content="Date, DateTime, Time, Picker, Calendar, Clock, JavaScript, JS, Vanilla, Pure, Form, Formular, Input, GitHub, OpenSource, Free." />
+
+        <!-- Dublin Core -->
+        <meta name="DC.Language" content="en" />
+        <meta name="DC.Creator" content="SamBrishes, pytesNET" />
+        <meta name="DC.Publisher" content="SamBrishes, pytesNET" />
+        <meta name="DC.Rights" content="SamBrishes, pytesNET" />
+        <meta name="DC.Description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="pytesNET" />
+        <meta name="twitter:creator" content="pytesNET" />
+        <meta name="twitter:title" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="twitter:description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+
+        <!-- Open Graph -->
+        <meta name="og:type" content="website" />
+        <meta name="og:url" content="http://pytesNET.github.io/tail.DateTime" />
+        <meta name="og:locale" content="en" />
+        <meta name="og:title" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="og:site_name" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="og:description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+
+        <!-- Assets -->
+        <link type="text/css" rel="stylesheet" href="assets/css/font-awesome.min.css?ver=4.7.0" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.0.0" />
+        <script type="text/javascript" src="assets/js/highlight.pack.js?ver=9.8.0"></script>
+        <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.0.0"></script>
 		<script type="text/javascript">hljs.initHighlightingOnLoad();</script>
 
-        <!-- FoxCalendar Script -->
-		<link type="text/css" rel="stylesheet" href="css/fox-calendar.css?ver=0.1.2" />
-		<script type="text/javascript" src="js/fox-calendar.js?ver=0.1.2"></script>
+        <!-- Source -->
+        <link type="text/css" rel="stylesheet" href="source/css/tail.datetime.css?ver=0.2.0" />
+        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.2.0"></script>
 	</head>
 	<body>
 		<div class="tail-demo">
@@ -24,19 +61,19 @@
 				<div class="container">
 					<div class="header-title">
 						<div class="title-logo">
-							<div class="logo-tail"><img src="images/fox.png" /></div>
+							<div class="logo-tail"></div>
 						</div>
 						<div class="title-text">
-							<div class="title-name"><span>Fox</span>Calendar</div>
-							<div class="title-version">0.1.2 - <span>Alpha</span></div>
+							<div class="title-name"><span>tail.</span>DateTime</div>
+							<div class="title-version">0.2.0 - <span>Alpha</span></div>
 						</div>
 					</div>
 					<div class="header-navi">
 						<ul	class="navi">
 							<li class="navi-item item-intern"><a href="#demo" title="View Demonstration">Demo</a></li>
-							<li class="navi-item item-intern"><a href="https://github.com/SamBrishes/FoxCalendar" title="Read Documentation">Docs</a></li>
-							<li class="navi-item item-extern"><a href="https://github.com/SamBrishes/FoxCalendar" title="Visit the GitHub Page"><span class="fa fa-github"></span>GitHub</a></li>
-							<li class="navi-item item-extern"><a href="https://github.com/SamBrishes/FoxCalendar/archive/master.zip" title="Download on Github"><span class="fa fa-download"></span>Download</a></li>
+							<li class="navi-item item-intern"><a href="https://github.com/pytesNET/tail.DateTime" title="Read Documentation">Docs</a></li>
+							<li class="navi-item item-extern"><a href="https://github.com/pytesNET/tail.DateTime" title="Visit the GitHub Page"><span class="fa fa-github"></span>GitHub</a></li>
+							<li class="navi-item item-extern"><a href="https://github.com/pytesNET/tail.DateTime/archive/master.zip" title="Download on Github"><span class="fa fa-download"></span>Download</a></li>
 						</ul>
 					</div>
 				</div>
@@ -95,7 +132,7 @@
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime1 = FoxCalendar("#datetime-1");
+<pre class="lang-javascript"><code>var datetime1 = tail.DateTime("#datetime-1");
 d.querySelector("#datetime-1 + button").addEventListener("click", function(){
     datetime1.toggle();
 });
@@ -121,7 +158,7 @@ d.querySelector("#datetime-1 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime2 = FoxCalendar("#datetime-2", {
+<pre class="lang-javascript"><code>var datetime2 = tail.DateTime("#datetime-2", {
     dateRange: [new Date(2018, 7, 10), new Date(2018, 7, 29)]
 });
 d.querySelector("#datetime-2 + button").addEventListener("click", function(){
@@ -151,7 +188,7 @@ d.querySelector("#datetime-2 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime3 = FoxCalendar("#datetime-3", {
+<pre class="lang-javascript"><code>var datetime3 = tail.DateTime("#datetime-3", {
     timeFormat: false,
     weekStart: "MON",
 });
@@ -180,7 +217,7 @@ d.querySelector("#datetime-3 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime4 = FoxCalendar("#datetime-4", {
+<pre class="lang-javascript"><code>var datetime4 = tail.DateTime("#datetime-4", {
     dateFormat: false
 });
 d.querySelector("#datetime-4 + button").addEventListener("click", function(){
@@ -210,7 +247,7 @@ d.querySelector("#datetime-4 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime5 = FoxCalendar("#datetime-5", {
+<pre class="lang-javascript"><code>var datetime5 = tail.DateTime("#datetime-5", {
     dateFormat: "F, d YYYY"
 });
 d.querySelector("#datetime-5 + button").addEventListener("click", function(){
@@ -238,7 +275,7 @@ d.querySelector("#datetime-5 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime6 = FoxCalendar("#datetime-6", {
+<pre class="lang-javascript"><code>var datetime6 = tail.DateTime("#datetime-6", {
     position: "left"
 });
 d.querySelector("#datetime-6 + button").addEventListener("click", function(){
@@ -268,7 +305,7 @@ d.querySelector("#datetime-6 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime7 = FoxCalendar("#datetime-7", {
+<pre class="lang-javascript"><code>var datetime7 = tail.DateTime("#datetime-7", {
     position: "right"
 });
 d.querySelector("#datetime-7 + button").addEventListener("click", function(){
@@ -296,7 +333,7 @@ d.querySelector("#datetime-7 + button").addEventListener("click", function(){
                                         </div>
 									</article>
 									<article class="show-source">
-<pre class="lang-javascript"><code>var datetime8 = FoxCalendar("#datetime-8", {
+<pre class="lang-javascript"><code>var datetime8 = tail.DateTime("#datetime-8", {
     position: "top"
 });
 d.querySelector("#datetime-8 + button").addEventListener("click", function(){
@@ -346,13 +383,13 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         var d = document;
 
                         // Default DateTime
-                        var datetime1 = FoxCalendar("#datetime-1");
+                        var datetime1 = tail.DateTime("#datetime-1");
                         d.querySelector("#datetime-1 + button").addEventListener("click", function(){
                             datetime1.toggle();
                         });
 
                         // DateTime with Range
-                        var datetime2 = FoxCalendar("#datetime-2", {
+                        var datetime2 = tail.DateTime("#datetime-2", {
                             dateRange: [new Date(2018, 7, 10), new Date(2018, 7, 29)]
                         });
                         d.querySelector("#datetime-2 + button").addEventListener("click", function(){
@@ -360,7 +397,7 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         });
 
                         // Date with Monday
-                        var datetime3 = FoxCalendar("#datetime-3", {
+                        var datetime3 = tail.DateTime("#datetime-3", {
                             timeFormat: false,
                             weekStart: "MON",
                         });
@@ -369,7 +406,7 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         });
 
                         // Time only
-                        var datetime4 = FoxCalendar("#datetime-4", {
+                        var datetime4 = tail.DateTime("#datetime-4", {
                             dateFormat: false
                         });
                         d.querySelector("#datetime-4 + button").addEventListener("click", function(){
@@ -377,7 +414,7 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         });
 
                         // DateTime with Pre-Defined Date
-                        var datetime5 = FoxCalendar("#datetime-5", {
+                        var datetime5 = tail.DateTime("#datetime-5", {
                             dateFormat: "F, d YYYY"
                         });
                         d.querySelector("#datetime-5 + button").addEventListener("click", function(){
@@ -385,7 +422,7 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         });
 
                         // DateTime with Left Position
-                        var datetime6 = FoxCalendar("#datetime-6", {
+                        var datetime6 = tail.DateTime("#datetime-6", {
                             position: "left"
                         });
                         d.querySelector("#datetime-6 + button").addEventListener("click", function(){
@@ -393,7 +430,7 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         });
 
                         // DateTime with Left Position
-                        var datetime7 = FoxCalendar("#datetime-7", {
+                        var datetime7 = tail.DateTime("#datetime-7", {
                             position: "right"
                         });
                         d.querySelector("#datetime-7 + button").addEventListener("click", function(){
@@ -401,7 +438,7 @@ d.querySelector("#datetime-8 + button").addEventListener("click", function(){
                         });
 
                         // DateTime with Top Position
-                        var datetime8 = FoxCalendar("#datetime-8", {
+                        var datetime8 = tail.DateTime("#datetime-8", {
                             position: "top"
                         });
                         d.querySelector("#datetime-8 + button").addEventListener("click", function(){
