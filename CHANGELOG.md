@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+Version 0.2.0 - Alpha
+---------------------
+-   Info: Project has been renamed to `tail.DateTime` and adapted to the tail implementation.
+
 Version 0.1.2 - Alpha
 ---------------------
 -   Add: Use the `data-fox-value` attribute for pre-defined dates, before trying to parse the input value.
