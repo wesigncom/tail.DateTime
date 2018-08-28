@@ -1,10 +1,10 @@
-Fox Calendar
-============
-> Version: 0.1.2 (Alpha)<br />
+tail.DateTime
+=============
+> Version: 0.2.0 (Alpha)<br />
 > License: X11 / MIT<br />
-> Author: SamBrishes, MrGuiseppe
+> Author: SamBrishes, pytesNET & MrGuiseppe
 
-**The FoxCalendar script is a fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), written by [MrGuiseppe](https://github.com/MrGuiseppe).** It is specially designed for the new, yet unpublished, backend theme for the FoxCMS. The Fox Calendar script offers the following changes compared to the Pure JS Calendar:
+**The tail.DateTime script is a fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), written by [MrGuiseppe](https://github.com/MrGuiseppe).** It is specially designed for the new, yet unpublished, backend theme for the FoxCMS. The tail.DateTime script offers the following changes compared to the Pure JS Calendar:
 
 -   A Time Picker (Hours, Minutes, Seconds)
 -   A Month-Based browse view
@@ -17,7 +17,7 @@ Fox Calendar
 -   Default value depending on the input field
 -   "Translatable" Strings through the global variable
 
-[Simple Demonstration](https://sambrishes.github.io/FoxCalendar/)
+[Simple Demonstration](https://pytesNET.github.io/tail.DateTime/)
 
 Work in Progress
 ----------------
@@ -28,7 +28,7 @@ Thanks to [MrGuiseppe](https://github.com/MrGuiseppe)!
 Options
 -------
 ```
-    FoxCalendar(document.getElementById("my-input-field"), {
+    tail.DateTime(document.getElementById("my-input-field"), {
         position:       "bottom",
         dateFormat:     "YYYY-mm-dd",
         timeFormat:     "HH:ii:ss",
@@ -38,7 +38,7 @@ Options
 ```
 
 ### position
-The position of the Fox Calendar, use "top", "left", "right" or "bottom".
+The position of the DateTime Popup, use "top", "left", "right" or "bottom".
 
 ### dateFormat
 The date format, use false to disable the date picker.
@@ -120,7 +120,7 @@ Date/Time Format
 Methods
 -------
 ```
-    var calendar = FoxCalendar(document.getElementById("my-input-field"));
+    var calendar = tail.DateTime(document.getElementById("my-input-field"));
     calendar.<method>();
 ```
 
