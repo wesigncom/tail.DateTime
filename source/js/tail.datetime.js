@@ -2,7 +2,7 @@
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |                 MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
- |  @version       0.2.0 [0.1.0] - Alpha
+ |  @version       0.3.0 [0.1.0] - Alpha
  |
  |  @license       X11 / MIT License
  |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
@@ -13,59 +13,109 @@
 
     /*
      |  HELPER METHODs
-     |  @since  0.1.2
      */
     var tail = {
-        hasClass:       function(element, classname){
+        hasClass: function(element, classname){
             var regex = new RegExp("(|\s+)" + classname + "(\s+|)");
             return regex.test(element.className);
         },
-        addClass:       function(element, classname){
+        addClass: function(element, classname){
             if(!this.hasClass(element, classname)){
                 element.className = (element.className.trim() + " " + classname.trim()).trim();
             }
             return element;
         },
-        removeClass:    function(element, classname){
+        removeClass: function(element, classname){
             var regex = new RegExp("(|\s+)(" + classname + ")(\s+|)");
             if(regex.test(element.className)){
                 element.className = (element.className.replace(regex, "$1$3")).trim();
             }
             return element;
+        },
+        trigger: function(element, event, options){
+            if(CustomEvent && typeof(CustomEvent) !== "undefined"){
+                var e = new CustomEvent(event, options);
+                return element.dispatchEvent(e);
+            }
+            var e = d.createEvent("CustomEvent");
+            e.initCustomEvent(event, ((options.bubbles)? true: false), ((options.cancelable)? true: false), options.detail);
+            return element.dispatchEvent(e);
         }
     };
 
     /*
      |  CONSTRUCTOR
      |  @since  0.1.0
+     |  @update 0.3.0
      */
-    var tailDateTime = function(element, options){
-        if(typeof(this) == "undefined" || !this.init){
-            return new tailDateTime(element, options);
+    var tailDateTime = function(element, config){
+        if(typeof(element) == "string"){
+            element = d.querySelectorAll(element);
+        }
+        if(element instanceof NodeList || element instanceof HTMLCollection){
+            if(element.length == 0){
+                return false;
+            }
+            var _return = new Array();
+            for(var i = 0; i < element.length; i++){
+                _return.push(new tailDateTime(element[i], config));
+            }
+            return (_return.length == 1)? _return[0]: _return;
+        }
+        if(typeof(this) == "undefined"){
+            return new tailDateTime(element, config);
         }
 
         // Check Element
-        if(typeof(element) == "string"){
-            element = d.querySelector(element);
-        }
-        if(!element instanceof Element){
+        if(!(element instanceof Element)){
             return false;
         }
+        if(element.hasAttribute("data-tail-calendar") && tailDateTime.instances[element.getAttribute("data-tail-calendar")]){
+            return tailDateTime.instances[element.getAttribute("data-tail-calendar")];
+        }
 
-        // Get existing Instance
-        if(element.hasAttribute("data-fox-calendar")){
-            var calendar = element.getAttribute("data-fox-calendar");
-            if(tailDateTime.instances[calendar]){
-                return tailDateTime.instances[calendar];
+        // Convert `dateRange` into `dateRanges`
+        if(typeof(config.dateRange) == "Object" && config.dateRange instanceof Array){
+            config.dateRanges = config.dateRange;
+        }
+        delete config.dateRange;
+
+        // Vaildate DateRange
+        if(config.dateRanges && config.dateRanges.length > 0){
+            for(var t, i = 0; i < config.dateRanges.length; i++){
+                t = config.dateRanges[i];
+
+                // Week-Day
+                if(typeof(t[0]) == "string" && str.shorts.indexOf(t[0]) >= 0){
+                    t[0] = str.shorts.indexOf(t[0]);
+                    t[1] = (t.length >= 2 && str.shorts.indexOf(t[1]) >= 0)? str.shorts.indexOf(t[1]): 6;
+                    continue;
+                }
+
+                // Date Object
+                if(typeof(t[0]) == "string"){
+                    t[0] = new Date(Date.parse(t[0]));
+                    if(t.length == 2 && typeof(t[1]) == "string"){
+                        t[1] = new Date(Date.parse(t[1]));
+                    } else if(t.length == 1){
+                        t[1] = new Date(t[0].getFullYear(), t[0].getMonth(), 0);
+                    }
+                }
+                if(!(t[0] instanceof Date && !isNaN(t[0].getDate()))){
+                    t[0] = new Date();
+                }
+                if(t.length < 2 || !(t[1] instanceof Date && !isNaN(t[1].getDate()))){
+                    t[1] = new Date(t[0].getFullYear(), t[0].getMonth(), 0);
+                }
             }
         }
 
         // Init Prototype Instance
-        this.element = element;
-        this.options = Object.assign({}, tailDateTime.defaults, (typeof(options) == "object")? options: {});
+        this.e = element;
+        this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
         return this.init();
     };
-    tailDateTime.version = "0.2.0";
+    tailDateTime.version = "0.3.0";
     tailDateTime.status = "alpha";
     tailDateTime.count = 0;
     tailDateTime.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
@@ -74,14 +124,18 @@
 
     /*
      |  STORAGE :: DEFAULT OPTIONS
-     |  @since  0.1.0
      */
     tailDateTime.defaults = {
+        static: null,
         position: "bottom",
+        classNames: "",
         dateFormat: "YYYY-mm-dd",
         timeFormat: "HH:ii:ss",
-        dateRange: [],
-        weekStart: "SUN"
+        dateRanges: [],
+        weekStart: "SUN",
+        startOpen: false,
+        stayOpen: false,
+        zeroSeconds: false
     };
 
     /*
@@ -94,280 +148,334 @@
         time:   ["Hours", "Minutes", "Seconds"],
         header: ["Select a Month", "Select a Year", "Select a Time"],
     };
+    var str = tailDateTime.strings;
 
     /*
      |  METHODS
      */
     tailDateTime.prototype = {
-        element: null,          // The Input Element for the result
-        calendar: null,         // The current calendar element
-        current: {              // The current calendar data
-            date: null,
-            content: "",
-            render: function(){
-                return this.content.querySelector("tbody").innerHTML;
-            }
-        },
-        options: {},            // The current calendar options
-        view: "day",            // The current calendar view
+        e: null,                // The Input Element
+        dt: null,               // The DateTime Picker
+        con: {},                // The Configuration Object
+        view: {},               // The current DateTime View
+        select: null,           // The current selected Date (Object)
 
         /*
          |  HANDLE :: INIT CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         init: function(){
-            if(this.calendar){
-                return this.calendar;
+            if(this.dt){
+                return this.dt;
             }
-            this.calendar = d.createElement("DIV");
-            this.calendar.id = "data-fox-calendar-" + ++tailDateTime.count;
-            this.calendar.className = "tail-datetime-calendar calendar-close";
+            var _static = d.querySelector(this.con.static);
+
+            // Create DateTime Picker
+            this.dt = d.createElement("DIV");
+            this.dt.id = "data-tail-calendar-" + ++tailDateTime.count;
+            this.dt.className = "tail-datetime-calendar calendar-close" + ((_static)? " calendar-static": "");
+            if(this.con.stayOpen){
+                this.dt.className += " calendar-stay";
+            }
+            if(this.con.classNames){
+                this.dt.className += " " + ((this.con.classNames instanceof Array)? this.con.classNames.join(" "): this.con.classNames);
+            }
 
             // Create Calendar Structure
-            if(this.options.dateFormat){
-                this.calendar.innerHTML = '' +
+            if(this.con.dateFormat){
+                this.dt.innerHTML = '' +
                     '<div class="calendar-navi">' +
-                    '    <span data-fox-navi="prev" class="calendar-button button-prev"></span>' +
-                    '    <span data-fox-navi="switch" class="calendar-label"></span>' +
-                    '    <span data-fox-navi="next" class="calendar-button button-next"></span>' +
+                    '    <span data-tail-navi="prev" class="calendar-button button-prev"></span>' +
+                    '    <span data-tail-navi="switch" class="calendar-label"></span>' +
+                    '    <span data-tail-navi="next" class="calendar-button button-next"></span>' +
                     '</div>' +
                     '<div class="calendar-date"></div>' +
-                    ((this.options.timeFormat)? '<div class="calendar-time">' + this.renderTime() + '</div>': '');
+                    ((this.con.timeFormat)? '<div class="calendar-time">' + this.renderTime() + '</div>': '');
             } else {
-                this.calendar.innerHTML = '' +
+                this.dt.innerHTML = '' +
                     '<div class="calendar-navi">' +
-                    '    <span data-fox-navi="check" class="calendar-button button-check"></span>' +
-                    '    <span data-fox-navi="switch" class="calendar-label">' + tailDateTime.strings.header[2] + '</span>' +
-                    '    <span data-fox-navi="close" class="calendar-button button-close"></span>' +
+                    '    <span data-tail-navi="check" class="calendar-button button-check"></span>' +
+                    '    <span data-tail-navi="switch" class="calendar-label">' + str.header[2] + '</span>' +
+                    '    <span data-tail-navi="close" class="calendar-button button-close"></span>' +
                     '</div>' +
-                    ((this.options.timeFormat)? '<div class="calendar-time">' + this.renderTime() + '</div>': '');
+                    ((this.con.timeFormat)? '<div class="calendar-time">' + this.renderTime() + '</div>': '');
             }
 
             // Set Calendar Data
-            if(this.element.hasAttribute("data-fox-value")){
-                this.current.date = new Date(Date.parse(this.element.getAttribute("data-fox-value")));
-            } else if(this.element.value && !isNaN(new Date(Date.parse(this.element.value)))){
-                this.current.date = new Date(Date.parse(this.element.value));
-            } else {
-                this.current.date = new Date();
+            var select = new Date(Date.parse(this.e.getAttribute("data-tail-value") || this.e.value));
+            this.view = {
+                type: "date",
+                date: new Date(),
+                content: "",
+                render: function(){ return this.content.querySelector("tbody").innerHTML; }
+            };
+            if(!isNaN(select.getDate())){
+                this.select = select;
+                if(this.con.zeroSeconds){
+                    this.select.setSeconds(0);
+                }
+                this.view.date = new Date(this.select.getTime());
             }
-            if(this.options.timeFormat){
-                this.calendar.querySelector(".calendar-field-h > input").value = this.current.date.getHours();
-                this.calendar.querySelector(".calendar-field-m > input").value = this.current.date.getMinutes();
-                this.calendar.querySelector(".calendar-field-s > input").value = this.current.date.getSeconds();
+            if(this.con.timeFormat){
+                this.dt.querySelector(".calendar-field-h > input").value = this.view.date.getHours();
+                this.dt.querySelector(".calendar-field-m > input").value = this.view.date.getMinutes();
+                this.dt.querySelector(".calendar-field-s > input").value = this.view.date.getSeconds();
             }
 
-            this.switchMonth(this.current.date.getMonth(), this.current.date.getFullYear());
-            if(this.element.hasAttribute("data-fox-value")){
+            this.switchMonth(this.view.date.getMonth(), this.view.date.getFullYear());
+            if(this.e.hasAttribute("data-tail-value")){
                 this.selectDate();
             } else {
-                this.element.setAttribute("data-fox-value", this.convertDate(this.current.date, "YYYY-mm-dd HH:ii:ss"));
+                this.e.setAttribute("data-tail-value", this.convertDate(this.view.date, "YYYY-mm-dd HH:ii:ss"));
             }
 
             // Configure Calendar Widget
-            this.calendar.style.zIndex = 99;
-            this.calendar.style.position = "absolute";
-            this.calendar.style.visibility = "hidden";
-            d.getElementsByTagName("body")[0].appendChild(this.calendar);
+            this.dt.style.zIndex = 99;
+            this.dt.style.position = (_static)? "static": "absolute";
+            this.dt.style.visibility = (_static)? "visible": "hidden";
+            if(_static){
+                _static.appendChild(this.dt);
+            } else {
+                d.getElementsByTagName("body")[0].appendChild(this.dt);
+            }
 
             // Calc Position
-            var style = window.getComputedStyle(this.calendar),
-                marginX = parseInt(style.marginLeft)+parseInt(style.marginRight),
-                marginY = parseInt(style.marginTop)+parseInt(style.marginBottom),
-                position = (function(element){
-                var position = {
-                    top:    element.offsetTop    || 0,
-                    left:   element.offsetLeft   || 0,
-                    width:  element.offsetWidth  || 0,
-                    height: element.offsetHeight || 0
-                };
-                while(element = element.offsetParent){
-                    position.top  += element.offsetTop;
-                    position.left += element.offsetLeft;
-                }
-                return position;
-            })(this.element);
+            if(!_static){
+                var style = w.getComputedStyle(this.dt),
+                    marginX = parseInt(style.marginLeft)+parseInt(style.marginRight),
+                    marginY = parseInt(style.marginTop)+parseInt(style.marginBottom),
+                    position = (function(element){
+                    var position = {
+                        top:    element.offsetTop    || 0,
+                        left:   element.offsetLeft   || 0,
+                        width:  element.offsetWidth  || 0,
+                        height: element.offsetHeight || 0
+                    };
+                    while(element = element.offsetParent){
+                        position.top  += element.offsetTop;
+                        position.left += element.offsetLeft;
+                    }
+                    return position;
+                })(this.e);
 
-            // Set Position
-            switch(this.options.position){
-                case "top":
-                    this.calendar.style.top = position.top - (this.calendar.offsetHeight + marginY) + "px";
-                    this.calendar.style.left = (position.left + (position.width / 2)) - (this.calendar.offsetWidth / 2 + marginX / 2) + "px";
-                    break;
-                case "left":
-                    this.calendar.style.top = (position.top + position.height/2) - (this.calendar.offsetHeight / 2 + marginY) + "px";
-                    this.calendar.style.left = position.left - (this.calendar.offsetWidth + marginX) + "px";
-                    break;
-                case "right":
-                    this.calendar.style.top = (position.top + position.height/2) - (this.calendar.offsetHeight / 2 + marginY) + "px";
-                    this.calendar.style.left = position.left + position.width + "px";
-                    break;
-                default:
-                    this.calendar.style.top = position.top + position.height + "px";
-                    this.calendar.style.left = (position.left + (position.width / 2)) - (this.calendar.offsetWidth / 2 + marginX / 2) + "px";
-                    break;
+                // Set Position
+                switch(this.con.position){
+                    case "top":
+                        this.dt.style.top = position.top - (this.dt.offsetHeight + marginY) + "px";
+                        this.dt.style.left = (position.left + (position.width / 2)) - (this.dt.offsetWidth / 2 + marginX / 2) + "px";
+                        break;
+                    case "left":
+                        this.dt.style.top = (position.top + position.height/2) - (this.dt.offsetHeight / 2 + marginY) + "px";
+                        this.dt.style.left = position.left - (this.dt.offsetWidth + marginX) + "px";
+                        break;
+                    case "right":
+                        this.dt.style.top = (position.top + position.height/2) - (this.dt.offsetHeight / 2 + marginY) + "px";
+                        this.dt.style.left = position.left + position.width + "px";
+                        break;
+                    default:
+                        this.dt.style.top = position.top + position.height + "px";
+                        this.dt.style.left = (position.left + (position.width / 2)) - (this.dt.offsetWidth / 2 + marginX / 2) + "px";
+                        break;
+                }
+                this.dt.style.display = "none";
+                this.dt.style.visibility = "visible";
             }
-            this.calendar.style.display = "none";
-            this.calendar.style.visibility = "visible";
 
             // Listen Header
             var self = this,
-                navi = this.calendar.querySelectorAll("[data-fox-navi]");
+                navi = this.dt.querySelectorAll("[data-tail-navi]");
             if(navi.length > 0){
                 for(var i = 0; i < navi.length; i++){
                     navi[i].addEventListener("click", function(event){
-                        var action = this.getAttribute("data-fox-navi");
+                        var action = this.getAttribute("data-tail-navi");
 
-                        if(self.options.dateFormat){
-                            if(self.view == "month"){
+                        if(self.con.dateFormat){
+                            if(self.view.type == "month"){
                                 if(action == "prev" || action == "next"){
-                                    self.switchYear(action);
+                                    self.switchYear.call(self, action);
                                 } else {
-                                    self.switchView("day");
+                                    self.switchView.call(self, "day");
                                 }
                             } else {
                                 if(action == "prev" || action == "next"){
-                                    self.switchMonth(action);
+                                    self.switchMonth.call(self, action);
                                 } else {
-                                    self.switchView("month");
+                                    self.switchView.call(self, "month");
                                 }
                             }
-                        } else if(self.options.timeFormat){
+                        } else if(self.con.timeFormat){
                             if(action == "check"){
-                                self.selectTime(
-                                    parseInt(self.calendar.querySelector(".calendar-field-h > input").value),
-                                    parseInt(self.calendar.querySelector(".calendar-field-m > input").value),
-                                    parseInt(self.calendar.querySelector(".calendar-field-s > input").value)
+                                self.selectTime.call(self,
+                                    parseInt(self.dt.querySelector(".calendar-field-h > input").value),
+                                    parseInt(self.dt.querySelector(".calendar-field-m > input").value),
+                                    parseInt(self.dt.querySelector(".calendar-field-s > input").value)
                                 );
                             }
-                            self.close();
+                            if(!self.con.stayOpen){
+                                self.close.call(self);
+                            }
                         }
                     });
                 }
             }
 
             // Listen Input
-            this.element.addEventListener("focusin", function(event){
-                self.open();
+            this.e.addEventListener("focusin", function(event){
+                self.open.call(self);
             });
             d.addEventListener("keyup", function(event){
-                if(tail.hasClass(self.calendar, "calendar-open") && event.keyCode == 27){
-                    self.close();
-                    self.element.blur();
+                if(tail.hasClass(self.dt, "calendar-open") && event.keyCode == 27){
+                    if(!self.con.stayOpen){
+                        self.close.call(self);
+                    }
+                    self.e.blur();
                 }
-                if(tail.hasClass(self.calendar, "calendar-open") && event.keyCode == 13){
-                    if(self.options.dateFormat){
-                        var day = self.calendar.children[1].querySelector("td.today") || self.calendar.children[1].querySelector("td:not(.empty)"),
-                            time = !!self.options.timeFormat,
-                            regex = new RegExp("(|\s+)disable(\s+|)")
-                        if(!regex.test(day.className)){
-                            self.selectDate(
-                                self.current.year, self.current.month, parseInt(day.value),
-                                (time)? parseInt(self.calendar.querySelector(".calendar-field-h > input").value): 0,
-                                (time)? parseInt(self.calendar.querySelector(".calendar-field-m > input").value): 0,
-                                (time)? parseInt(self.calendar.querySelector(".calendar-field-s > input").value): 0
+                if(tail.hasClass(self.dt, "calendar-open") && event.keyCode == 13){
+                    if(self.con.dateFormat){
+                        var day = self.dt.children[1].querySelector("td.today") || self.dt.children[1].querySelector("td:not(.empty)"),
+                            time = !!self.con.timeFormat;
+                        if(!tail.hasClass(day, "disabled")){
+                            self.selectDate.call(self,
+                                self.view.year, self.view.month, parseInt(day.value),
+                                (time)? parseInt(self.dt.querySelector(".calendar-field-h > input").value): 0,
+                                (time)? parseInt(self.dt.querySelector(".calendar-field-m > input").value): 0,
+                                (time)? parseInt(self.dt.querySelector(".calendar-field-s > input").value): 0
                             );
                         }
                     } else {
-                        self.selectTime(
-                            parseInt(self.calendar.querySelector(".calendar-field-h > input").value),
-                            parseInt(self.calendar.querySelector(".calendar-field-m > input").value),
-                            parseInt(self.calendar.querySelector(".calendar-field-s > input").value)
+                        self.selectTime.call(self,
+                            parseInt(self.dt.querySelector(".calendar-field-h > input").value),
+                            parseInt(self.dt.querySelector(".calendar-field-m > input").value),
+                            parseInt(self.dt.querySelector(".calendar-field-s > input").value)
                         );
                     }
-                    self.close();
-                    self.element.blur();
+                    if(!self.con.stayOpen){
+                        self.close.call(self);
+                    }
+                    self.e.blur();
                 }
             });
             d.addEventListener("click", function(event){
-                if(!tail.hasClass(self.calendar, "calendar-open")){
+                if(!tail.hasClass(self.dt, "calendar-open")){
                     return;
                 }
-                if(!self.calendar.contains(event.target) && !self.element.contains(event.target)){
-                    if(event.target != self.calendar && event.target != self.element){
-                        self.close();
+                if(!self.dt.contains(event.target) && !self.e.contains(event.target)){
+                    if(event.target != self.dt && event.target != self.e){
+                        if(!self.con.stayOpen){
+                            self.close.call(self);
+                        }
                     }
                 }
             });
 
             // Store Instance and Return
-            this.element.setAttribute("data-fox-calendar", "fox-" + tailDateTime.count);
-            tailDateTime.instances["fox-" + tailDateTime.count] = this;
+            this.e.setAttribute("data-tail-calendar", "tail-" + tailDateTime.count);
+            if(this.con.startOpen){
+                this.open();
+            }
+            tailDateTime.instances["tail-" + tailDateTime.count] = this;
             return this;
         },
 
         /*
          |  HANDLE :: SWITCH VIEW
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         switchView: function(view){
-            if(!this.options.dateFormat){
+            if(!this.con.dateFormat){
                 return false;
             }
 
             // Render View
-            this.view = view;
+            this.view.type = view;
             if(view == "month"){
-                this.calendar.children[1].innerHTML = "";
-                this.calendar.children[1].insertAdjacentHTML("afterbegin", this.renderMonth());
-                this.calendar.querySelector(".calendar-label").innerText = this.current.date.getFullYear();
+                this.dt.children[1].innerHTML = "";
+                this.dt.children[1].insertAdjacentHTML("afterbegin", this.renderMonth());
+                this.dt.querySelector(".calendar-label").innerText = this.view.date.getFullYear();
             } else {
-                this.calendar.children[1].innerHTML = this.renderDay();
-                this.calendar.querySelector(".calendar-label").innerText = tailDateTime.strings.months[this.current.date.getMonth()] + " " + this.current.date.getFullYear();
+                this.dt.children[1].innerHTML = this.renderDay();
+                this.dt.querySelector(".calendar-label").innerText = str.months[this.view.date.getMonth()] + " " + this.view.date.getFullYear();
 
-                // Disable on Range
-                var range = this.options.dateRange,
-                    year  = this.current.date.getFullYear(),
-                    month = this.current.date.getMonth();
-                if(range.length && range[0] instanceof Date){
-                    if(year < range[0].getFullYear() || year <= range[0].getFullYear() && month <= range[0].getMonth()){
-                        var disable = this.calendar.querySelectorAll("tbody td:not(.empty)");
-                        for(var i = 0; i < disable.length; ++i){
-                            if(parseInt(disable[i].innerText) < range[0].getDate() || month < range[0].getMonth() || year < range[0].getFullYear()){
-                                disable[i].className += " disable";
+                // Disable on Ranges
+                var ranges = this.con.dateRanges, current = this.view.date,
+                    fields = this.dt.querySelectorAll("tbody td:not(.empty)"),
+                    compare = new Date(current.getFullYear(), current.getMonth(), current.getDate(), 0, 0, 0);
+                if(ranges.length > 0){
+                    for(var enable = [], i = 0; i < ranges.length; i++){
+                        if(ranges[i][0] instanceof Date){
+                            if(current.getYear() >= ranges[i][0].getYear() && current.getYear() <= ranges[i][1].getYear()){
+                                if(current.getMonth() >= ranges[i][0].getMonth() && current.getMonth() <= ranges[i][1].getMonth()){
+                                    for(var f = 0; f < fields.length; f++){
+                                        compare.setDate(parseInt(fields[f].innerText));
+                                        if(compare >= ranges[i][0] && compare <= ranges[i][1]){
+                                            enable.push(fields[f].innerText);
+                                        }
+                                    }
+                                }
+                            }
+                        } else {
+                            for(var f = 0; f < fields.length; f++){
+                                compare.setDate(parseInt(fields[f].innerText));
+                                if(ranges[i].length == 3 && ranges[i][3] == true){
+                                    if(compare.getDay() >= ranges[i][0] && compare.getDay() <= ranges[i][1]){
+                                        if(enable.indexOf(fields[f].innerText) == -1){
+                                            enable.push(fields[f].innerText);
+                                        }
+                                    }
+                                }
+                                if(compare.getDay() < ranges[i][0] || compare.getDay() > ranges[i][1]){
+                                    if(enable.indexOf(fields[f].innerText) >= 0){
+                                        enable.splice(enable.indexOf(fields[f].innerText), 1);
+                                    }
+                                }
                             }
                         }
                     }
-                }
-                if(range.length && range[1] instanceof Date){
-                    if(year > range[1].getFullYear() || year >= range[1].getFullYear() && month >= range[1].getMonth()){
-                        var disable = this.calendar.querySelectorAll("tbody td:not(.empty)");
-                        for(var i = 0; i < disable.length; ++i){
-                            if(parseInt(disable[i].innerText) > range[1].getDate() || month > range[1].getMonth() || year > range[1].getFullYear()){
-                                disable[i].className += " disable";
-                            }
+                    for(var f = 0; f < fields.length; f++){
+                        if(enable.indexOf(fields[f].innerText) == -1){
+                            tail.addClass(fields[f], "disable");
                         }
+                    }
+                }
+
+                // Select Current
+                if(this.select instanceof Date && this.select.getYear() == this.view.date.getYear() && this.select.getMonth() == this.view.date.getMonth()){
+                    tail.addClass(this.dt.querySelectorAll("tbody td:not(.empty)")[this.select.getDate()-1], "current");
+                } else {
+                    if(this.dt.querySelector("tbody td.current")){
+                        tail.removeClass(this.dt.querySelector("tbody td.current"), "current");
                     }
                 }
             }
 
             // Handle View
             var self = this;
-            if(this.options.dateFormat){
-                var listen = this.calendar.querySelectorAll("tbody td:not(.empty)");
+            if(this.con.dateFormat){
+                var listen = this.dt.querySelectorAll("tbody td:not(.empty)");
                 for(var i = 0; i < listen.length; i++){
                     listen[i].addEventListener("click", function(event){
                         event.preventDefault();
                         event.stopPropagation();
 
-                        var regex = new RegExp("(|\s+)disable(\s+|)"),
-                            time = !!self.options.timeFormat;
-                        if(regex.test(this.className)){
+                        if(tail.hasClass(this, "disable")){
                             return false;
                         }
+                        var time = !!self.con.timeFormat;
 
-                        if(self.view == "month"){
-                            self.switchMonth(parseInt(this.getAttribute("data-fox-month")), self.current.date.getFullYear());
+                        if(self.view.type == "month"){
+                            self.switchMonth.call(self, parseInt(this.getAttribute("data-tail-month")), self.view.date.getFullYear());
                         } else {
-                            self.selectDate(
-                                self.current.year, self.current.month, parseInt(this.innerText),
-                                (time)? parseInt(self.calendar.querySelector(".calendar-field-h > input").value): 0,
-                                (time)? parseInt(self.calendar.querySelector(".calendar-field-m > input").value): 0,
-                                (time)? parseInt(self.calendar.querySelector(".calendar-field-s > input").value): 0
+                            self.selectDate.call(self,
+                                self.view.date.getFullYear(), self.view.date.getMonth(), parseInt(this.innerText),
+                                (time)? parseInt(self.dt.querySelector(".calendar-field-h > input").value): 0,
+                                (time)? parseInt(self.dt.querySelector(".calendar-field-m > input").value): 0,
+                                (time)? parseInt(self.dt.querySelector(".calendar-field-s > input").value): 0
                             );
-                            self.close();
+                            if(!self.con.stayOpen){
+                                self.close.call(self);
+                            }
                         }
                     });
                 }
@@ -377,111 +485,95 @@
         /*
          |  RENDER :: DAY VIEW
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         renderDay: function(){
-            var start = tailDateTime.strings.shorts.indexOf(this.options.weekStart),
-                week  = tailDateTime.strings.shorts.slice(start);
-                week  = week.concat(tailDateTime.strings.shorts.slice(0, start));
+            var start = str.shorts.indexOf(this.con.weekStart),
+                week  = str.shorts.slice(start);
+                week  = week.concat(str.shorts.slice(0, start));
 
-            return '' +
-                '<table class="calendar-day">' +
-                '    <thead>' +
-                '        <tr>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[0]) + '">' + week[0] + '</th>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[1]) + '">' + week[1] + '</th>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[2]) + '">' + week[2] + '</th>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[3]) + '">' + week[3] + '</th>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[4]) + '">' + week[4] + '</th>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[5]) + '">' + week[5] + '</th>' +
-                '            <th data-fox-day="' + tailDateTime.strings.shorts.indexOf(week[6]) + '">' + week[6] + '</th>' +
-                '        </tr>' +
-                '    </thead>' +
-                '    <tbody>' +
-                this.createCalendar(this.current.date.getMonth(), this.current.date.getFullYear()).render() +
-                '   </tbody>' +
-                '</table>';
+            var content = '<table class="calendar-day"><thead><tr>';
+            for(var i = 0; i < 7; i++){
+                content += '<th data-tail-day="' + str.shorts.indexOf(week[i]) + '">' + week[i] + '</th>';
+            }
+            content += "</tr></thead><tbody>";
+            content += this.createCalendar(this.view.date.getMonth(), this.view.date.getFullYear()).render();
+            content += "</tbody></table>";
+            return content;
         },
 
         /*
          |  RENDER :: MONTH VIEW
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         renderMonth: function(){
-            var strings = tailDateTime.strings.months;
-
-            return '' +
-                '<table class="calendar-month">' +
-                '    <thead>' +
-                '        <tr>' +
-                '           <th colspan="4">' + tailDateTime.strings.header[0] + '</th>' +
-                '        </tr>' +
-                '    </thead>' +
-                '    <tbody>' +
-                '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="0"><span>' + strings[0] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="1"><span>' + strings[1] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="2"><span>' + strings[2] + '</span></td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="3"><span>' + strings[3] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="4"><span>' + strings[4] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="5"><span>' + strings[5] + '</span></td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="6"><span>' + strings[6] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="7"><span>' + strings[7] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="8"><span>' + strings[8] + '</span></td>' +
-                '       </tr>' +
-                '       <tr>' +
-                '           <td class="calendar-month" data-fox-month="9"><span>' + strings[9] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="10"><span>' + strings[10] + '</span></td>' +
-                '           <td class="calendar-month" data-fox-month="11"><span>' + strings[11] + '</span></td>' +
-                '       </tr>' +
-                '   </tbody>' +
-                '</table>';
+            var strings = str.months;
+            var content = '<table class="calendar-month"><thead><tr><th colspan="4">' + str.header[0] + '</th></tr></thead><tbody>';
+            for(var i = 0; i < 12; i++){
+                content += '<tr>';
+                content += '<td class="calendar-month" data-tail-month="0"><span>' + strings[i++] + '</span></td>';
+                content += '<td class="calendar-month" data-tail-month="1"><span>' + strings[i++] + '</span></td>';
+                content += '<td class="calendar-month" data-tail-month="2"><span>' + strings[i] + '</span></td>';
+                content += '</tr>';
+            }
+            content += "</tbody></table>";
+            return content;
         },
 
         /*
          |  RENDER :: TIME VIEW
          |  @since  0.1.0
+         |  @update 0.3.0
          */
         renderTime: function(){
             return '' +
                 '<div class="calendar-field calendar-field-h">' +
                 '    <input type="number" value="' + new Date().getHours() + '" min="00" max="23" step="1" />' +
-                '    <label>' + tailDateTime.strings.time[0] + '</label>' +
+                '    <label>' + str.time[0] + '</label>' +
                 '</div>' +
                 '<div class="calendar-field calendar-field-m">' +
                 '    <input type="number" value="' + new Date().getMinutes() + '" min="00" max="59" step="1" />' +
-                '    <label>' + tailDateTime.strings.time[1] + '</label>' +
+                '    <label>' + str.time[1] + '</label>' +
                 '</div>' +
                 '<div class="calendar-field calendar-field-s">' +
                 '    <input type="number" value="' + new Date().getSeconds() + '" min="00" max="59" step="1" />' +
-                '    <label>' + tailDateTime.strings.time[2] + '</label>' +
+                '    <label>' + str.time[2] + '</label>' +
                 '</div>';
+        },
+
+        /*
+         |  ACTION :: ADD EVENT LISTENER
+         |  @since  0.3.0
+         */
+        on: function(event, func){
+            this.dt.addEventListener(event, func);
         },
 
         /*
          |  ACTION :: OPEN CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         open: function(){
-            if(!tail.hasClass(this.calendar, "calendar-close")){
+            if(!tail.hasClass(this.dt, "calendar-close")){
                 return this;
             }
-            tail.removeClass(this.calendar, "calendar-close");
-            tail.addClass(this.calendar, "calendar-idle");
+            tail.removeClass(this.dt, "calendar-close");
+            tail.addClass(this.dt, "calendar-idle");
 
-            this.calendar.style.opacity = 0;
-            this.calendar.style.display = "block";
+            this.dt.style.opacity = 0;
+            this.dt.style.display = "block";
             this.animate = setInterval(function(self){
-                self.calendar.style.opacity = parseFloat(self.calendar.style.opacity) + 0.1;
-                if(parseFloat(self.calendar.style.opacity) >= 1){
-                    tail.removeClass(self.calendar, "calendar-idle");
-                    tail.addClass(self.calendar, "calendar-open");
+                self.dt.style.opacity = parseFloat(self.dt.style.opacity) + 0.1;
+                if(parseFloat(self.dt.style.opacity) >= 1){
+                    tail.removeClass(self.dt, "calendar-idle");
+                    tail.addClass(self.dt, "calendar-open");
+                    tail.trigger(self.dt, "tail.DateTime::open", {
+                        bubbles: false,
+                        cancelable: true,
+                        detail: self
+                    });
                     clearInterval(self.animate);
                 }
             }, 10, this);
@@ -491,22 +583,26 @@
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         close: function(){
-            if(!tail.hasClass(this.calendar, "calendar-open")){
+            if(!tail.hasClass(this.dt, "calendar-open")){
                 return this;
             }
-            tail.removeClass(this.calendar, "calendar-open");
-            tail.addClass(this.calendar, "calendar-idle");
+            tail.removeClass(this.dt, "calendar-open");
+            tail.addClass(this.dt, "calendar-idle");
 
             this.animate = setInterval(function(self){
-                self.calendar.style.opacity = parseFloat(self.calendar.style.opacity) - 0.1;
-                if(parseFloat(self.calendar.style.opacity) <= 0){
-                    tail.removeClass(self.calendar, "calendar-idle");
-                    tail.addClass(self.calendar, "calendar-close");
-
-                    self.calendar.style.display = "none";
+                self.dt.style.opacity = parseFloat(self.dt.style.opacity) - 0.1;
+                if(parseFloat(self.dt.style.opacity) <= 0){
+                    tail.removeClass(self.dt, "calendar-idle");
+                    tail.addClass(self.dt, "calendar-close");
+                    tail.trigger(self.dt, "tail.DateTime::close", {
+                        bubbles: false,
+                        cancelable: true,
+                        detail: self
+                    });
+                    self.dt.style.display = "none";
                     clearInterval(self.animate);
                 }
             }, 10, this);
@@ -516,15 +612,25 @@
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         toggle: function(){
-            if(tail.hasClass(this.calendar, "calendar-open")){
+            if(tail.hasClass(this.dt, "calendar-open")){
                 return this.close();
-            } else if(tail.hasClass(this.calendar, "calendar-close")){
+            } else if(tail.hasClass(this.dt, "calendar-close")){
                 return this.open();
             }
             return this;
+        },
+
+        /*
+         |  ACTION :: REMOVE CALENDAR
+         |  @since  0.3.0
+         */
+        remove: function(){
+            this.e.removeAttribute("data-fox-calendar");
+            this.td.parentElement.removeChild(this.td);
+            return null;
         },
 
         /*
@@ -534,12 +640,12 @@
          */
         switchMonth: function(month, year){
             if(month == "prev"){
-                this.current.date.setMonth(this.current.date.getMonth()-1)
+                this.view.date.setMonth(this.view.date.getMonth()-1)
             } else if(month == "next"){
-                this.current.date.setMonth(this.current.date.getMonth()+1);
+                this.view.date.setMonth(this.view.date.getMonth()+1);
             } else {
-                this.current.date.setMonth(month);
-                this.current.date.setFullYear(year);
+                this.view.date.setMonth(month);
+                this.view.date.setFullYear(year);
             }
             this.switchView("day");
             return this;
@@ -552,11 +658,11 @@
          */
         switchYear: function(year){
             if(year == "prev"){
-                this.current.date.setFullYear(this.current.date.getFullYear()-1);
+                this.view.date.setFullYear(this.view.date.getFullYear()-1);
             } else if(year == "next"){
-                this.current.date.setFullYear(this.current.date.getFullYear()+1);
+                this.view.date.setFullYear(this.view.date.getFullYear()+1);
             } else {
-                this.current.date.setFullYear(year);
+                this.view.date.setFullYear(year);
             }
             this.switchView("month");
             return this;
@@ -565,31 +671,38 @@
         /*
          |  ACTION :: SELECT A DATE
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         selectDate: function(Y, M, D, h, i, s){
             var n = new Date();
 
             // Format
             var f = [
-                (this.options.dateFormat)? this.options.dateFormat: "",
-                (this.options.timeFormat)? this.options.timeFormat: "",
+                (this.con.dateFormat)? this.con.dateFormat: "",
+                (this.con.timeFormat)? this.con.timeFormat: "",
             ].join(" ").trim();
 
             // Date
-            var date = new Date(
-                ((Y)? Y: ((Y == undefined)? this.current.date.getFullYear(): n.getFullYear())),
-                ((M)? M: ((M == undefined)? this.current.date.getMonth(): n.getMonth())),
-                ((D)? D: ((D == undefined)? this.current.date.getDate(): n.getDate())),
-                ((h)? h: (h == undefined)? this.current.date.getHours(): 0),
-                ((i)? i: (i == undefined)? this.current.date.getMinutes(): 0),
-                ((s)? s: (s == undefined)? this.current.date.getSeconds(): 0),
+            this.select = new Date(
+                ((Y)? Y: ((Y == undefined)? this.view.date.getFullYear(): n.getFullYear())),
+                ((M)? M: ((M == undefined)? this.view.date.getMonth(): n.getMonth())),
+                ((D)? D: ((D == undefined)? this.view.date.getDate(): n.getDate())),
+                ((h)? h: ((h == undefined)? this.view.date.getHours(): 0)),
+                ((i)? i: ((i == undefined)? this.view.date.getMinutes(): 0)),
+                ((s)? s: ((s == undefined)? this.view.date.getSeconds(): 0)),
             );
 
+            // Trigger
+            tail.trigger(this.dt, "tail.DateTime::select", {
+                bubbles: false,
+                cancelable: true,
+                detail: self
+            });
+
             // Value
-            this.element.value = this.convertDate(date, f);
-            this.element.setAttribute("data-fox-value", this.convertDate(date, "YYYY-mm-dd HH:ii:ss"));
-            return this;
+            this.e.value = this.convertDate(this.select, f);
+            this.e.setAttribute("data-tail-value", this.convertDate(this.select, "YYYY-mm-dd HH:ii:ss"));
+            return this.switchView(this.view.type);
         },
         selectTime: function(h, i, s){
             return this.selectDate(false, false, false, h, i, s);
@@ -598,7 +711,7 @@
         /*
          |  ACTION :: SELECT CALENDAR
          |  @since  0.1.0
-         |  @update 0.1.2
+         |  @update 0.3.0
          */
         createCalendar: function(month, year){
             var day = 1, haveDays = true,
@@ -607,18 +720,18 @@
                 calendar = [];
 
             // Calc start Day
-            startDay = startDay-tailDateTime.strings.shorts.indexOf(this.options.weekStart);
+            startDay = startDay-str.shorts.indexOf(this.con.weekStart);
             if(startDay < 0){
                 startDay = 7 + startDay;
             }
 
             // Cache
-            if(tailDateTime.cache[this.options.weekStart + "_" + year] && !tailDateTime.isIE11){
-                if(tailDateTime.cache[this.options.weekStart + "_" + year][month]){
-                    return tailDateTime.cache[this.options.weekStart + "_" + year][month];
+            if(tailDateTime.cache[this.con.weekStart + "_" + year] && !tailDateTime.isIE11){
+                if(tailDateTime.cache[this.con.weekStart + "_" + year][month]){
+                    return tailDateTime.cache[this.con.weekStart + "_" + year][month];
                 }
             } else {
-                tailDateTime.cache[this.options.weekStart + "_" + year] = {};
+                tailDateTime.cache[this.con.weekStart + "_" + year] = {};
             }
 
             // Calculate
@@ -628,11 +741,11 @@
                 for(var j = 0; j < 7; j++){
                     if(i === 0){
                         if(j === startDay){
-                            calendar[i][j] = day++;
+                            calendar[i][j] = '<span>' + day++ + '</span>';
                             startDay++;
                         }
                     } else if(day <= daysInMonths[month]){
-                        calendar[i][j] = day++;
+                        calendar[i][j] = '<span>' + day++ + '</span>';
                     } else {
                         calendar[i][j] = "";
                         haveDays = false;
@@ -653,7 +766,7 @@
                 render.innerHTML = calendar.join("");
 
             // Empty Fields
-            var empty  = render.querySelectorAll("td:empty");
+            var empty = render.querySelectorAll("td:empty");
             for(var i = 0; i < empty.length; ++i){
                 empty[i].className += " empty";
             }
@@ -662,24 +775,25 @@
             if(month === new Date().getMonth()){
                 var today = Array.prototype.slice.call(render.querySelectorAll("td"));
                 today.forEach(function(current, index, array){
-                    if(current.innerHTML === new Date().getDate().toString()){
+                    if(current.innerText === new Date().getDate().toString()){
                         current.className += " today";
                     }
                 });
             }
 
             // Return
-            this.current.date.setMonth(month);
-            this.current.date.setFullYear(year);
-            this.current = tailDateTime.cache[this.options.weekStart + "_" + year][month] = Object.assign({}, this.current, {
+            this.view.date.setMonth(month);
+            this.view.date.setFullYear(year);
+            this.view = tailDateTime.cache[this.con.weekStart + "_" + year][month] = Object.assign({}, this.view, {
                 content: render
             });
-            return tailDateTime.cache[this.options.weekStart + "_" + year][month];
+            return tailDateTime.cache[this.con.weekStart + "_" + year][month];
         },
 
         /*
          |  CONVERT DATE
          |  @since  0.1.0
+         |  @update 0.3.0
          */
         convertDate: function(inDate, format){
             var dateObject = {
@@ -695,11 +809,11 @@
                 Y: inDate.getFullYear(),
                 y: parseInt(inDate.getFullYear().toString().slice(2)),
                 m: String("00" + (inDate.getMonth() + 1)).toString().slice(-2),
-                M: tailDateTime.strings.months[inDate.getMonth()].slice(0, 3),
-                F: tailDateTime.strings.months[inDate.getMonth()],
+                M: str.months[inDate.getMonth()].slice(0, 3),
+                F: str.months[inDate.getMonth()],
                 d: String("00" + inDate.getDate()).toString().slice(-2),
-                D: tailDateTime.strings.days[inDate.getDay()],
-                l: tailDateTime.strings.shorts[inDate.getDay()].toLowerCase()
+                D: str.days[inDate.getDay()],
+                l: str.shorts[inDate.getDay()].toLowerCase()
             };
 
             var regex = new RegExp("(H{1,2}|G{1,2}|i{1,2}|s{1,2}|Y{2,4}|y{2}|m{1,2}|d{1,2})", "g");

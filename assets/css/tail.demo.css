@@ -136,59 +136,203 @@ input + button:active{
 	padding: 0;
 	display: block;
 }
+.fa-stack .fa-circle{
+    color: #DC4650;
+}
 /* @end CORE */
 
-/* @start HIGHLIGHT.JS (Pedro Oliveira <kanytu@gmail.com>) */
-.hljs{
-	color: #a9b7c6;
-	margin: 0;
-	padding: 10px 15px;
-	display: block;
-	overflow-x: auto;
-	background: #282b2e;
-	border-radius: 2px;
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
+/* @start prismJS */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
 }
-.hljs-number, .hljs-literal, .hljs-symbol, .hljs-bullet{
-	color: #6897BB;
+
+/* Code blocks */
+/* PrismJS 1.15.0
+https://prismjs.com/download.html#themes=prism-tomorrow&languages=markup+css+clike+javascript&plugins=line-numbers */
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+	color: #ccc;
+	background: none;
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	text-align: left;
+	white-space: pre;
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+	line-height: 1.5;
+
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+
 }
-.hljs-keyword, .hljs-selector-tag, .hljs-deletion{
-	color: #cc7832;
+
+/* Code blocks */
+pre[class*="language-"] {
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
 }
-.hljs-variable, .hljs-template-variable, .hljs-link{
-	color: #629755;
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+	background: #2d2d2d;
 }
-.hljs-comment, .hljs-quote{
-	color: #808080;
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+	padding: .1em;
+	border-radius: .3em;
+	white-space: normal;
 }
-.hljs-meta{
-	color: #bbb529;
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+	color: #999;
 }
-.hljs-string, .hljs-attribute, .hljs-addition{
-	color: #6A8759;
+
+.token.punctuation {
+	color: #ccc;
 }
-.hljs-section, .hljs-title, .hljs-type{
-	color: #ffc66d;
+
+.token.tag,
+.token.attr-name,
+.token.namespace,
+.token.deleted {
+	color: #e2777a;
 }
-.hljs-name, .hljs-selector-id, .hljs-selector-class{
-	color: #e8bf6a;
+
+.token.function-name {
+	color: #6196cc;
 }
-.hljs-emphasis{
-	font-style: italic;
+
+.token.boolean,
+.token.number,
+.token.function {
+	color: #f08d49;
 }
-.hljs-strong{
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+	color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+	color: #cc99cd;
+}
+
+.token.string,
+.token.char,
+.token.attr-value,
+.token.regex,
+.token.variable {
+	color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url {
+	color: #67cdcc;
+}
+
+.token.important,
+.token.bold {
 	font-weight: bold;
 }
-a.hljs-link{
-	color: #ffc66d;
+.token.italic {
 	font-style: italic;
-	text-decoration: underline;
 }
-a.hljs-link:hover{
-	opacity: 0.5;
+
+.token.entity {
+	cursor: help;
 }
-/* @end HIGHLIGHT.JS */
+
+.token.inserted {
+	color: green;
+}
+
+pre[class*="language-"].line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre[class*="language-"].line-numbers > code {
+	position: relative;
+	white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+/* @end prismJS */
 
 /* @start TOOLTIP */
 .tooltip-container{
@@ -241,6 +385,9 @@ a.hljs-link:hover{
 	padding: 0;
 	display: inline-block;
 	vertical-align: top;
+}
+.header .header-title{
+    color: #fff;
 }
 .header .header-title .title-logo{
 	width: 70px;
@@ -378,8 +525,7 @@ a.hljs-link:hover{
 	margin: 0;
 	padding: 0;
 	display: block;
-	border-bottom: 1px solid #d0d0d0;
-	background: #ffffff;
+	background-color: #ffffff;
 }
 .topbar .container{
 	padding: 0 10px;
@@ -517,6 +663,128 @@ a.hljs-link:hover{
 .content-page:last-child{
 	margin-bottom: 0;
 }
+.content > section{
+    width: 100%;
+    margin: 0;
+    padding: 50px 0 80px 0;
+    display: block;
+    border-top: 1px solid #d0d0d0;
+    background-color: #fff;
+}
+.content > section:first-child{
+    margin-top: 0;
+    padding-top: 25px;
+    border-top: 0;
+}
+.content > section .section-title{
+    color: #50555a;
+    margin: 0 0 15px 0;
+    padding: 10px 0;
+    font-size: 32px;
+    text-align: center;
+    line-height: 64px;
+    font-family: "Alegreya", "Times New Roman", serif;
+    border-bottom: 1px solid #e0e0e0;
+    vertical-align: top;
+}
+.content > section .section-title .fa-stack{
+    margin-right: 10px;
+    font-size: 32px;
+    vertical-align: top;
+}
+.content > section .section-title b{
+    font-weight: 500;
+    vertical-align: top;
+}
+.content > section .section-split{
+    width: 100%;
+    display: table;
+    vertical-align: top;
+}
+.content > section .section-split .section-split-left,
+.content > section .section-split .section-split-right{
+    width: 50%;
+    padding: 15px 0;
+    display: table-cell;
+    vertical-align: top;
+}
+.content > section .section-split .section-split-left{
+    border-right: 1px solid #e0e0e0;
+}
+.content > section .split-title{
+    color: #70757a;
+    margin: 0;
+    font-size: 22px;
+    text-align: center;
+    line-height: 28px;
+    font-family: "Alegreya", "Times New Roman", serif;
+}
+.content > section .split-title b{
+    font-weight: 500;
+}
+.content > section input{
+    width: 200px;
+    margin: 20px 0 0 0;
+}
+.content > section .section-main{
+    width: 100%;
+    margin: 15px 0;
+    padding: 15px 0;
+    text-align: center;
+}
+
+
+.content > section .section-example{
+    width: 800px;
+    margin: 0 auto;
+    padding: 15px 30px;
+    display: block;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.content > section .section-example .example-show{
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 500;
+    font-family: "Alegreya", "Times New Roman", serif;
+    vertical-align: top;
+}
+.content > section .section-example .example-show a{
+    color: #30353a;
+    display: inline-block;
+    vertical-align: top;
+}
+.content > section .section-example .example-show a:after{
+    margin: 0 0 0 5px;
+    content: "\f0d7";
+    display: inline-block;
+    font: normal normal normal 14px/26px FontAwesome;
+    vertical-align: top;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.content > section .section-example.active .example-show a:after{
+    content: "\f0d8";
+}
+.content > section .section-example .example-code{
+    display: none;
+}
+.content > section .section-example.active .example-code{
+    display: block;
+}
+.content > section .section-example .example-code pre,
+.content > section .section-example .example-code pre code{
+    width: 100%;
+    max-width: none;
+}
+
+
+
+
+
+
 .content-area{
 	width: 100%;
 	margin: 20px 0;
@@ -663,3 +931,36 @@ a.hljs-link:hover{
 	vertical-align: top;
 }
 /* @end DOCS */
+/* @start FOOTER */
+.footer{
+	color: #777777;
+	width: 100%;
+	margin: 0;
+	padding: 50px 0;
+	display: block;
+	font-size: 14px;
+	line-height: 24px;
+    border-top: 1px solid #d0d0d0;
+	background-color: #fafafa;
+}
+.footer a{
+	color: #333333;
+	padding: 0 3px;
+	border-bottom: 1px solid transparent;
+}
+.footer a:hover{
+	color: #E36209;
+	border-color: #E36209;
+}
+.footer .footer-left,
+.footer .footer-right{
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	vertical-align: top;
+}
+.footer .footer-right{
+	float: right;
+	text-align: right;
+}
+/* @end FOOTER */

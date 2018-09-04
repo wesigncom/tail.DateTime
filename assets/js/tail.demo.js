@@ -1,6 +1,30 @@
 (function(){
 	"use strict";
-	
+
+    /*
+     |  HELPER METHODs
+     |  @since  0.1.2
+     */
+    var tail = {
+        hasClass: function(element, classname){
+            var regex = new RegExp("(|\s+)" + classname + "(\s+|)");
+            return regex.test(element.className);
+        },
+        addClass: function(element, classname){
+            if(!this.hasClass(element, classname)){
+                element.className = (element.className.trim() + " " + classname.trim()).trim();
+            }
+            return element;
+        },
+        removeClass: function(element, classname){
+            var regex = new RegExp("(|\s+)(" + classname + ")(\s+|)");
+            if(regex.test(element.className)){
+                element.className = (element.className.replace(regex, "$1$3")).trim();
+            }
+            return element;
+        }
+    };
+
 	document.addEventListener("DOMContentLoaded", function(){
 		/*
 		 |	PAGE SWITCH
@@ -18,7 +42,7 @@
 						items[i].parentElement.className = "navi-item";
 					}
 				}
-				
+
 				for(var i = 0; i < contents.length; i++){
 					if("#" + contents[i].getAttribute("id") === this.hash){
 						contents[i].style.display = "block";
@@ -36,7 +60,29 @@
 				}
 			}
 		}
-		
+
+        /*
+         |  TOGGLE
+         |  @since  2.0.0
+         */
+        var toggles = document.querySelectorAll("[data-toggle]");
+        for(var i = 0; i < toggles.length; i++){
+            toggles[i].addEventListener("click", function(event){
+                event.preventDefault();
+
+                var target = this;
+                if(this.hasAttribute("data-target")){
+                    target = document.querySelector(this.getAttribute("data-target"));
+                }
+
+                if(!tail.hasClass(target, "active")){
+                    tail.addClass(target, "active");
+                } else {
+                    tail.removeClass(target, "active");
+                }
+            });
+        }
+
 		/*
 		 |	WIDGET CONTENT SWITCH
 		 |	@since	2.0.0
@@ -48,14 +94,14 @@
 					string		= this.getAttribute("title").split("|"),
 					option		= this.getAttribute("data-option").split("|"),
 					icon		= this.children[0].getAttribute("data-icon");
-				
+
 				for(var i = 0; i < articles.length; i++){
 					if(articles[i].className === option[0]){
 						articles[i].style.display = "block";
 					} else {
 						articles[i].style.display = "none";
 					}
-					
+
 				}
 				this.setAttribute("title", string[1] + "|" + string[0]);
 				this.setAttribute("data-option", option[1] + "|" + option[0]);
@@ -68,7 +114,7 @@
 				action[i].click();
 			}
 		}
-		
+
 		/*
 		 |	TOOLTIP
 		 |	@since	2.0.0
@@ -77,7 +123,7 @@
 			tooltipID	= 0,
 			toolSwitch	= function(event){
 				event.preventDefault();
-				
+
 				if(event.type === "mouseenter"){
 					if(this.getAttribute("data-tooltip") == null){
 						// Create Element
@@ -87,7 +133,7 @@
 							tooltip.className 	= "tooltip-container";
 						var toolicon			= document.createElement("SPAN");
 							tooltip.appendChild(toolicon);
-						
+
 						// Get Offset Position
 						var temp = this, position = {top: this.offsetHeight, left: 0, width: 0};
 						while(true){
@@ -98,7 +144,7 @@
 							}
 							temp = temp.offsetParent;
 						}
-						
+
 						// Get Limitation
 						var temp = this.parentElement;
 						while(true){
@@ -114,19 +160,19 @@
 							}
 							temp = temp.parentElement;
 						}
-						
+
 						// Calculate Position
 						if(limit !== undefined){
 							var test = tooltip.cloneNode(true);
 								test.style.visibility = "hidden";
-								
+
 							document.body.appendChild(test);
 							position.width = test.offsetWidth;
 							test.remove();
-							
+
 							var wuff = position.left + this.offsetWidth/2;
 							position.left = position.left - (position.width/2) + (this.offsetWidth/2);
-							
+
 							if(position.left < limit.min){
 								position.left = limit.min;
 								toolicon.style.left = this.offsetWidth/2 + "px";
@@ -139,7 +185,7 @@
 						}
 						tooltip.style.top 	= position.top + "px";
 						tooltip.style.left 	= position.left + "px";
-						
+
 						// Perform
 						this.setAttribute("data-tooltip", "tooltip-" + tooltipID);
 						this.removeAttribute("title");
@@ -149,7 +195,7 @@
 				} else if(event.type === "mouseleave"){
 					if(this.getAttribute("data-tooltip") !== null){
 						var tooltip = document.querySelector("#" + this.getAttribute("data-tooltip"));
-						
+
 						if(tooltip !== null){
 							this.removeAttribute("data-tooltip");
 							this.setAttribute("title", tooltip.innerText);
