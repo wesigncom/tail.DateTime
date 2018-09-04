@@ -1,6 +1,34 @@
 CHANGELOG
 =========
 
+Version 0.3.0 - Alpha
+---------------------
+-   Info: Uses now some Vectors from GitHubs [Octicons](https://octicons.github.com/).
+-   Add: A minified version, minified with [jsCompress](https://jscompress.com/).
+-   Add: A new "white" design, used with `tail.datetime.white.css` (together with the main style sheet).
+-   Add: A new `span` HTML element wraps each single day number.
+-   Add: Events for `open`, `close` and `select` (used with `tail.DateTime::` prefix).
+-   Add: New helper methos `trigger` to trigger tail.DateTime specific CustomEvents.
+-   Add: New Option `static`, which allows a selector or an element as wrapper for a static view.
+-   Add: New option `classNames`, which adds additional class names to the DateTime container.
+-   Add: New option `startOpen`, which opens the picker after init.
+-   Add: New option `stayOpen`, which disables some auto-closing events.
+-   Add: New option `zeroSeconds`, which sets the seconds to 0 on init.
+-   Add: New method `remove()` to remove the DateTime Picker.
+-   Add: Current selected date class name and color.
+-   Add: A colon between hours, minutes and seconds (That was really important!).
+-   Update: The SVG arrows on the default theme has been changed into angle images (Octicon).
+-   Update: All SVG images has been changed into the Octicon vector graphics.
+-   Update: The constructor allows now `NodeList`s and `HTMLCollection`s and uses `querySelectorAll` on strings.
+-   Update: Renamed any `data-fox-*` attribute names into `data-tail-*`.
+-   Update: The internal `element` input variable has renamed into `e`.
+-   Update: The internal `calendar` DateTime Picker variable has renamed into `dt`.
+-   Update: The internal `options` configuration variable has renamed into `con`.
+-   Update: The internal `view` / `current` variables has been merged under `view`.
+-   Update: The internal `select` variable holds the last (current) selected Date and Time as Date object.
+-   Update: The option `dateRange` has renamed into `dateRanges` and allows multiple arrays with Date Objects, Date Values (YYYY-mm-dd) and Week-Day names.
+-   BugFix: Current Date object has been shared between each prototype instance.
+
 Version 0.2.0 - Alpha
 ---------------------
 -   Info: Project has been renamed to `tail.DateTime` and adapted to the tail implementation.
