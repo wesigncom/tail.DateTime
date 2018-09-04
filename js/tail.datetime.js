@@ -2,7 +2,7 @@
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |                 MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
- |  @version       0.3.0 [0.1.0] - Alpha
+ |  @version       0.3.1 [0.1.0] - Alpha
  |
  |  @license       X11 / MIT License
  |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
@@ -116,7 +116,7 @@
         this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
         return this.init();
     };
-    tailDateTime.version = "0.3.0";
+    tailDateTime.version = "0.3.1";
     tailDateTime.status = "alpha";
     tailDateTime.count = 0;
     tailDateTime.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
@@ -164,7 +164,7 @@
         /*
          |  HANDLE :: INIT CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.1
          */
         init: function(){
             if(this.dt){
@@ -232,6 +232,8 @@
             }
 
             // Configure Calendar Widget
+            this.dt.style.top = 0;
+            this.dt.style.left = 0;
             this.dt.style.zIndex = 99;
             this.dt.style.position = (_static)? "static": "absolute";
             this.dt.style.visibility = (_static)? "visible": "hidden";
@@ -241,51 +243,8 @@
                 d.getElementsByTagName("body")[0].appendChild(this.dt);
             }
 
-            // Calc Position
-            if(!_static){
-                var style = w.getComputedStyle(this.dt),
-                    marginX = parseInt(style.marginLeft)+parseInt(style.marginRight),
-                    marginY = parseInt(style.marginTop)+parseInt(style.marginBottom),
-                    position = (function(element){
-                    var position = {
-                        top:    element.offsetTop    || 0,
-                        left:   element.offsetLeft   || 0,
-                        width:  element.offsetWidth  || 0,
-                        height: element.offsetHeight || 0
-                    };
-                    while(element = element.offsetParent){
-                        position.top  += element.offsetTop;
-                        position.left += element.offsetLeft;
-                    }
-                    return position;
-                })(this.e);
-
-                // Set Position
-                switch(this.con.position){
-                    case "top":
-                        this.dt.style.top = position.top - (this.dt.offsetHeight + marginY) + "px";
-                        this.dt.style.left = (position.left + (position.width / 2)) - (this.dt.offsetWidth / 2 + marginX / 2) + "px";
-                        break;
-                    case "left":
-                        this.dt.style.top = (position.top + position.height/2) - (this.dt.offsetHeight / 2 + marginY) + "px";
-                        this.dt.style.left = position.left - (this.dt.offsetWidth + marginX) + "px";
-                        break;
-                    case "right":
-                        this.dt.style.top = (position.top + position.height/2) - (this.dt.offsetHeight / 2 + marginY) + "px";
-                        this.dt.style.left = position.left + position.width + "px";
-                        break;
-                    default:
-                        this.dt.style.top = position.top + position.height + "px";
-                        this.dt.style.left = (position.left + (position.width / 2)) - (this.dt.offsetWidth / 2 + marginX / 2) + "px";
-                        break;
-                }
-                this.dt.style.display = "none";
-                this.dt.style.visibility = "visible";
-            }
-
             // Listen Header
-            var self = this,
-                navi = this.dt.querySelectorAll("[data-tail-navi]");
+            var self = this, navi = this.dt.querySelectorAll("[data-tail-navi]");
             if(navi.length > 0){
                 for(var i = 0; i < navi.length; i++){
                     navi[i].addEventListener("click", function(event){
@@ -376,6 +335,55 @@
                 this.open();
             }
             tailDateTime.instances["tail-" + tailDateTime.count] = this;
+            return this;
+        },
+
+        /*
+         |  HANDLE :: CALCULATE POSITION
+         |  @since  0.3.1
+         */
+        calcPosition: function(){
+            if(tail.hasClass(this.dt, "calendar-static")){
+                return this;
+            }
+            var style = w.getComputedStyle(this.dt),
+                marginX = parseInt(style.marginLeft)+parseInt(style.marginRight),
+                marginY = parseInt(style.marginTop)+parseInt(style.marginBottom),
+                position = (function(element){
+                var position = {
+                    top:    element.offsetTop    || 0,
+                    left:   element.offsetLeft   || 0,
+                    width:  element.offsetWidth  || 0,
+                    height: element.offsetHeight || 0
+                };
+                while(element = element.offsetParent){
+                    position.top  += element.offsetTop;
+                    position.left += element.offsetLeft;
+                }
+                return position;
+            })(this.e);
+
+            // Set Position
+            this.dt.style.visibility = "hidden";
+            switch(this.con.position){
+                case "top":
+                    this.dt.style.top = position.top - (this.dt.offsetHeight + marginY) + "px";
+                    this.dt.style.left = (position.left + (position.width / 2)) - (this.dt.offsetWidth / 2 + marginX / 2) + "px";
+                    break;
+                case "left":
+                    this.dt.style.top = (position.top + position.height/2) - (this.dt.offsetHeight / 2 + marginY) + "px";
+                    this.dt.style.left = position.left - (this.dt.offsetWidth + marginX) + "px";
+                    break;
+                case "right":
+                    this.dt.style.top = (position.top + position.height/2) - (this.dt.offsetHeight / 2 + marginY) + "px";
+                    this.dt.style.left = position.left + position.width + "px";
+                    break;
+                default:
+                    this.dt.style.top = position.top + position.height + "px";
+                    this.dt.style.left = (position.left + (position.width / 2)) - (this.dt.offsetWidth / 2 + marginX / 2) + "px";
+                    break;
+            }
+            this.dt.style.visibility = "visible";
             return this;
         },
 
@@ -554,7 +562,7 @@
         /*
          |  ACTION :: OPEN CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.1
          */
         open: function(){
             if(!tail.hasClass(this.dt, "calendar-close")){
@@ -565,6 +573,7 @@
 
             this.dt.style.opacity = 0;
             this.dt.style.display = "block";
+            this.calcPosition();
             this.animate = setInterval(function(self){
                 self.dt.style.opacity = parseFloat(self.dt.style.opacity) + 0.1;
                 if(parseFloat(self.dt.style.opacity) >= 1){
@@ -712,7 +721,7 @@
         /*
          |  ACTION :: SELECT CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.1
          */
         createCalendar: function(month, year){
             var day = 1, haveDays = true,
@@ -773,7 +782,7 @@
             }
 
             // Today Field
-            if(month === new Date().getMonth()){
+            if(month == new Date().getMonth() && year == new Date().getFullYear()){
                 var today = Array.prototype.slice.call(render.querySelectorAll("td"));
                 today.forEach(function(current, index, array){
                     if(current.innerText === new Date().getDate().toString()){

@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Version 0.3.1 - Alpha
+---------------------
+-   BugFix: Position Absolute doesn't recalculate [#2](https://github.com/pytesNET/tail.DateTime/issues/2)
+-   BugFix: Today on every Year! [#1](https://github.com/pytesNET/tail.DateTime/issues/1)
+
 Version 0.3.0 - Alpha
 ---------------------
 -   Info: Uses now some Vectors from GitHubs [Octicons](https://octicons.github.com/).
@@ -17,6 +22,7 @@ Version 0.3.0 - Alpha
 -   Add: New method `remove()` to remove the DateTime Picker.
 -   Add: Current selected date class name and color.
 -   Add: A colon between hours, minutes and seconds (That was really important!).
+-   Add: The language strings für `de` (German) and `de_AT` (Austrian German)
 -   Update: The SVG arrows on the default theme has been changed into angle images (Octicon).
 -   Update: All SVG images has been changed into the Octicon vector graphics.
 -   Update: The constructor allows now `NodeList`s and `HTMLCollection`s and uses `querySelectorAll` on strings.
