@@ -111,6 +111,7 @@
         }
 
         // Init Prototype Instance
+        str = w.tail.DateTime.strings;
         this.e = element;
         this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
         return this.init();
