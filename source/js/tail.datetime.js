@@ -111,6 +111,7 @@
         }
 
         // Init Prototype Instance
+        str = w.tail.DateTime.strings;
         this.e = element;
         this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
         return this.init();
@@ -689,7 +690,7 @@
                 ((D)? D: ((D == undefined)? this.view.date.getDate(): n.getDate())),
                 ((h)? h: ((h == undefined)? this.view.date.getHours(): 0)),
                 ((i)? i: ((i == undefined)? this.view.date.getMinutes(): 0)),
-                ((s)? s: ((s == undefined)? this.view.date.getSeconds(): 0)),
+                ((s)? s: ((s == undefined)? this.view.date.getSeconds(): 0))
             );
 
             // Trigger

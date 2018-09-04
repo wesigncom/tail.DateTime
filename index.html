@@ -56,7 +56,7 @@
         <!-- Source -->
         <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.css?ver=0.3.0" />-->
         <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.white.css?ver=0.3.0" />-->
-        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.3.0"></script>
+        <script type="text/javascript" src="source/js/tail.datetime.min.js?ver=0.3.0"></script>
 	</head>
 	<body>
 		<div class="tail-demo">
@@ -367,7 +367,7 @@ tail.DateTime("#datetime-3", {
                         var d = document, cur = new Date();
 
                         // Default Demonstration
-                        var e = tail.DateTime("#datetime-1", {
+                        tail.DateTime("#datetime-1", {
                             static: "#datetime-1-holder",
                             classNames: "theme-default",    /* Used for demonstration */
                             startOpen: true,                /* Used for demonstration */
@@ -378,10 +378,6 @@ tail.DateTime("#datetime-3", {
                             classNames: "theme-white",      /* Used for demonstration */
                             startOpen: true,                /* Used for demonstration */
                             stayOpen: true,                 /* Used for demonstration */
-                        });
-
-                        e.on("tail.DateTime::open", function(event){
-                            console.log(this, event);
                         });
 
                         // DateRange Demonstration

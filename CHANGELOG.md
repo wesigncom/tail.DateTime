@@ -4,6 +4,7 @@ CHANGELOG
 Version 0.3.0 - Alpha
 ---------------------
 -   Info: Uses now some Vectors from GitHubs [Octicons](https://octicons.github.com/).
+-   Add: A minified version, minified with [jsCompress](https://jscompress.com/).
 -   Add: A new "white" design, used with `tail.datetime.white.css` (together with the main style sheet).
 -   Add: A new `span` HTML element wraps each single day number.
 -   Add: Events for `open`, `close` and `select` (used with `tail.DateTime::` prefix).
@@ -16,6 +17,7 @@ Version 0.3.0 - Alpha
 -   Add: New method `remove()` to remove the DateTime Picker.
 -   Add: Current selected date class name and color.
 -   Add: A colon between hours, minutes and seconds (That was really important!).
+-   Add: The language strings für `de` (German) and `de_AT` (Austrian German)
 -   Update: The SVG arrows on the default theme has been changed into angle images (Octicon).
 -   Update: All SVG images has been changed into the Octicon vector graphics.
 -   Update: The constructor allows now `NodeList`s and `HTMLCollection`s and uses `querySelectorAll` on strings.
