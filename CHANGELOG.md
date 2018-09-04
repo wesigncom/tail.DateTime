@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Version 0.3.1 - Alpha
+---------------------
+-   BugFix: Position Absolute doesn't recalculate [#2](https://github.com/pytesNET/tail.DateTime/issues/2)
+-   BugFix: Today on every Year! [#1](https://github.com/pytesNET/tail.DateTime/issues/1)
+
 Version 0.3.0 - Alpha
 ---------------------
 -   Info: Uses now some Vectors from GitHubs [Octicons](https://octicons.github.com/).
