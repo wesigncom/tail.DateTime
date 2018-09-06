@@ -2,7 +2,7 @@
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |                 MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
- |  @version       0.3.1 [0.1.0] - Alpha
+ |  @version       0.3.2 [0.1.0] - Alpha
  |
  |  @license       X11 / MIT License
  |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
@@ -116,7 +116,7 @@
         this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
         return this.init();
     };
-    tailDateTime.version = "0.3.1";
+    tailDateTime.version = "0.3.2";
     tailDateTime.status = "alpha";
     tailDateTime.count = 0;
     tailDateTime.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;

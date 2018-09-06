@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Version 0.3.2 - Alpha
+---------------------
+-   Info: npmJS Version Fix.
+-   Add: Spanish translation
+
 Version 0.3.1 - Alpha
 ---------------------
 -   BugFix: Position Absolute doesn't recalculate [#2](https://github.com/pytesNET/tail.DateTime/issues/2)

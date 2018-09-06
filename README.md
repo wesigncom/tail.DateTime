@@ -1,6 +1,6 @@
 tail.DateTime
 =============
-> Version: 0.3.1 (Alpha)<br />
+> Version: 0.3.2 (Alpha)<br />
 > License: X11 / MIT<br />
 > Author: SamBrishes, pytesNET & MrGuiseppe
 
