@@ -6,4 +6,4 @@
         time:   ["Horas", "Minutos", "Segundos"],
         header: ["Selecciona un mes", "Seleccione un año", "Seleccione una hora"],
     };
-})(window);
+})(this);

@@ -1,6 +1,16 @@
 CHANGELOG
 =========
 
+Version 0.3.3 - Alpha
+---------------------
+-   Add: A new internal translate / string function called `__()`.
+-   Add: New `reload()` method, which calls `remove()` and re-inits the DateTime Calendar.
+-   Update: Use `this` to call the main DateTime IIFE function.
+-   Update: Update the selected date when the input field has been filled out manually.
+-   BugFix: Fix Typo and wrong attribute name in `remove()` method.
+-   BugFix: `Enter` / `Return` executes all events, even if just one field is in focus.
+-   Removed: The `dateRange` fallback option has been removed, to clean the source up for the next major version.
+
 Version 0.3.2 - Alpha
 ---------------------
 -   Info: npmJS Version Fix.

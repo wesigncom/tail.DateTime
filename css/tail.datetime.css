@@ -2,7 +2,7 @@
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |                 MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
- |  @version       0.3.2 [0.1.0] - Alpha
+ |  @version       0.3.3 [0.1.0] - Alpha
  |
  |  @license       X11 / MIT License
  |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
@@ -201,10 +201,13 @@
     padding: 0;
     display: table;
     text-align: center;
-    border-top: 1px solid #d0d0d0;
-    background-color: #f8f8f8;
+    background-color: #ffffff;
     border-radius: 0 0 3px 3px;
     -webkit-border-radius: 0 0 3px 3px;
+}
+.tail-datetime-calendar .calendar-date+.calendar-time{
+    border-top: 1px solid #d0d0d0;
+    background-color: #f8f8f8;
 }
 .tail-datetime-calendar .calendar-time .calendar-field{
     width: 33.3333333333%;
