@@ -2,14 +2,15 @@
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |                 MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
- |  @version       0.3.1 [0.1.0] - Alpha
+ |  @version       0.3.3 [0.1.0] - Alpha
  |
  |  @license       X11 / MIT License
  |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  |                 Copyright © 2018 - MrGuiseppe <https://github.com/MrGuiseppe>
  */
-;(function(w, d){
+;(function(w){
     "use strict";
+    var d = w.document;
 
     /*
      |  HELPER METHODs
@@ -46,7 +47,7 @@
     /*
      |  CONSTRUCTOR
      |  @since  0.1.0
-     |  @update 0.3.0
+     |  @update 0.3.3
      */
     var tailDateTime = function(element, config){
         if(typeof(element) == "string"){
@@ -74,21 +75,15 @@
             return tailDateTime.instances[element.getAttribute("data-tail-calendar")];
         }
 
-        // Convert `dateRange` into `dateRanges`
-        if(typeof(config.dateRange) == "Object" && config.dateRange instanceof Array){
-            config.dateRanges = config.dateRange;
-        }
-        delete config.dateRange;
-
         // Vaildate DateRange
         if(config.dateRanges && config.dateRanges.length > 0){
             for(var t, i = 0; i < config.dateRanges.length; i++){
                 t = config.dateRanges[i];
 
                 // Week-Day
-                if(typeof(t[0]) == "string" && str.shorts.indexOf(t[0]) >= 0){
-                    t[0] = str.shorts.indexOf(t[0]);
-                    t[1] = (t.length >= 2 && str.shorts.indexOf(t[1]) >= 0)? str.shorts.indexOf(t[1]): 6;
+                if(typeof(t[0]) == "string" && __("shorts").indexOf(t[0]) >= 0){
+                    t[0] = __("shorts").indexOf(t[0]);
+                    t[1] = (t.length >= 2 && __("shorts").indexOf(t[1]) >= 0)? __("shorts").indexOf(t[1]): 6;
                     continue;
                 }
 
@@ -111,12 +106,11 @@
         }
 
         // Init Prototype Instance
-        str = w.tail.DateTime.strings;
         this.e = element;
         this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
         return this.init();
     };
-    tailDateTime.version = "0.3.1";
+    tailDateTime.version = "0.3.3";
     tailDateTime.status = "alpha";
     tailDateTime.count = 0;
     tailDateTime.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
@@ -149,7 +143,15 @@
         time:   ["Hours", "Minutes", "Seconds"],
         header: ["Select a Month", "Select a Year", "Select a Time"],
     };
-    var str = tailDateTime.strings;
+    var __ = function(string, number){
+        if(string in w.tail.DateTime.strings){
+            if(number !== undefined){
+                return w.tail.DateTime.strings[string][number];
+            }
+            return w.tail.DateTime.strings[string];
+        }
+        return false;
+    }
 
     /*
      |  METHODS
@@ -164,7 +166,7 @@
         /*
          |  HANDLE :: INIT CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.1
+         |  @update 0.3.3
          */
         init: function(){
             if(this.dt){
@@ -197,7 +199,7 @@
                 this.dt.innerHTML = '' +
                     '<div class="calendar-navi">' +
                     '    <span data-tail-navi="check" class="calendar-button button-check"></span>' +
-                    '    <span data-tail-navi="switch" class="calendar-label">' + str.header[2] + '</span>' +
+                    '    <span data-tail-navi="switch" class="calendar-label">' + __("header", 2) + '</span>' +
                     '    <span data-tail-navi="close" class="calendar-button button-close"></span>' +
                     '</div>' +
                     ((this.con.timeFormat)? '<div class="calendar-time">' + this.renderTime() + '</div>': '');
@@ -283,6 +285,29 @@
             // Listen Input
             this.e.addEventListener("focusin", function(event){
                 self.open.call(self);
+            });
+            this.e.addEventListener("focusout", function(event){
+                var select = new Date(Date.parse(this.value));
+                if(!isNaN(select.getDate())){
+                    self.selectDate.call(self,
+                        select.getFullYear(), select.getMonth(), select.getDate(),
+                        select.getHours(), select.getMinutes(), select.getSeconds()
+                    );
+                    self.switchMonth.call(self, select.getMonth(), select.getFullYear());
+                }
+            });
+            this.e.addEventListener("keyup", function(event){
+                if(event.keyCode == 13){
+                    var select = new Date(Date.parse(this.value));
+                    if(!isNaN(select.getDate())){
+                        self.selectDate.call(self,
+                            select.getFullYear(), select.getMonth(), select.getDate(),
+                            select.getHours(), select.getMinutes(), select.getSeconds()
+                        );
+                        self.switchMonth.call(self, select.getMonth(), select.getFullYear());
+                    }
+                    event.stopPropagation();
+                }
             });
             d.addEventListener("keyup", function(event){
                 if(tail.hasClass(self.dt, "calendar-open") && event.keyCode == 27){
@@ -390,7 +415,7 @@
         /*
          |  HANDLE :: SWITCH VIEW
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.3
          */
         switchView: function(view){
             if(!this.con.dateFormat){
@@ -405,7 +430,7 @@
                 this.dt.querySelector(".calendar-label").innerText = this.view.date.getFullYear();
             } else {
                 this.dt.children[1].innerHTML = this.renderDay();
-                this.dt.querySelector(".calendar-label").innerText = str.months[this.view.date.getMonth()] + " " + this.view.date.getFullYear();
+                this.dt.querySelector(".calendar-label").innerText = __("months", this.view.date.getMonth()) + " " + this.view.date.getFullYear();
 
                 // Disable on Ranges
                 var ranges = this.con.dateRanges, current = this.view.date,
@@ -494,16 +519,16 @@
         /*
          |  RENDER :: DAY VIEW
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.3
          */
         renderDay: function(){
-            var start = str.shorts.indexOf(this.con.weekStart),
-                week  = str.shorts.slice(start);
-                week  = week.concat(str.shorts.slice(0, start));
+            var start = __("shorts").indexOf(this.con.weekStart),
+                week  = __("shorts").slice(start);
+                week  = week.concat(__("shorts").slice(0, start));
 
             var content = '<table class="calendar-day"><thead><tr>';
             for(var i = 0; i < 7; i++){
-                content += '<th data-tail-day="' + str.shorts.indexOf(week[i]) + '">' + week[i] + '</th>';
+                content += '<th data-tail-day="' + __("shorts").indexOf(week[i]) + '">' + week[i] + '</th>';
             }
             content += "</tr></thead><tbody>";
             content += this.createCalendar(this.view.date.getMonth(), this.view.date.getFullYear()).render();
@@ -514,11 +539,11 @@
         /*
          |  RENDER :: MONTH VIEW
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.3
          */
         renderMonth: function(){
-            var strings = str.months;
-            var content = '<table class="calendar-month"><thead><tr><th colspan="4">' + str.header[0] + '</th></tr></thead><tbody>';
+            var strings = __("months");
+            var content = '<table class="calendar-month"><thead><tr><th colspan="4">' + __("header", 0) + '</th></tr></thead><tbody>';
             for(var i = 0; i < 12; i++){
                 content += '<tr>';
                 content += '<td class="calendar-month" data-tail-month="0"><span>' + strings[i++] + '</span></td>';
@@ -533,21 +558,21 @@
         /*
          |  RENDER :: TIME VIEW
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.3
          */
         renderTime: function(){
             return '' +
                 '<div class="calendar-field calendar-field-h">' +
                 '    <input type="number" value="' + new Date().getHours() + '" min="00" max="23" step="1" />' +
-                '    <label>' + str.time[0] + '</label>' +
+                '    <label>' + __("time", 0) + '</label>' +
                 '</div>' +
                 '<div class="calendar-field calendar-field-m">' +
                 '    <input type="number" value="' + new Date().getMinutes() + '" min="00" max="59" step="1" />' +
-                '    <label>' + str.time[1] + '</label>' +
+                '    <label>' + __("time", 1) + '</label>' +
                 '</div>' +
                 '<div class="calendar-field calendar-field-s">' +
                 '    <input type="number" value="' + new Date().getSeconds() + '" min="00" max="59" step="1" />' +
-                '    <label>' + str.time[2] + '</label>' +
+                '    <label>' + __("time", 2) + '</label>' +
                 '</div>';
         },
 
@@ -638,9 +663,19 @@
          |  @since  0.3.0
          */
         remove: function(){
-            this.e.removeAttribute("data-fox-calendar");
-            this.td.parentElement.removeChild(this.td);
+            this.e.removeAttribute("data-tail-calendar");
+            this.e.removeAttribute("data-tail-value");
+            this.dt.parentElement.removeChild(this.dt);
             return null;
+        },
+
+        /*
+         |  ACTION :: REMOVE CALENDAR
+         |  @since  0.3.3
+         */
+        reload: function(){
+            this.remove();
+            return new tailDateTime(this.e, this.con);
         },
 
         /*
@@ -721,7 +756,7 @@
         /*
          |  ACTION :: SELECT CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.1
+         |  @update 0.3.3
          */
         createCalendar: function(month, year){
             var day = 1, haveDays = true,
@@ -730,7 +765,7 @@
                 calendar = [];
 
             // Calc start Day
-            startDay = startDay-str.shorts.indexOf(this.con.weekStart);
+            startDay = startDay-__("shorts").indexOf(this.con.weekStart);
             if(startDay < 0){
                 startDay = 7 + startDay;
             }
@@ -803,7 +838,7 @@
         /*
          |  CONVERT DATE
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.3
          */
         convertDate: function(inDate, format){
             var dateObject = {
@@ -819,11 +854,11 @@
                 Y: inDate.getFullYear(),
                 y: parseInt(inDate.getFullYear().toString().slice(2)),
                 m: String("00" + (inDate.getMonth() + 1)).toString().slice(-2),
-                M: str.months[inDate.getMonth()].slice(0, 3),
-                F: str.months[inDate.getMonth()],
+                M: __("months", [inDate.getMonth()]).slice(0, 3),
+                F: __("months", [inDate.getMonth()]),
                 d: String("00" + inDate.getDate()).toString().slice(-2),
-                D: str.days[inDate.getDay()],
-                l: str.shorts[inDate.getDay()].toLowerCase()
+                D: __("days", [inDate.getDay()]),
+                l: __("shorts", [inDate.getDay()]).toLowerCase()
             };
 
             var regex = new RegExp("(H{1,2}|G{1,2}|i{1,2}|s{1,2}|Y{2,4}|y{2}|m{1,2}|d{1,2})", "g");
@@ -851,4 +886,4 @@
         w.tail = {};
     }
     w.tail.DateTime = tailDateTime;
-})(window, document);
+})(this);

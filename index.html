@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-	<head>
+    <head>
         <meta charset="utf-8" />
         <meta http-equiv="content-language" content="en" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -45,102 +45,85 @@
         <meta name="og:description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
 
         <!-- Assets -->
-        <link type="text/css" rel="stylesheet" href="assets/css/font-awesome.min.css?ver=4.7.0" />
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.0.0" />
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.3.1" />
-        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya:400,500" />
-
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.1.0" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.3.3" />
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i|Crimson+Text:400,600|Oswald:400,500" />
         <script type="text/javascript" src="assets/js/prism.min.js?ver=1.15.0"></script>
-        <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.0.0"></script>
+        <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.1.0"></script>
 
         <!-- Source -->
-        <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.css?ver=0.3.1" />-->
-        <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.white.css?ver=0.3.1" />-->
-        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.3.1"></script>
-	</head>
-	<body>
-		<div class="tail-demo">
-			<div class="header">
-				<div class="container">
-                    <a href="https://pytesNET.github.io/tail.DateTime" class="header-title">
-                        <div class="title-logo">
-                            <div class="logo-tail"></div>
+        <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.css?ver=0.3.3" />-->
+        <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.white.css?ver=0.3.3" />-->
+        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.3.3"></script>
+    </head>
+    <body>
+        <div class="header">
+            <div class="container">
+                <div class="container-left header-left">
+                    <a href="" class="tail">
+                        <div class="tail-logo">
+                            <div class="tail-logo-circle"></div>
                         </div>
-                        <div class="title-text">
-                            <div class="title-name"><span>tail.</span>DateTime</div>
-                            <div class="title-version">0.3.1 - <span>Alpha</span></div>
+                        <div class="tail-project">
+                            <span class="tail-title">tail.<b>DateTime</b></span>
+                            <span class="tail-version">0.3.2 - <b>Alpha</b></span>
                         </div>
                     </a>
-					<div class="header-navi">
-						<ul	class="navi">
-							<li class="navi-item item-intern"><a href="#demo" title="View Demonstration">Demo</a></li>
-							<!--<li class="navi-item item-intern"><a href="https://github.com/pytesNET/tail.DateTime" title="Read Documentation">Docs</a></li>-->
-							<li class="navi-item item-extern"><a href="https://github.com/pytesNET/tail.DateTime" title="Visit the GitHub Page"><span class="fa fa-github"></span>GitHub</a></li>
-							<li class="navi-item item-extern"><a href="https://github.com/pytesNET/tail.DateTime/archive/master.zip" title="Download on Github"><span class="fa fa-download"></span>Download</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
+                </div>
+                <div class="container-right header-right">
+                    <ul class="main-navi">
+                        <li class="navi-item item-internal active"><a href="./index.html"><span>Demo</span></a></li>
+                        <li class="navi-item item-internal"><a href="./docs.html"><span>Docs</span></a></li>
+                        <li class="navi-item item-external"><a href="https://www.github.com/pytesNET/tail.datetime"><span>GitHub</span></a></li>
+                        <li class="navi-item item-external"><a href="https://github.com/pytesNET/tail.DateTime/archive/master.zip"><span>Download</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-			<div class="topbar">
-				<div class="container">
-					<div class="topbar-left">
-						<div class="topbar-meta meta-vanilla" title="This Script is available for JS Vanilla">
-							<span>JS</span>
-							<span>Vanilla</span>
-						</div>
-					</div>
-					<div class="topbar-right">
-						<div class="topbar-meta meta-ie" title="Untested" data-tooltip="">
-							<span><span class="fa fa-internet-explorer"></span></span>
-							<span>NaN</span>
-						</div>
+        <div class="toolbar">
+            <div class="container">
+                <div class="container-left toolbar-left">
+                    <span class="label">Written in</span>
+                    <span class="javascript" data-tooltip="Vanilla JavaScript">JavaScript</span>
+                </div>
+                <div class="container-right toolbar-right">
+                    <ul>
+                        <li class="firefox" data-tooltip="Mozilla Firefox"></li>
+                        <li class="chrome" data-tooltip="Google Chrome"></li>
+                        <li class="opera" data-tooltip="Opera"></li>
+                        <li class="ie" data-tooltip="Internet Explorer"></li>
+                    </ul>
+                    <span class="label">Supported</span>
+                </div>
+            </div>
+        </div>
 
-						<div class="topbar-meta meta-chrome" title="Untested" data-tooltip="">
-							<span><span class="fa fa-chrome"></span></span>
-							<span>Latest</span>
-						</div>
-
-						<div class="topbar-meta meta-firefox" title="Untested" data-tooltip="">
-							<span><span class="fa fa-firefox"></span></span>
-							<span>Latest</span>
-						</div>
-
-						<div class="topbar-meta meta-opera" title="Untested" data-tooltip="">
-							<span><span class="fa fa-opera"></span></span>
-							<span>Latest</span>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="content">
-                <section>
-                    <div class="container">
-                        <div class="section-title">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x"></i>
-                              <i class="fa fa-calendar-check-o fa-stack-1x fa-inverse" style="padding-left: 3px;"></i>
-                            </span>
-                            A simple <b>DateTime</b> Picker ...
-                        </div>
-                        <div class="section-split">
-                            <div class="section-split-left" style="text-align: center;">
-                                <div class="split-title">Default Design</div>
-                                <input type="text" id="datetime-1" value="" />
-                                <div id="datetime-1-holder"></div>
+        <div class="content">
+            <section class="demo-content">
+                <div class="container">
+                    <header>A simple <b>DateTime</b> Picker...</header>
+                    <div class="table">
+                        <article>
+                            <h1>Default Design</h1>
+                            <div>
+                                <input type="text" id="datetime-1" class="datetime" />
+                                <div id="datetime-1-holder" class="datetime-folder"></div>
                             </div>
-                            <div class="section-split-right" style="text-align: center;">
-                                <div class="split-title">White Design</div>
-                                <input type="text" id="datetime-2" value="" />
-                                <div id="datetime-2-holder"></div>
+                        </article>
+                        <article>
+                            <h1>White Design</h1>
+                            <div>
+                                <input type="text" id="datetime-2" class="datetime" />
+                                <div id="datetime-2-holder" class="datetime-folder"></div>
                             </div>
-                        </div>
-
-                        <div id="example-code-1" class="section-example">
-                            <div class="example-show"><a href="#" data-toggle="active" data-target="#example-code-1">Show Example Code</a></div>
-                            <div class="example-code">
-<pre class="lang-javascript line-numbers"><code>tail.DateTime("#datetime-1", {
+                        </article>
+                    </div>
+                    <footer>
+                        <div class="example-label" data-handle="example">Show Example Code</div>
+                        <div class="example-code">
+                            <div>
+<pre class="language-javascript line-numbers"><code>tail.DateTime("#datetime-1", {
     static: "#datetime-1-holder",   /* Used for demonstration */
     classNames: "theme-default",    /* Used for demonstration */
     startOpen: true,                /* Used for demonstration */
@@ -148,34 +131,33 @@
 });</code></pre>
                             </div>
                         </div>
+                    </footer>
+                </div>
+            </section>
+
+            <section class="demo-content">
+                <div class="container">
+                    <header>... with configurable <b>Ranges</b> of selectable <b>Dates</b>.</header>
+                    <div class="table">
+                        <article>
+                            <h1>Default Design</h1>
+                            <div>
+                                <input type="text" id="datetime-3" class="datetime" />
+                                <div id="datetime-3-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
+                        <article>
+                            <h1>White Design</h1>
+                            <div>
+                                <input type="text" id="datetime-4" class="datetime" />
+                                <div id="datetime-4-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
                     </div>
-                </section>
-
-                <section>
-                    <div class="container">
-                        <div class="section-title">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x"></i>
-                              <i class="fa fa-calendar-times-o fa-stack-1x fa-inverse" style="padding-left: 3px;"></i>
-                            </span>
-                            ... with configurable <b>Ranges</b> of selectable <b>Dates</b>.
-                        </div>
-                        <div class="section-split">
-                            <div class="section-split-left" style="text-align: center;">
-                                <div class="split-title">Default Design</div>
-                                <input type="text" id="datetime-3" value="" />
-                                <div id="datetime-3-holder"></div>
-                            </div>
-                            <div class="section-split-right" style="text-align: center;">
-                                <div class="split-title">White Design</div>
-                                <input type="text" id="datetime-4" value="" />
-                                <div id="datetime-4-holder"></div>
-                            </div>
-                        </div>
-
-                        <div id="example-code-2" class="section-example">
-                            <div class="example-show"><a href="#" data-toggle="active" data-target="#example-code-2">Show Example Code</a></div>
-                            <div class="example-code">
+                    <footer>
+                        <div class="example-label" data-handle="example">Show Example Code</div>
+                        <div class="example-code">
+                            <div>
 <pre class="lang-javascript line-numbers"><code>var month = new Date().getMonth();
 
 tail.DateTime("#datetime-3", {
@@ -193,34 +175,33 @@ tail.DateTime("#datetime-3", {
 });</code></pre>
                             </div>
                         </div>
+                    </footer>
+                </div>
+            </section>
+
+            <section class="demo-content">
+                <div class="container">
+                    <header>Used without a <b>Date</b> ...</header>
+                    <div class="table">
+                        <article>
+                            <h1>Default Design</h1>
+                            <div>
+                                <input type="text" id="datetime-5" class="datetime" />
+                                <div id="datetime-5-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
+                        <article>
+                            <h1>White Design</h1>
+                            <div>
+                                <input type="text" id="datetime-6" class="datetime" />
+                                <div id="datetime-6-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
                     </div>
-                </section>
-
-                <section>
-                    <div class="container">
-                        <div class="section-title">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x"></i>
-                              <i class="fa fa-clock-o fa-stack-1x fa-inverse" style="padding-left: 0px;"></i>
-                            </span>
-                            Use it without a <b>Date Picker</b> ...
-                        </div>
-                        <div class="section-split">
-                            <div class="section-split-left" style="text-align: center;">
-                                <div class="split-title">Default Design</div>
-                                <input type="text" id="datetime-5" value="" />
-                                <div id="datetime-5-holder"></div>
-                            </div>
-                            <div class="section-split-right" style="text-align: center;">
-                                <div class="split-title">White Design</div>
-                                <input type="text" id="datetime-6" value="" />
-                                <div id="datetime-6-holder"></div>
-                            </div>
-                        </div>
-
-                        <div id="example-code-3" class="section-example">
-                            <div class="example-show"><a href="#" data-toggle="active" data-target="#example-code-3">Show Example Code</a></div>
-                            <div class="example-code">
+                    <footer>
+                        <div class="example-label" data-handle="example">Show Example Code</div>
+                        <div class="example-code">
+                            <div>
 <pre class="lang-javascript line-numbers"><code>tail.DateTime("#datetime-5", {
     dateFormat: false,
 
@@ -231,34 +212,33 @@ tail.DateTime("#datetime-3", {
 });</code></pre>
                             </div>
                         </div>
+                    </footer>
+                </div>
+            </section>
+
+            <section class="demo-content">
+                <div class="container">
+                    <header>... or without <b>Time</b>!</header>
+                    <div class="table">
+                        <article>
+                            <h1>Default Design</h1>
+                            <div>
+                                <input type="text" id="datetime-7" class="datetime" />
+                                <div id="datetime-7-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
+                        <article>
+                            <h1>White Design</h1>
+                            <div>
+                                <input type="text" id="datetime-8" class="datetime" />
+                                <div id="datetime-8-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
                     </div>
-                </section>
-
-                <section>
-                    <div class="container">
-                        <div class="section-title">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x"></i>
-                              <i class="fa fa-calendar fa-stack-1x fa-inverse" style="padding-left: 0px;"></i>
-                            </span>
-                            ... or without a <b>Time Picker</b>, of course!
-                        </div>
-                        <div class="section-split">
-                            <div class="section-split-left" style="text-align: center;">
-                                <div class="split-title">Default Design</div>
-                                <input type="text" id="datetime-7" value="" />
-                                <div id="datetime-7-holder"></div>
-                            </div>
-                            <div class="section-split-right" style="text-align: center;">
-                                <div class="split-title">White Design</div>
-                                <input type="text" id="datetime-8" value="" />
-                                <div id="datetime-8-holder"></div>
-                            </div>
-                        </div>
-
-                        <div id="example-code-4" class="section-example">
-                            <div class="example-show"><a href="#" data-toggle="active" data-target="#example-code-4">Show Example Code</a></div>
-                            <div class="example-code">
+                    <footer>
+                        <div class="example-label" data-handle="example">Show Example Code</div>
+                        <div class="example-code">
+                            <div>
 <pre class="lang-javascript line-numbers"><code>tail.DateTime("#datetime-7", {
     timeFormat: false,
 
@@ -269,34 +249,33 @@ tail.DateTime("#datetime-3", {
 });</code></pre>
                             </div>
                         </div>
+                    </footer>
+                </div>
+            </section>
+
+            <section class="demo-content">
+                <div class="container">
+                    <header>Configure the <b>Output Format</b> ...</header>
+                    <div class="table">
+                        <article>
+                            <h1>Default Design</h1>
+                            <div>
+                                <input type="text" id="datetime-9" class="datetime" data-tail-value="1993-03-17 20:15:30" />
+                                <div id="datetime-9-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
+                        <article>
+                            <h1>White Design</h1>
+                            <div>
+                                <input type="text" id="datetime-10" class="datetime" data-tail-value="1980-12-28 12:15:30" />
+                                <div id="datetime-10-holder" class="datetime-folder"></div>
+                            </div>
+                        </article>
                     </div>
-                </section>
-
-                <section>
-                    <div class="container">
-                        <div class="section-title">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x"></i>
-                              <i class="fa fa-calendar-o fa-stack-1x fa-inverse" style="padding-left: 0px;"></i>
-                            </span>
-                            Configure the <b>Output Format</b> ...
-                        </div>
-                        <div class="section-split">
-                            <div class="section-split-left" style="text-align: center;">
-                                <div class="split-title">Default Design</div>
-                                <input type="text" id="datetime-9" value="" data-tail-value="1993-03-17 20:15:30" style="width: 275px;" />
-                                <div id="datetime-9-holder"></div>
-                            </div>
-                            <div class="section-split-right" style="text-align: center;">
-                                <div class="split-title">White Design</div>
-                                <input type="text" id="datetime-10" value="" data-tail-value="1980-12-28 12:15:30" style="width: 275px;" />
-                                <div id="datetime-10-holder"></div>
-                            </div>
-                        </div>
-
-                        <div id="example-code-5" class="section-example">
-                            <div class="example-show"><a href="#" data-toggle="active" data-target="#example-code-5">Show Example Code</a></div>
-                            <div class="example-code">
+                    <footer>
+                        <div class="example-label" data-handle="example">Show Example Code</div>
+                        <div class="example-code">
+                            <div>
 <pre class="lang-javascript line-numbers"><code>tail.DateTime("#datetime-9", {
     dateFormat: "M. dd, YYYY -",    /* "(D) dd. F YYYY -" used on the right */
 
@@ -307,176 +286,169 @@ tail.DateTime("#datetime-3", {
 });</code></pre>
                             </div>
                         </div>
-                    </div>
-                </section>
+                    </footer>
+                </div>
+            </section>
 
-                <section>
-                    <div class="container">
-                        <div class="section-title">
-                            <span class="fa-stack fa-lg">
-                              <i class="fa fa-circle fa-stack-2x"></i>
-                              <i class="fa fa-calendar-o fa-stack-1x fa-inverse" style="padding-left: 0px;"></i>
-                            </span>
-                            ... and choose your <b>Position</b> wisely!
+            <section class="demo-content">
+                <div class="container">
+                    <header>.... and choose your <b>Position</b> wisely!</header>
+                    <article>
+                        <div class="example">
+                            <input type="text" id="datetime-11" class="datetime" placeholder="Bottom Position" />
                         </div>
-                        <div class="section-main">
-                            <div class="split-title">Bottom Center</div>
-                            <input type="text" id="datetime-11" value="" style="width: 275px;" />
+                        <div class="example">
+                            <input type="text" id="datetime-12" class="datetime" placeholder="Left Position" />
                         </div>
-                        <div class="section-main">
-                            <div class="split-title">Left Center</div>
-                            <input type="text" id="datetime-12" value="" style="width: 275px;" />
+                        <div class="example">
+                            <input type="text" id="datetime-13" class="datetime" placeholder="Right Position" />
                         </div>
-                        <div class="section-main">
-                            <div class="split-title">Right Center</div>
-                            <input type="text" id="datetime-13" value="" style="width: 275px;" />
+                        <div class="example">
+                            <input type="text" id="datetime-14" class="datetime" placeholder="Top Position" />
                         </div>
-                        <div class="section-main">
-                            <div class="split-title">Top Center</div>
-                            <input type="text" id="datetime-14" value="" style="width: 275px;" />
-                        </div>
-
-                        <div id="example-code-6" class="section-example">
-                            <div class="example-show"><a href="#" data-toggle="active" data-target="#example-code-6">Show Example Code</a></div>
-                            <div class="example-code">
+                    </article>
+                    <footer>
+                        <div class="example-label" data-handle="example">Show Example Code</div>
+                        <div class="example-code">
+                            <div>
 <pre class="lang-javascript line-numbers"><code>tail.DateTime("#datetime-11", {
     position: "bottom"      /* "left", "right", "top" */
 });</code></pre>
                             </div>
                         </div>
-                    </div>
-                </section>
-			</div>
+                    </footer>
+                </div>
+            </section>
+        </div>
 
-            <div class="footer">
-                <div class="container">
-                    <div class="footer-left">
-                        Copyright &copy; 2018 SamBrishes @ pytesNET<br />
-                        Published under the MIT / X11 License
-                    </div>
-                    <div class="footer-right">
-                        Star, Fork and Download on <a href="https://github.com/pytesNET/tail.DateTime"><span class="fa fa-github"></span> <b>GitHub</b>!</a><br />
-                        This is a Fork of MrGuiseppes <a href="https://github.com/MrGuiseppe/pureJSCalendar"><span class="fa fa-github"></span> <b>pureJSCalendar</b>!</a>
-                    </div>
+        <div class="footer">
+            <div class="container">
+                <div class="container-left footer-left">
+                    Copyright &copy; 2018 SamBrishes @ pytesNET<br />
+                    Published under the MIT / X11 License
+                </div>
+                <div class="container-right footer-right">
+                    Star, Fork and Download on <a href="https://github.com/pytesNET/tail.DateTime"><b>GitHub</b>!</a><br />
+                    This is a Fork of MrGuiseppes <a href="https://github.com/MrGuiseppe/pureJSCalendar"><b>pureJSCalendar</b>!</a>
                 </div>
             </div>
+        </div>
 
-			<div class="js-footer">
-                <script type="text/javascript">
-                    document.addEventListener("DOMContentLoaded", function(){
-                        var d = document, cur = new Date();
+        <div class="js-footer">
+            <script type="text/javascript">
+                document.addEventListener("DOMContentLoaded", function(){
+                    var d = document, cur = new Date();
 
-                        // Default Demonstration
-                        tail.DateTime("#datetime-1", {
-                            static: "#datetime-1-holder",
-                            classNames: "theme-default",    /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-                        tail.DateTime("#datetime-2", {
-                            static: "#datetime-2-holder",   /* Used for demonstration */
-                            classNames: "theme-white",      /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-
-                        // DateRange Demonstration
-                        var month = new Date().getMonth();
-                        tail.DateTime("#datetime-3", {
-                            dateRanges: [
-                                [new Date(2018, month, 12), new Date(2018, month, 26)],
-                                ["2018-" + month.toString() + "-4", "2018-" + month.toString() + "-30"],
-                                [new Date(2018, month+1, 1), new Date(2018, month+1, 31)],
-                                ["MON", "FRI"]
-                            ],
-                            static: "#datetime-3-holder",   /* Used for demonstration */
-                            classNames: "theme-default",    /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-                        tail.DateTime("#datetime-4", {
-                            dateRanges: [
-                                [new Date(2018, month, 12), new Date(2018, month, 26)],
-                                ["2018-" + month.toString() + "-4", "2018-" + month.toString() + "-30"],
-                                [new Date(2018, month+1, 1), new Date(2018, month+1, 31)],
-                                ["MON", "FRI"]
-                            ],
-                            static: "#datetime-4-holder",   /* Used for demonstration */
-                            classNames: "theme-white",      /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-
-                        // Time Demonstration
-                        tail.DateTime("#datetime-5", {
-                            dateFormat: false,
-
-                            static: "#datetime-5-holder",   /* Used for demonstration */
-                            classNames: "theme-default",    /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-                        tail.DateTime("#datetime-6", {
-                            dateFormat: false,
-
-                            static: "#datetime-6-holder",   /* Used for demonstration */
-                            classNames: "theme-white",      /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-
-                        // Date Demonstration
-                        tail.DateTime("#datetime-7", {
-                            timeFormat: false,
-
-                            static: "#datetime-7-holder",   /* Used for demonstration */
-                            classNames: "theme-default",    /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-                        tail.DateTime("#datetime-8", {
-                            timeFormat: false,
-
-                            static: "#datetime-8-holder",   /* Used for demonstration */
-                            classNames: "theme-white",      /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-
-                        // Format Demonstration
-                        tail.DateTime("#datetime-9", {
-                            dateFormat: "M. dd, YYYY -",
-
-                            static: "#datetime-9-holder",   /* Used for demonstration */
-                            classNames: "theme-default",    /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-                        tail.DateTime("#datetime-10", {
-                            dateFormat: "(D) dd. F YYYY -",
-
-                            static: "#datetime-10-holder",   /* Used for demonstration */
-                            classNames: "theme-white",      /* Used for demonstration */
-                            startOpen: true,                /* Used for demonstration */
-                            stayOpen: true,                 /* Used for demonstration */
-                        });
-
-                        // Position
-                        tail.DateTime("#datetime-11", {
-                            position: "bottom"
-                        });
-                        tail.DateTime("#datetime-12", {
-                            position: "left"
-                        });
-                        tail.DateTime("#datetime-13", {
-                            position: "right"
-                        });
-                        tail.DateTime("#datetime-14", {
-                            position: "top"
-                        });
+                    // Default Demonstration
+                    tail.DateTime("#datetime-1", {
+                        static: "#datetime-1-holder",
+                        classNames: "theme-default",    /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
                     });
-                </script>
-			</div>
-		</div>
-	</body>
+                    tail.DateTime("#datetime-2", {
+                        static: "#datetime-2-holder",   /* Used for demonstration */
+                        classNames: "theme-white",      /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+
+                    // DateRange Demonstration
+                    var month = new Date().getMonth();
+                    tail.DateTime("#datetime-3", {
+                        dateRanges: [
+                            [new Date(2018, month, 12), new Date(2018, month, 26)],
+                            ["2018-" + month.toString() + "-4", "2018-" + month.toString() + "-30"],
+                            [new Date(2018, month+1, 1), new Date(2018, month+1, 31)],
+                            ["MON", "FRI"]
+                        ],
+                        static: "#datetime-3-holder",   /* Used for demonstration */
+                        classNames: "theme-default",    /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+                    tail.DateTime("#datetime-4", {
+                        dateRanges: [
+                            [new Date(2018, month, 12), new Date(2018, month, 26)],
+                            ["2018-" + month.toString() + "-4", "2018-" + month.toString() + "-30"],
+                            [new Date(2018, month+1, 1), new Date(2018, month+1, 31)],
+                            ["MON", "FRI"]
+                        ],
+                        static: "#datetime-4-holder",   /* Used for demonstration */
+                        classNames: "theme-white",      /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+
+                    // Time Demonstration
+                    tail.DateTime("#datetime-5", {
+                        dateFormat: false,
+
+                        static: "#datetime-5-holder",   /* Used for demonstration */
+                        classNames: "theme-default",    /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+                    tail.DateTime("#datetime-6", {
+                        dateFormat: false,
+
+                        static: "#datetime-6-holder",   /* Used for demonstration */
+                        classNames: "theme-white",      /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+
+                    // Date Demonstration
+                    tail.DateTime("#datetime-7", {
+                        timeFormat: false,
+
+                        static: "#datetime-7-holder",   /* Used for demonstration */
+                        classNames: "theme-default",    /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+                    tail.DateTime("#datetime-8", {
+                        timeFormat: false,
+
+                        static: "#datetime-8-holder",   /* Used for demonstration */
+                        classNames: "theme-white",      /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+
+                    // Format Demonstration
+                    tail.DateTime("#datetime-9", {
+                        dateFormat: "M. dd, YYYY -",
+
+                        static: "#datetime-9-holder",   /* Used for demonstration */
+                        classNames: "theme-default",    /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+                    tail.DateTime("#datetime-10", {
+                        dateFormat: "(D) dd. F YYYY -",
+
+                        static: "#datetime-10-holder",   /* Used for demonstration */
+                        classNames: "theme-white",      /* Used for demonstration */
+                        startOpen: true,                /* Used for demonstration */
+                        stayOpen: true,                 /* Used for demonstration */
+                    });
+
+                    // Position
+                    tail.DateTime("#datetime-11", {
+                        position: "bottom"
+                    });
+                    tail.DateTime("#datetime-12", {
+                        position: "left"
+                    });
+                    tail.DateTime("#datetime-13", {
+                        position: "right"
+                    });
+                    tail.DateTime("#datetime-14", {
+                        position: "top"
+                    });
+                });
+            </script>
+        </div>
+    </body>
 </html>

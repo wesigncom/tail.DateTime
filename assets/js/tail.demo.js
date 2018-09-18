@@ -1,11 +1,27 @@
-(function(){
+(function(window){
 	"use strict";
+    var w = window, d = window.document;
 
     /*
      |  HELPER METHODs
-     |  @since  0.1.2
      */
     var tail = {
+        each: function(elements, callback, end_callback){
+            if(typeof callback !== "function"){
+                return false;
+            }
+
+            if(elements instanceof HTMLElement || elements instanceof Element){
+                callback.call(elements, 1);
+            } else if(elements instanceof NodeList || elements instanceof HTMLCollection){
+                for(var i = 0; i < elements.length; i++){
+                    callback.call(elements[i], (i+1));
+                }
+            }
+            if(typeof end_callback == "function"){
+                end_callback.call(elements);
+            }
+        },
         hasClass: function(element, classname){
             var regex = new RegExp("(|\s+)" + classname + "(\s+|)");
             return regex.test(element.className);
@@ -25,190 +41,89 @@
         }
     };
 
-	document.addEventListener("DOMContentLoaded", function(){
-		/*
-		 |	PAGE SWITCH
-		 |	@since	2.0.0
-		 */
-		var hash 		= window.location.hash,
-			items 		= document.querySelectorAll("li.item-intern a"),
-			contents 	= document.querySelectorAll("div.content-page"),
-			pageSwitch	= function(event){
-				event.preventDefault();
-				for(var i = 0; i < items.length; i++){
-					if(items[i].hash === this.hash){
-						items[i].parentElement.className = "navi-item active";
-					} else {
-						items[i].parentElement.className = "navi-item";
-					}
-				}
+	/*
+	 |	TOOLTIP
+	 */
+    var tooltipID = 0,
+        tooltip = function(event){
+        event.preventDefault();
+        if(event.type === "mouseenter"){
+            if(!this.hasAttribute("data-tooltip-id")){
+                var element = d.createElement("DIV");
+                    element.id = "tooltip-" + ++tooltipID;
+                    element.innerText = this.getAttribute("data-tooltip");
+                    element.className = "tooltip";
+                    element.style.opacity = 0;
+                    element.style.display = "block";
+                    d.body.appendChild(element);
 
-				for(var i = 0; i < contents.length; i++){
-					if("#" + contents[i].getAttribute("id") === this.hash){
-						contents[i].style.display = "block";
-					} else {
-						contents[i].style.display = "none";
-					}
-				}
-			};
-		if(items.length > 0){
-			if(hash === ""){ hash = items[0].hash; }
-			for(var i = 0; i < items.length; i++){
-				items[i].addEventListener("click", pageSwitch);
-				if(items[i].hash === hash){
-					items[i].click();
-				}
-			}
-		}
+                // Get Position
+                var position = function(element){
+                    var position = {
+                        top:    element.offsetTop    || 0,
+                        left:   element.offsetLeft   || 0,
+                        width:  element.offsetWidth  || 0,
+                        height: element.offsetHeight || 0
+                    };
+                    while(element = element.offsetParent){
+                        position.top  += element.offsetTop;
+                        position.left += element.offsetLeft;
+                    }
+                    return position;
+                }(this);
 
-        /*
-         |  TOGGLE
-         |  @since  2.0.0
-         */
-        var toggles = document.querySelectorAll("[data-toggle]");
-        for(var i = 0; i < toggles.length; i++){
-            toggles[i].addEventListener("click", function(event){
+                // Calculate Position
+                element.style.top = (position.top + position.height) + "px";
+                element.style.left = (position.left + (position.width / 2) - (element.offsetWidth / 2)) + "px";
+
+                // Add to Element
+                this.setAttribute("data-tooltip-id", "tooltip-" + tooltipID);
+            }
+            tail.addClass(d.querySelector("#" + this.getAttribute("data-tooltip-id")), "active");
+        } else if(event.type === "mouseleave"){
+            if(this.hasAttribute("data-tooltip-id")){
+                var element = d.querySelector("#" + this.getAttribute("data-tooltip-id"));
+                tail.removeClass(element, "active");
+                this.removeAttribute("data-tooltip-id");
+                (function(e){
+                    setTimeout(function(){ e.parentElement.removeChild(e); }, 150);
+                })(element);
+            }
+        }
+    };
+
+    // Ready
+    d.addEventListener("DOMContentLoaded", function(){
+        tail.each(d.querySelectorAll("*[data-tooltip]"), function(){
+            this.addEventListener("mouseenter", tooltip);
+            this.addEventListener("mouseleave", tooltip);
+        });
+
+        tail.each(d.querySelectorAll("*[data-handle='example']"), function(){
+            this.addEventListener("click", function(event){
                 event.preventDefault();
 
-                var target = this;
-                if(this.hasAttribute("data-target")){
-                    target = document.querySelector(this.getAttribute("data-target"));
-                }
+                var container = this.nextElementSibling;
+                if(!tail.hasClass(container, "active")){
+                    var coptainer = container.cloneNode(true);
+                        coptainer.style.height = "auto";
+                        coptainer.style.position = "absolute";
+                        coptainer.style.visibility = "hidden";
+                        coptainer.className += " active";
 
-                if(!tail.hasClass(target, "active")){
-                    tail.addClass(target, "active");
+                    this.parentElement.appendChild(coptainer);
+                    var height = coptainer.offsetHeight;
+                    this.parentElement.removeChild(coptainer);
+
+                    this.innerText = "Hide Example Code";
+                    tail.addClass(container, "active");
+                    container.style.height = height + "px";
                 } else {
-                    tail.removeClass(target, "active");
+                    container.removeAttribute("style");
+                    this.innerText = "Show Example Code";
+                    tail.removeClass(container, "active");
                 }
             });
-        }
-
-		/*
-		 |	WIDGET CONTENT SWITCH
-		 |	@since	2.0.0
-		 */
-		var action		= document.querySelectorAll(".widget header .widget-option"),
-			artSwitch	= function(event){
-				event.preventDefault();
-				var articles 	= this.parentElement.parentElement.parentElement.querySelectorAll("article"),
-					string		= this.getAttribute("title").split("|"),
-					option		= this.getAttribute("data-option").split("|"),
-					icon		= this.children[0].getAttribute("data-icon");
-
-				for(var i = 0; i < articles.length; i++){
-					if(articles[i].className === option[0]){
-						articles[i].style.display = "block";
-					} else {
-						articles[i].style.display = "none";
-					}
-
-				}
-				this.setAttribute("title", string[1] + "|" + string[0]);
-				this.setAttribute("data-option", option[1] + "|" + option[0]);
-				this.children[0].setAttribute("data-icon", this.children[0].className);
-				this.children[0].className = icon;
-			};
-		if(action.length > 0){
-			for(var i = 0; i < action.length; i++){
-				action[i].addEventListener("click", artSwitch);
-				action[i].click();
-			}
-		}
-
-		/*
-		 |	TOOLTIP
-		 |	@since	2.0.0
-		 */
-		var tooltip 	= document.querySelectorAll(".tooltip"),
-			tooltipID	= 0,
-			toolSwitch	= function(event){
-				event.preventDefault();
-
-				if(event.type === "mouseenter"){
-					if(this.getAttribute("data-tooltip") == null){
-						// Create Element
-						var tooltip 			= document.createElement("DIV");
-							tooltip.id 			= "tooltip-" + tooltipID;
-							tooltip.innerText	= this.title;
-							tooltip.className 	= "tooltip-container";
-						var toolicon			= document.createElement("SPAN");
-							tooltip.appendChild(toolicon);
-
-						// Get Offset Position
-						var temp = this, position = {top: this.offsetHeight, left: 0, width: 0};
-						while(true){
-							position.top 	+= temp.offsetTop;
-							position.left	+= temp.offsetLeft;
-							if(temp.offsetParent === null){
-								break;
-							}
-							temp = temp.offsetParent;
-						}
-
-						// Get Limitation
-						var temp = this.parentElement;
-						while(true){
-							if(temp.className.match(/container/)){
-								var limit = {
-									min: temp.offsetLeft+10,
-									max: temp.offsetLeft-10 + temp.offsetWidth
-								};
-								break;
-							}
-							if(temp.parentElement === null){
-								break;
-							}
-							temp = temp.parentElement;
-						}
-
-						// Calculate Position
-						if(limit !== undefined){
-							var test = tooltip.cloneNode(true);
-								test.style.visibility = "hidden";
-
-							document.body.appendChild(test);
-							position.width = test.offsetWidth;
-							test.remove();
-
-							var wuff = position.left + this.offsetWidth/2;
-							position.left = position.left - (position.width/2) + (this.offsetWidth/2);
-
-							if(position.left < limit.min){
-								position.left = limit.min;
-								toolicon.style.left = this.offsetWidth/2 + "px";
-								toolicon.style.margin = 0;
-							} else if((position.left + position.width) > limit.max){
-								position.left = (limit.max - position.width);
-								toolicon.style.left = wuff - position.left - 8 + "px";
-								toolicon.style.margin = 0;
-							}
-						}
-						tooltip.style.top 	= position.top + "px";
-						tooltip.style.left 	= position.left + "px";
-
-						// Perform
-						this.setAttribute("data-tooltip", "tooltip-" + tooltipID);
-						this.removeAttribute("title");
-						document.body.appendChild(tooltip);
-						tooltipID++;
-					}
-				} else if(event.type === "mouseleave"){
-					if(this.getAttribute("data-tooltip") !== null){
-						var tooltip = document.querySelector("#" + this.getAttribute("data-tooltip"));
-
-						if(tooltip !== null){
-							this.removeAttribute("data-tooltip");
-							this.setAttribute("title", tooltip.innerText);
-							tooltip.remove();
-						}
-					}
-				}
-			};
-		if(tooltip.length > 0){
-			for(var i = 0; i < tooltip.length; i++){
-				tooltip[i].addEventListener("mouseenter", toolSwitch);
-				tooltip[i].addEventListener("mouseleave", toolSwitch);
-			}
-		}
-	});
-})(window, document);
+        });
+    });
+})(this);

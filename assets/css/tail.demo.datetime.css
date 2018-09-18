@@ -190,10 +190,13 @@
     padding: 0;
     display: table;
     text-align: center;
-    border-top: 1px solid #d0d0d0;
-    background-color: #f8f8f8;
+    background-color: #ffffff;
     border-radius: 0 0 3px 3px;
     -webkit-border-radius: 0 0 3px 3px;
+}
+.tail-datetime-calendar .calendar-date+.calendar-time{
+    border-top: 1px solid #d0d0d0;
+    background-color: #f8f8f8;
 }
 .tail-datetime-calendar .calendar-time .calendar-field{
     width: 33.3333333333%;
