@@ -13,7 +13,8 @@ Version 0.3.3 - Alpha
 
 Version 0.3.2 - Alpha
 ---------------------
--   BugFix: NPM
+-   Info: npmJS Version Fix.
+-   Add: Spanish translation
 
 Version 0.3.1 - Alpha
 ---------------------
