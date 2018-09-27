@@ -1,8 +1,9 @@
 tail.DateTime
 =============
-> Version: 0.3.3 (Alpha)<br />
-> License: X11 / MIT<br />
-> Author: SamBrishes, pytesNET & MrGuiseppe
+[![npm](https://img.shields.io/npm/v/tail.datetime.svg?style=flat-square)](https://www.npmjs.com/package/tail.datetime)
+[![npm](https://img.shields.io/npm/dt/tail.datetime.svg?style=flat-square)](https://www.npmjs.com/package/tail.datetime)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Author](https://img.shields.io/badge/Author-SamBrishes@pytesNET-lightgrey.svg?style=flat-square)](https://www.github.com/pytesNET)
 
 **The tail.DateTime script is a fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), written by [MrGuiseppe](https://github.com/MrGuiseppe).** It is specially designed for the new, yet unpublished, backend theme for the FoxCMS. The tail.DateTime script offers the following changes compared to the Pure JS Calendar:
 
@@ -18,7 +19,7 @@ tail.DateTime
 -   "Translatable" Strings through the global variable
 -   And many more... Check out the Changelog for details.
 
-[Simple Demonstration](https://pytesNET.github.io/tail.DateTime/)
+[Demonstration](https://github.pytes.net/tail.DateTime)
 
 Work in Progress
 ----------------

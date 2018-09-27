@@ -5,10 +5,10 @@
     margin: 15px;
     padding: 0;
     display: block;
-    overflow: hidden;
     position: absolute;
     font-family: "Open Sans", Calibri, Arial, sans-serif;
     background-color: #ffffff;
+    border-collapse: separate;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
     border-radius: 3px;
@@ -34,6 +34,7 @@
     border-collapse: separate;
     background-color: #CD283C;
     border-radius: 3px 3px 0 0;
+    -moz-border-radius: 3px 3px 0 0;
     -webkit-border-radius: 3px 3px 0 0;
 }
 .tail-datetime-calendar .calendar-navi span{
