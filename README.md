@@ -19,7 +19,7 @@ tail.DateTime
 -   "Translatable" Strings through the global variable
 -   And many more... Check out the Changelog for details.
 
-[Simple Demonstration](https://pytesNET.github.io/tail.DateTime/)
+[Demonstration](https://github.pytes.net/tail.DateTime)
 
 Work in Progress
 ----------------

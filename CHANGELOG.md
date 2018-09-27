@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+Version 0.3.4 - Alpha
+---------------------
+-   Info: Official support for IE >= 9 starts now :(
+-   Add: New `clone()` helper function as Fallback for IE >= 9.
+-   Add: New `.IE` helper variable for Fallback use for IE >= 9.
+-   Bugfix: Almost complete IE >= 9 support.
+
 Version 0.3.3 - Alpha
 ---------------------
 -   Add: A new internal translate / string function called `__()`.

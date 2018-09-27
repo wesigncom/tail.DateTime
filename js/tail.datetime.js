@@ -2,52 +2,64 @@
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |                 MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
- |  @version       0.3.3 [0.1.0] - Alpha
+ |  @version       0.3.4 [0.1.0] - Alpha
  |
  |  @license       X11 / MIT License
  |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  |                 Copyright © 2018 - MrGuiseppe <https://github.com/MrGuiseppe>
  */
-;(function(w){
+;(function(window){
     "use strict";
-    var d = w.document;
+    var w = window, d = window.document;
 
     /*
      |  HELPER METHODs
      */
     var tail = {
-        hasClass: function(element, classname){
-            var regex = new RegExp("(|\s+)" + classname + "(\s+|)");
-            return regex.test(element.className);
+        hasClass: function(element, name){
+            return (new RegExp("(|\s+)" + name + "(\s+|)")).test(element.className);
         },
-        addClass: function(element, classname){
-            if(!this.hasClass(element, classname)){
-                element.className = (element.className.trim() + " " + classname.trim()).trim();
+        addClass: function(element, name){
+            if(!(new RegExp("(|\s+)" + name + "(\s+|)")).test(element.className)){
+                element.className = (element.className.trim() + " " + name.trim()).trim();
             }
             return element;
         },
-        removeClass: function(element, classname){
-            var regex = new RegExp("(|\s+)(" + classname + ")(\s+|)");
+        removeClass: function(element, name){
+            var regex = new RegExp("(|\s+)(" + name + ")(\s+|)");
             if(regex.test(element.className)){
                 element.className = (element.className.replace(regex, "$1$3")).trim();
             }
             return element;
         },
         trigger: function(element, event, options){
-            if(CustomEvent && typeof(CustomEvent) !== "undefined"){
+            if(CustomEvent && CustomEvent.name){
                 var e = new CustomEvent(event, options);
                 return element.dispatchEvent(e);
             }
             var e = d.createEvent("CustomEvent");
             e.initCustomEvent(event, ((options.bubbles)? true: false), ((options.cancelable)? true: false), options.detail);
             return element.dispatchEvent(e);
+        },
+        clone: function(object, replace){
+            replace = (typeof(replace) == "object")? replace: {};
+            var clone = object.constructor();
+            for(var key in object){
+                if(replace.hasOwnProperty(key)){
+                    clone[key] = replace[key];
+                } else if(object.hasOwnProperty(key)){
+                    clone[key] = object[key];
+                }
+            }
+            return clone;
         }
     };
+    tail.IE = (w.navigator.userAgent.indexOf("MSIE") > -1 || w.navigator.userAgent.indexOf("Edge") > -1);
 
     /*
      |  CONSTRUCTOR
      |  @since  0.1.0
-     |  @update 0.3.3
+     |  @update 0.3.4
      */
     var tailDateTime = function(element, config){
         if(typeof(element) == "string"){
@@ -107,13 +119,18 @@
 
         // Init Prototype Instance
         this.e = element;
-        this.con = Object.assign({}, tailDateTime.defaults, (typeof(config) == "object")? config: {});
+        config = (typeof(config) == "object")? config: {};
+        if(Object.assign){
+            this.con = Object.assign({}, tailDateTime.defaults, config);
+        } else {
+            this.con = tail.clone(tailDateTime.defaults, config);
+        }
         return this.init();
     };
-    tailDateTime.version = "0.3.3";
+    tailDateTime.version = "0.3.4";
     tailDateTime.status = "alpha";
     tailDateTime.count = 0;
-    tailDateTime.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+    tailDateTime.isIE11 = !!w.MSInputMethodContext && !!d.documentMode;
     tailDateTime.cache = {};
     tailDateTime.instances = {};
 
@@ -587,7 +604,7 @@
         /*
          |  ACTION :: OPEN CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.1
+         |  @update 0.3.4
          */
         open: function(){
             if(!tail.hasClass(this.dt, "calendar-close")){
@@ -599,26 +616,28 @@
             this.dt.style.opacity = 0;
             this.dt.style.display = "block";
             this.calcPosition();
-            this.animate = setInterval(function(self){
-                self.dt.style.opacity = parseFloat(self.dt.style.opacity) + 0.1;
-                if(parseFloat(self.dt.style.opacity) >= 1){
-                    tail.removeClass(self.dt, "calendar-idle");
-                    tail.addClass(self.dt, "calendar-open");
-                    tail.trigger(self.dt, "tail.DateTime::open", {
-                        bubbles: false,
-                        cancelable: true,
-                        detail: self
-                    });
-                    clearInterval(self.animate);
-                }
-            }, 10, this);
+            (function(self){
+                self.animate = setInterval(function(){
+                    self.dt.style.opacity = parseFloat(self.dt.style.opacity) + 0.1;
+                    if(parseFloat(self.dt.style.opacity) >= 1){
+                        tail.removeClass(self.dt, "calendar-idle");
+                        tail.addClass(self.dt, "calendar-open");
+                        tail.trigger(self.dt, "tail.DateTime::open", {
+                            bubbles: false,
+                            cancelable: true,
+                            detail: self
+                        });
+                        clearInterval(self.animate);
+                    }
+                }, 10);
+            })(this);
             return this;
         },
 
         /*
          |  ACTION :: CLOSE CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.0
+         |  @update 0.3.4
          */
         close: function(){
             if(!tail.hasClass(this.dt, "calendar-open")){
@@ -626,21 +645,22 @@
             }
             tail.removeClass(this.dt, "calendar-open");
             tail.addClass(this.dt, "calendar-idle");
-
-            this.animate = setInterval(function(self){
-                self.dt.style.opacity = parseFloat(self.dt.style.opacity) - 0.1;
-                if(parseFloat(self.dt.style.opacity) <= 0){
-                    tail.removeClass(self.dt, "calendar-idle");
-                    tail.addClass(self.dt, "calendar-close");
-                    tail.trigger(self.dt, "tail.DateTime::close", {
-                        bubbles: false,
-                        cancelable: true,
-                        detail: self
-                    });
-                    self.dt.style.display = "none";
-                    clearInterval(self.animate);
-                }
-            }, 10, this);
+            (function(self){
+                self.animate = setInterval(function(){
+                    self.dt.style.opacity = parseFloat(self.dt.style.opacity) - 0.1;
+                    if(parseFloat(self.dt.style.opacity) <= 0){
+                        tail.removeClass(self.dt, "calendar-idle");
+                        tail.addClass(self.dt, "calendar-close");
+                        tail.trigger(self.dt, "tail.DateTime::close", {
+                            bubbles: false,
+                            cancelable: true,
+                            detail: self
+                        });
+                        self.dt.style.display = "none";
+                        clearInterval(self.animate);
+                    }
+                }, 10);
+            })(this);
             return this;
         },
 
@@ -756,7 +776,7 @@
         /*
          |  ACTION :: SELECT CALENDAR
          |  @since  0.1.0
-         |  @update 0.3.3
+         |  @update 0.3.4
          */
         createCalendar: function(month, year){
             var day = 1, haveDays = true,
@@ -804,11 +824,18 @@
 
             // Render
             for(var i = 0; i < calendar.length; i++){
-                calendar[i] = '<tr><td class="calendar-day">' + calendar[i].join('</td><td class="calendar-day">') + '</td></tr>';
+                calendar[i] = '<tr>\n<td class="calendar-day">' + calendar[i].join('</td>\n<td class="calendar-day">') + '</td>\n</tr>';
             }
-            var render = document.createElement("table");
-                render.className = "calendar-current";
-                render.innerHTML = calendar.join("");
+            if(tail.IE){
+                var inner = "<table><tbdy>" + calendar.join("") + "</tbody></table>";
+                var render = d.createElement("div");
+                    render.innerHTML = inner;
+                    render = render.getElementsByTagName("table")[0];
+            } else {
+                var render = d.createElement("table");
+                    render.className = "calendar-current";
+                    render.innerHTML = calendar.join("");
+            }
 
             // Empty Fields
             var empty = render.querySelectorAll("td:empty");
@@ -829,9 +856,8 @@
             // Return
             this.view.date.setMonth(month);
             this.view.date.setFullYear(year);
-            this.view = tailDateTime.cache[this.con.weekStart + "_" + year][month] = Object.assign({}, this.view, {
-                content: render
-            });
+            this.view = tail.clone(this.view, {content: render});
+            tailDateTime.cache[this.con.weekStart + "_" + year][month] = this.view;
             return tailDateTime.cache[this.con.weekStart + "_" + year][month];
         },
 
@@ -886,4 +912,5 @@
         w.tail = {};
     }
     w.tail.DateTime = tailDateTime;
+    return w.tail.DateTime
 })(this);
