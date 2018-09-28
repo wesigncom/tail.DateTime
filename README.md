@@ -3,7 +3,7 @@ tail.DateTime
 [![npm](https://img.shields.io/npm/v/tail.datetime.svg?style=flat-square)](https://www.npmjs.com/package/tail.datetime)
 [![npm](https://img.shields.io/npm/dt/tail.datetime.svg?style=flat-square)](https://www.npmjs.com/package/tail.datetime)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![plainJS](https://img.shields.io/badge/plainJS-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85-yellow.svg)](https://plainjs.com/javascript/plugins/tailselect-185/)
+[![plainJS](https://img.shields.io/badge/plainJS-%E2%98%85%E2%98%85%E2%98%85%E2%98%85%E2%98%85-yellow.svg?style=flat-square)](https://plainjs.com/javascript/plugins/taildatetime-187/)
 [![Author](https://img.shields.io/badge/Author-SamBrishes@pytesNET-lightgrey.svg?style=flat-square)](https://www.github.com/pytesNET)
 
 **The tail.DateTime script is a fork of the [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), written by [MrGuiseppe](https://github.com/MrGuiseppe).** It is specially designed for the new, yet unpublished, backend theme for the FoxCMS. The tail.DateTime script offers the following changes compared to the Pure JS Calendar:
