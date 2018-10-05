@@ -45,15 +45,14 @@
         <meta name="og:description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
 
         <!-- Assets -->
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.1.0" />
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.3.4" />
-        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i|Crimson+Text:400,600|Oswald:400,500" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.2.0" />
+        <link type="text/css" rel="stylesheet" href="assets/css/octicons.css?ver=8.1.0" />
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i|Oswald:400,500" />
         <script type="text/javascript" src="assets/js/prism.min.js?ver=1.15.0"></script>
-        <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.1.0"></script>
+        <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.2.0"></script>
 
         <!-- Source -->
-        <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.css?ver=0.3.4" />-->
-        <!--<link type="text/css" rel="stylesheet" href="source/css/tail.datetime.white.css?ver=0.3.4" />-->
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.3.4" />
         <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.3.4"></script>
     </head>
     <body>
@@ -74,8 +73,13 @@
                     <ul class="main-navi">
                         <li class="navi-item item-internal active"><a href="./index.html"><span>Demo</span></a></li>
                         <li class="navi-item item-internal"><a href="./docs.html"><span>Docs</span></a></li>
-                        <li class="navi-item item-external"><a href="https://www.github.com/pytesNET/tail.datetime"><span>GitHub</span></a></li>
-                        <li class="navi-item item-external"><a href="https://github.com/pytesNET/tail.DateTime/archive/master.zip"><span>Download</span></a></li>
+
+                        <li class="navi-item item-external">
+                            <a href="https://www.github.com/pytesNET/tail.DateTime"><span class="octicon octicon-mark-github"></span></a>
+                        </li>
+                        <li class="navi-item item-external">
+                            <a href="https://github.com/pytesNET/tail.DateTime/tarball/master" class="tar"><span>.TAR</span></a><a href="https://github.com/pytesNET/tail.DateTime/zipball/master" class="zip"><span>.ZIP</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -102,23 +106,23 @@
         <div class="content">
             <section class="demo-content">
                 <div class="container">
-                    <header>A simple <b>DateTime</b> Picker...</header>
-                    <div class="table">
-                        <article>
+                    <header><h1>A simple <b>DateTime</b> Picker...</header>
+                    <article class="side-by-side separated">
+                        <aside>
                             <h1>Default Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-1" class="datetime" />
                                 <div id="datetime-1-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                        <article>
+                        </aside>
+                        <aside>
                             <h1>White Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-2" class="datetime" />
                                 <div id="datetime-2-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                    </div>
+                        </aside>
+                    </article>
                     <footer>
                         <div class="example-label" data-handle="example">Show Example Code</div>
                         <div class="example-code">
@@ -137,23 +141,23 @@
 
             <section class="demo-content">
                 <div class="container">
-                    <header>... with configurable <b>Ranges</b> of selectable <b>Dates</b>.</header>
-                    <div class="table">
-                        <article>
+                    <header><h1>... with configurable <b>Ranges</b> of selectable <b>Dates</b></h1></header>
+                    <article class="side-by-side separated">
+                        <aside>
                             <h1>Default Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-3" class="datetime" />
                                 <div id="datetime-3-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                        <article>
+                        </aside>
+                        <aside>
                             <h1>White Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-4" class="datetime" />
                                 <div id="datetime-4-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                    </div>
+                        </aside>
+                    </article>
                     <footer>
                         <div class="example-label" data-handle="example">Show Example Code</div>
                         <div class="example-code">
@@ -181,23 +185,23 @@ tail.DateTime("#datetime-3", {
 
             <section class="demo-content">
                 <div class="container">
-                    <header>Used without a <b>Date</b> ...</header>
-                    <div class="table">
-                        <article>
+                    <header><h1>Simple used as <b>Time</b> Picker</h1></header>
+                    <article class="side-by-side separated">
+                        <aside>
                             <h1>Default Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-5" class="datetime" />
                                 <div id="datetime-5-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                        <article>
+                        </aside>
+                        <aside>
                             <h1>White Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-6" class="datetime" />
                                 <div id="datetime-6-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                    </div>
+                        </aside>
+                    </article>
                     <footer>
                         <div class="example-label" data-handle="example">Show Example Code</div>
                         <div class="example-code">
@@ -218,23 +222,23 @@ tail.DateTime("#datetime-3", {
 
             <section class="demo-content">
                 <div class="container">
-                    <header>... or without <b>Time</b>!</header>
-                    <div class="table">
-                        <article>
+                    <header><h1>Simple used as <b>Date</b> Picker</h1></header>
+                    <article class="side-by-side separated">
+                        <aside>
                             <h1>Default Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-7" class="datetime" />
                                 <div id="datetime-7-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                        <article>
+                        </aside>
+                        <aside>
                             <h1>White Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-8" class="datetime" />
                                 <div id="datetime-8-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                    </div>
+                        </aside>
+                    </article>
                     <footer>
                         <div class="example-label" data-handle="example">Show Example Code</div>
                         <div class="example-code">
@@ -253,25 +257,49 @@ tail.DateTime("#datetime-3", {
                 </div>
             </section>
 
+            <section class="demo-content invert">
+                <div class="container">
+                    <header>
+                        <div class="badge badge-green">
+                            <span class="badge-icon"><span class="octicon octicon-mark-github"></span></span>
+                            <span class="badge-inner">We need your Support</span>
+                        </div>
+                    </header>
+                    <article class="bordered inner">
+                        <p>
+                            We need <mark>your help</mark> to make the <b>tail.DateTime</b> script as comfortable and stable as possible!<br />
+                            Please report each issue and request your ideas and suggestions on our Github Repository!
+                        </p>
+                    </article>
+                    <article class="inner" style="padding:50px 30px 0 30px;">
+                        <p>
+                            <a href="https://www.github.com/pytesNET/tail.DateTime" class="github-special-white">
+                                Written with <span class="octicon octicon-heart"></span> on <span class="octicon octicon-mark-github"></span>
+                            </a>
+                        </p>
+                    </article>
+                </div>
+            </section>
+
             <section class="demo-content">
                 <div class="container">
-                    <header>Configure the <b>Output Format</b> ...</header>
-                    <div class="table">
-                        <article>
+                    <header><h1>A DateTime Picker with an custom <b>Output</b> Format</h1></header>
+                    <article class="side-by-side separated">
+                        <aside>
                             <h1>Default Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-9" class="datetime" data-tail-value="1993-03-17 20:15:30" />
                                 <div id="datetime-9-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                        <article>
+                        </aside>
+                        <aside>
                             <h1>White Design</h1>
-                            <div>
+                            <div class="example">
                                 <input type="text" id="datetime-10" class="datetime" data-tail-value="1980-12-28 12:15:30" />
                                 <div id="datetime-10-holder" class="datetime-folder"></div>
                             </div>
-                        </article>
-                    </div>
+                        </aside>
+                    </article>
                     <footer>
                         <div class="example-label" data-handle="example">Show Example Code</div>
                         <div class="example-code">
@@ -292,8 +320,8 @@ tail.DateTime("#datetime-3", {
 
             <section class="demo-content">
                 <div class="container">
-                    <header>.... and choose your <b>Position</b> wisely!</header>
-                    <article>
+                    <header><h1>A <b>non-static</b> DateTime Picker</h1></header>
+                    <article class="separated">
                         <div class="example">
                             <input type="text" id="datetime-11" class="datetime" placeholder="Bottom Position" />
                         </div>
@@ -328,8 +356,8 @@ tail.DateTime("#datetime-3", {
                     Published under the MIT / X11 License
                 </div>
                 <div class="container-right footer-right">
-                    Star, Fork and Download on <a href="https://github.com/pytesNET/tail.DateTime"><b>GitHub</b>!</a><br />
-                    This is a Fork of MrGuiseppes <a href="https://github.com/MrGuiseppe/pureJSCalendar"><b>pureJSCalendar</b>!</a>
+                    Star, Fork and Download on <a href="https://github.com/pytesNET/tail.DateTime"><span class="octicon octicon-logo-github"></span>!</a><br />
+                    This Page uses <a href="https://prismjs.com/" target="_blank">prismJS</a> and <a href="https://github.com/lcdsantos/menuspy" target="_blank">MenuSpy</a>!
                 </div>
             </div>
         </div>
