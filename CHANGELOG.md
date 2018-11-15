@@ -1,6 +1,69 @@
 CHANGELOG
 =========
 
+Version 0.4.0 - Beta
+--------------------
+-   Info: This is the first BETA version! :3
+-   Info: This Repository is now completely independent, due to the removal of the last original
+          lines of MrGuiseppes pureJSCalendar script!
+-   Add: Russian translation (ru).
+-   Add: Designs in LESS Format (I'm new at this Pre-Processing Stuff :/).
+-   Add: Support as Asynchronous Module Definition.
+-   Add: The default design has 3 new, and the "harx" design has one additional color schemes.
+-   Add: The new option `animate` to enable and disable the fade and tooltip animations.
+-   Add: The new option `dateBlacklist` to turn the `dateRange` from a blacklist to a whitelist.
+-   Add: The new option `dateStart` to limit the calendar.
+-   Add: The new option `dateEnd` to limit the calendar.
+-   Add: The new option `locale` to change the used locale by the calendar.
+-   Add: The new option `timeHours` to set the default Hours on init (pass null for current).
+-   Add: The new option `timeMintes` to set the default Minutes on init (pass null for current).
+-   Add: The new option `timeSeconds` to set the default Seconds on init (pass null for current).
+-   Add: The new option `today` to mark the current day within the calendar script.
+-   Add: The new option `tooltips` to create tooltips on specific dates.
+-   Add: The new option `viewDefault` to select the default view, when the calendar gets opened.
+-   Add: The new option `viewDecades` enables the view "Decades" (Show different Decades).
+-   Add: The new option `viewYears` enables the view "Years" (Show 12 Years - One Decade).
+-   Add: The new option `viewMonths` enables the view "Months" (January - December).
+-   Add: The new option `viewDays` enables the view "Days" (01 - 28|29|30|31).
+-   Add: The new internal event trigger method `.trigger()`.
+-   Add: A new custom event listener, using `.on()` and `.trigger()`.
+-   Add: The new internal render and view methods `.renderCalendar()`, `.renderDatePicker()`,
+         `.renderTimePicker()`,`.viewDecades()`, `.viewYears()`, `.viewMonths()`, `.viewDays()`,
+         `.handleLabel()`, `.showTooltip()` and `.hideTooltip()`.
+-   Add: The new public method `.config()` to get and set settings during the runtime.
+-   Add: The new public methods `.switchView()`, `.browseView()`, `.switchDate()` and `.fetchDate()`
+         to control the calendar interface and fetch the current Date.
+-   Add: The new public methods `.appendTooltip()` and `.appendRange()` to append tooltips and date
+         ranges during the runtime.
+-   Update: The translations itself, as well as the translation / locale system behind.
+-   Update: Both designs has been updated to the new structure.
+-   Update: The main helper methods.
+-   Update: The calendar render process has been re-written, now it will always show 6 rows of
+            dates, including days from the previous and next month!
+-   Update: The locale system is now usable per instance, the strings doesn't get replaced!
+-   Update: The option `classNames` allows now `true` to copy the class names from the main
+            element and false, to do nothing.
+-   Update: The option `position` and `static` has been merged, so use "top", "left", "right" or
+            or "bottom" to show the calendar on an absolute position relative to the passed element
+            or pass any selector, which should be used as container.
+-   Update: The option `weekStart` supports now also numbers (SUN = 0, MON = 1, ... SAT = 6)!
+-   Update: The option `dateRange` requires now a new range format, the old one is NOT supported!
+-   Update: The public methods `.switchMonth()` and `switchYear()` now just aliases for the main
+            public method `.switchDate()`.
+-   Update: The public methods `.open()` and `.close()` now using `setTimeout()` instead of an
+            interval.
+-   Update: The public methods `.reload()` reloads the same instance instead of creating a new one.
+-   Update: The public event method `.on()` has been updated and supports now a third argument.
+-   Remove: The option `static` has been removed (use `position` instead).
+-   Remove: The option `zeroSeconds` has been removed (use `timeSeconds` instead).
+-   Remove: The option `static` has been removed (use `position` instead).
+-   Remove: The `isIE11` and `tail.IE` variables.
+-   Remove: The old render functions `.renderDay()`, `.renderMonth()` and `.renderTime()` has been
+            replaced by the new `.view*()` and `.render*()` methods!
+-   Remove: The `.createCalendar()` method has been replaced by the new `.view*()` methods.
+-   Bugfix: The `tbdy` typo has been fixed.
+-   Bugfix: Incorrect `colspan` value on the thead element (on the Months View).
+
 Version 0.3.4 - Alpha
 ---------------------
 -   Info: Official support for IE >= 9 starts now :(
