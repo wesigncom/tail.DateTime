@@ -151,5 +151,27 @@
         tail.each(d.querySelectorAll("*[data-handle='example']"), function(){
             this.addEventListener("click", source);
         });
+
+        // Connect Select Fields
+        tail.each(d.querySelectorAll("select[data-connect]"), function(){
+            var source = d.querySelector(this.getAttribute("data-connect")), self = this;
+            if(!source){
+                return false;
+            }
+
+            var change = function(source, result){
+                tail.each(result.options, function(){
+                    this.style.display = "none";
+                });
+                tail.each(result.querySelectorAll("[data-value='" + source.value + "']"), function(i){
+                    this.style.removeProperty("display");
+                    this.selected = (i == 1);
+                });
+            };
+            source.addEventListener("change", function(event){
+                change(event.target, self);
+            });
+            change(source, this);
+        });
     });
 })(this);

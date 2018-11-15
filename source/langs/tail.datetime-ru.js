@@ -1,6 +1,6 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
- |  @file       ./langs/tail.datetime-de.js
+ |  @file       ./langs/tail.datetime-ru.js
  |  @author     SamBrishes <https://github.com/pytesNET/tail.DateTime/>
  |  @version    0.4.0 - Alpha
  |
@@ -21,12 +21,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de", {
-        months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-        shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
-        time:   ["Stunden", "Minuten", "Sekunden"],
-        header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
+    datetime.strings.register("ru", {
+        months: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
+        days:   ["воскресенье", "понедельник", "вторник", "среда","четверг","пятница","суббота",],
+        shorts: ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
+        time:   ["часов", "минут", "секунд"],
+        header: ["Выберите месяц", "Выберите год", "Выберите Десятилетие", "Выберите время"]
     });
     return datetime;
 }));

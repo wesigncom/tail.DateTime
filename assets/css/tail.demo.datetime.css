@@ -1,18 +1,22 @@
-/* @start tail.DateTime */
+
+/* @start DEFAULT THEME */
 .tail-datetime-calendar{
-    width: 245px;
+    width: 275px;
     height: auto;
     margin: 15px;
     padding: 0;
     display: block;
+    overflow: hidden;
     position: absolute;
-    font-family: "Open Sans", Calibri, Arial, sans-serif;
-    background-color: #ffffff;
     border-collapse: separate;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
-    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
+    font-family: "Open Sans", Calibri, Arial, sans-serif;
+    background-color: #FFFFFF;
     border-radius: 3px;
+    -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3125);
 }
 .tail-datetime-calendar:after{
     clear: both;
@@ -25,421 +29,998 @@
     margin-left: auto;
     margin-right: auto;
 }
-.tail-datetime-calendar .calendar-navi{
+.tail-datetime-calendar .calendar-tooltip{
+    color: #FFFFFF;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: absolute;
+    background-color: #202428;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.tail-datetime-calendar .calendar-tooltip .tooltip-inner{
+    width: auto;
+    margin: 0;
+    padding: 4px 7px;
+    display: block;
+    font-size: 12px;
+    line-height: 14px;
+}
+.tail-datetime-calendar .calendar-tooltip:before{
+    top: -7px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin: 0 0 0 -6px;
+    content: "";
+    display: block;
+    position: absolute;
+    border-style: solid;
+    border-width: 0 7px 7px 7px;
+    border-color: transparent transparent #202428 transparent;
+}
+.tail-datetime-calendar .calendar-actions{
     width: 100%;
+    height: 36px;
     margin: 0;
     padding: 0;
     display: table;
     border-spacing: 0;
     border-collapse: separate;
     background-color: #CD283C;
-    border-radius: 3px 3px 0 0;
-    -moz-border-radius: 3px 3px 0 0;
-    -webkit-border-radius: 3px 3px 0 0;
 }
-.tail-datetime-calendar .calendar-navi span{
-    cursor: pointer;
-    color: #fff;
+.tail-datetime-calendar .calendar-actions span{
+    color: #FFFFFF;
     margin: 0;
     padding: 0;
     display: table-cell;
-    font-size: 14px;
+    position: relative;
     text-align: center;
-    line-height: 30px;
-    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.15);
+    line-height: 36px;
+    text-shadow: -1px -1px 0 #8d1c29;
     background-repeat: no-repeat;
     background-position: center center;
 }
-.tail-datetime-calendar .calendar-navi span:first-child,
-.tail-datetime-calendar .calendar-navi span:last-child{
-    width: 35px;
-    padding: 0 0 5px 0;
+.tail-datetime-calendar .calendar-actions span[data-action]{
+    cursor: pointer;
+}
+.tail-datetime-calendar .calendar-actions span.action{
+    width: 36px;
     font-size: 22px;
 }
-.tail-datetime-calendar .calendar-navi span:hover{
-    background-color: rgba(0, 0, 0, 0.15)
+.tail-datetime-calendar .calendar-actions span.label{
+    width: auto;
+    font-size: 16px;
 }
-.tail-datetime-calendar .calendar-navi span.button-prev{
+.tail-datetime-calendar .calendar-actions span:first-child{
+    border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    -webkit-border-radius: 4px 0 0 0;
+}
+.tail-datetime-calendar .calendar-actions span:last-child{
+    border-radius: 0 4px 0 0;
+    -moz-border-radius: 0 4px 0 0;
+    -webkit-border-radius: 0 4px 0 0;
+}
+.tail-datetime-calendar .calendar-actions span:first-child:before,
+.tail-datetime-calendar .calendar-actions span:last-child:before{
+    top: 5px;
+    bottom: 5px;
+    width: 1px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-color: #a22030;
+}
+.tail-datetime-calendar .calendar-actions span:first-child:before{
+    right: -1px;
+}
+.tail-datetime-calendar .calendar-actions span:last-child:before{
+    left: -1px;
+}
+.tail-datetime-calendar .calendar-actions span:first-child:hover:before,
+.tail-datetime-calendar .calendar-actions span:last-child:hover:before{
+    display: none;
+}
+.tail-datetime-calendar .calendar-actions span[data-action]:hover{
+    background-color: #a22030;
+}
+.tail-datetime-calendar .calendar-actions span.action-prev{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iT\
     TYgMkwwIDhsNiA2VjJ6Ii8+PC9zdmc+");
 }
-.tail-datetime-calendar .calendar-navi span.button-next{
+.tail-datetime-calendar .calendar-actions span.action-next{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iT\
     TAgMTRsNi02LTYtNnYxMnoiLz48L3N2Zz4=");
 }
-.tail-datetime-calendar .calendar-navi span.button-check{
+.tail-datetime-calendar .calendar-actions span.action-submit{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkP\
     SJNMTIgNWwtOCA4LTQtNCAxLjUtMS41TDQgMTBsNi41LTYuNUwxMiA1eiIvPjwvc3ZnPg==");
 }
-.tail-datetime-calendar .calendar-navi span.button-close{
+.tail-datetime-calendar .calendar-actions span.action-cancel{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkP\
     SJNNy40OCA4bDMuNzUgMy43NS0xLjQ4IDEuNDhMNiA5LjQ4bC0zLjc1IDMuNzUtMS40OC0xLjQ4TDQuNTIgOCAuNzcgNC4y\
     NWwxLjQ4LTEuNDhMNiA2LjUybDMuNzUtMy43NSAxLjQ4IDEuNDhMNy40OCA4eiIvPjwvc3ZnPg==");
 }
-.tail-datetime-calendar .calendar-date{
+.tail-datetime-calendar .calendar-datepicker{
+    width: 100%;
     margin: 0;
     padding: 0;
     display: block;
+    position: relative;
+    background-color: #FFFFFF;
 }
-.tail-datetime-calendar .calendar-date table{
+.tail-datetime-calendar .calendar-datepicker table{
     width: 100%;
     margin: 0;
     padding: 0;
     border-spacing: 0;
-    border-collapse: collapse;
-    border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
+    border-collapse: separate;
 }
-.tail-datetime-calendar .calendar-date table thead tr > *,
-.tail-datetime-calendar .calendar-date table tbody tr > *{
-    color: #ffffff;
-    width: 35px;
-    height: 35px;
+.tail-datetime-calendar .calendar-datepicker table tr th,
+.tail-datetime-calendar .calendar-datepicker table tr td{
+    color: #303438;
+    height: 30px;
     padding: 0;
-    font-size: 12px;
+    position: relative;
+    font-size: 13px;
     text-align: center;
     font-weight: normal;
-    line-height: 35px;
     text-shadow: none;
+    line-height: 30px;
+    background-color: transparent;
     border: 0;
-    background-color: #223344;
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
 }
-.tail-datetime-calendar .calendar-date table tbody tr > *{
-    color: #334455;
+.tail-datetime-calendar .calendar-datepicker table tr th{
+    color: #FFFFFF;
+    background-color: #303438;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td{
     cursor: pointer;
-    position: relative;
-    font-size: 14px;
-    text-shadow: none;
-    background-color: #ffffff;
-    border-radius: 0;
-    -moz-border-radius: 0;
-    -webkit-border-radius: 0;
 }
-.tail-datetime-calendar .calendar-date table tbody tr > * > span{
-    color: inherit;
-    z-index: 10;
-    position: relative;
+.tail-datetime-calendar .calendar-datepicker table tr td span.inner{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
 }
-
-/* Select a Day */
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *::after{
-    top: 3px;
+.tail-datetime-calendar .calendar-datepicker table tr td.date-disabled{
+    cursor: not-allowed;
+    color: #909498;
+    background-color: #f8f8f8;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.date-disabled:after{
     left: 3px;
-    width: 29px;
-    height: 29px;
+    bottom: 3px;
+    width: 35px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
     content: "";
-    display: block;
+    display: inline-block;
+    position: absolute;
+    background-color: #b8b8b8;
+    transform-origin: 2px -5px;
+    transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.date-previous,
+.tail-datetime-calendar .calendar-datepicker table tr td.date-next{
+    color: #909498;
+    background-color: #f8f8f8;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.date-today:before,
+.tail-datetime-calendar .calendar-datepicker table tr td .tooltip-tick{
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    margin: 0;
+    padding: 0;
+    z-index: 20;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    border: 0;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.date-today:before{
+    left: 5px;
+    background-color: #149BE6;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td .tooltip-tick{
+    right: 5px;
+    background-color: #202428;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td .tooltip-tick:before,
+.tail-datetime-calendar .calendar-datepicker table tr td .tooltip-tick:after{
+    display: none;
+}
+.tail-datetime-calendar .calendar-datepicker table tr th.calendar-week,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-day{
+    width: 14.28571428571429%;
+    height: 35px;
+}
+.tail-datetime-calendar .calendar-datepicker table tr th.calendar-week span.inner,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-day span.inner{
+    width: 31px;
+    height: 31px;
+    line-height: 29px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+.tail-datetime-calendar .calendar-datepicker table tr th.calendar-week:hover span.inner,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-day:hover span.inner{
+    border-color: #cccccc;
+}
+.tail-datetime-calendar .calendar-datepicker table tr th.calendar-week.date-disabled:hover span.inner,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-day.date-disabled:hover span.inner{
+    border-color: transparent;
+}
+.tail-datetime-calendar .calendar-datepicker table tr th.calendar-week.date-select span.inner,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-day.date-select span.inner{
+    color: #149BE6;
+    border-color: #149BE6;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade{
+    color: #6b747d;
+    width: 33.3333333333%;
+    height: 40px;
+    transition: color 142ms linear;
+    -moz-transition: color 142ms linear;
+    -webkit-transition: color 142ms linear;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month.date-today:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year.date-today:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade.date-today:before{
+    left: 50%;
+    margin-left: -2.5px;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month:hover,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year:hover,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade:hover{
+    color: #303438;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month span.inner,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year span.inner,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade span.inner{
+    width: auto;
+    height: 31px;
+    line-height: 29px;
+}
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month span.inner:after,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year span.inner:after,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade span.inner:after{
+    width: 20px;
+    height: 20px;
+    content: "";
+    z-index: 15;
+    display: inline-block;
     position: absolute;
     border-width: 1px;
     border-style: solid;
     border-color: transparent;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
+    transition: all 142ms linear;
+    -moz-transition: all 142ms linear;
+    -webkit-transition: all 142ms linear;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.today{
-    color: #3296C8;
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade span.inner:before{
+    top: 0;
+    left: 0;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.today:after{
-    border-color: #3296C8;
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month:hover span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year:hover span.inner:before,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade:hover span.inner:before{
+    top: 6px;
+    left: 6px;
+    border-top-color: #cccccc;
+    border-left-color: #cccccc;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *:hover{
-    color: #CD283C;
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month span.inner:after,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year span.inner:after,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade span.inner:after{
+    right: 0;
+    bottom: 0;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *:hover:after{
-    border-color: #CD283C;
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-month:hover span.inner:after,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year:hover span.inner:after,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade:hover span.inner:after{
+    right: 6px;
+    bottom: 6px;
+    border-right-color: #cccccc;
+    border-bottom-color: #cccccc;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.empty,
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.disable{
-    color: #8899aa;
-    cursor: not-allowed;
-    background-color: #efefef;
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-year,
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade{
+    width: 25%;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.empty:hover:after,
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.disable:hover:after{
-    content: "";
-    display: none;
+.tail-datetime-calendar .calendar-datepicker table tr td.calendar-decade span.inner{
+    height: 54px;
+    padding: 7px 15px;
+    text-align: left;
+    line-height: 20px;
 }
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.current span{
-    color: #fff;
-}
-.tail-datetime-calendar .calendar-date table.calendar-day tbody tr > *.current:after{
-    border-color: #3296C8;
-    background-color: #3296C8;
-}
-
-/* Select A Month */
-.tail-datetime-calendar .calendar-date table.calendar-month tbody tr > *{
-    width: 81.66666666666667px;
-    padding: 5px;
-    line-height: 25px;
-}
-.tail-datetime-calendar .calendar-date table.calendar-month tbody tr > * span{
+.tail-datetime-calendar .calendar-timepicker{
+    width: 100%;
+    margin: 0;
+    padding: 0;
     display: block;
+    border-top: 1px solid #cccccc;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field{
+    width: 27%;
+    margin: 0;
+    padding: 15px 0 7px 0;
+    display: inline-block;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field:first-child{
+    width: 36.5%;
+    padding-left: 25px;
+    text-align: right;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field:last-child{
+    width: 36.5%;
+    padding-right: 25px;
+    text-align: left;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field input[type=number]{
+    color: #303438;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    z-index: 4;
+    padding: 3px 5px;
+    display: inline-block;
+    position: relative;
+    font-size: 12px;
+    text-align: center;
+    background-color: #fafafa;
     border-width: 1px;
     border-style: solid;
-    border-color: transparent;
+    border-color: #bababa;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field:first-child input[type=number]{
+    margin-right: -1px;
+    background-color: #f2f2f2;
+    border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    -webkit-border-radius: 3px 0 0 3px;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field:last-child input[type=number]{
+    margin-left: -1px;
+    background-color: #f2f2f2;
+    border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    -webkit-border-radius: 0 3px 3px 0;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field input[type=number]:hover{
+    z-index: 5;
+    border-color: #a1a1a1;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field input[type=number]:focus{
+    z-index: 6;
+    border-color: #149BE6;
+}
+.tail-datetime-calendar .calendar-timepicker .timepicker-field label{
+    color: #909498;
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 12px;
+    text-align: center;
+}
+/* @end DEFAULT THEME */
+
+/* @start ORANGE */
+.tail-datetime-calendar.theme-orange .calendar-actions{
+    background-color: #E67D1E;
+}
+.tail-datetime-calendar.theme-orange .calendar-actions span{
+    text-shadow: -1px -1px 0 #a55812;
+}
+.tail-datetime-calendar.theme-orange .calendar-actions span:first-child:before,
+.tail-datetime-calendar.theme-orange .calendar-actions span:last-child:before{
+    background-color: #bc6415;
+}
+.tail-datetime-calendar.theme-orange .calendar-actions span[data-action]:hover{
+    background-color: #bc6415;
+}
+.tail-datetime-calendar.theme-orange .calendar-datepicker table tr td.date-today:before{
+    background-color: #CD283C;
+}
+.tail-datetime-calendar.theme-orange .calendar-datepicker table tr th.calendar-week.date-select span.inner,
+.tail-datetime-calendar.theme-orange .calendar-datepicker table tr td.calendar-day.date-select span.inner{
+    color: #CD283C;
+    border-color: #CD283C;
+}
+.tail-datetime-calendar.theme-orange .calendar-timepicker .timepicker-field input[type=number]:focus{
+    border-color: #CD283C;
+}
+/* @end ORANGE */
+
+/* @start BLUE */
+.tail-datetime-calendar.theme-green .calendar-actions{
+    background-color: #32B93C;
+}
+.tail-datetime-calendar.theme-green .calendar-actions span{
+    text-shadow: -1px -1px 0 #227d28;
+}
+.tail-datetime-calendar.theme-green .calendar-actions span:first-child:before,
+.tail-datetime-calendar.theme-green .calendar-actions span:last-child:before{
+    background-color: #27912f;
+}
+.tail-datetime-calendar.theme-green .calendar-actions span[data-action]:hover{
+    background-color: #27912f;
+}
+.tail-datetime-calendar.theme-green .calendar-datepicker table tr td.date-today:before{
+    background-color: #E67D1E;
+}
+.tail-datetime-calendar.theme-green .calendar-datepicker table tr th.calendar-week.date-select span.inner,
+.tail-datetime-calendar.theme-green .calendar-datepicker table tr td.calendar-day.date-select span.inner{
+    color: #E67D1E;
+    border-color: #E67D1E;
+}
+.tail-datetime-calendar.theme-green .calendar-timepicker .timepicker-field input[type=number]:focus{
+    border-color: #E67D1E;
+}
+/* @end BLUE */
+
+/* @start GREEN */
+.tail-datetime-calendar.theme-blue .calendar-actions{
+    background-color: #149BE6;
+}
+.tail-datetime-calendar.theme-blue .calendar-actions span{
+    text-shadow: -1px -1px 0 #0e6ca0;
+}
+.tail-datetime-calendar.theme-blue .calendar-actions span:first-child:before,
+.tail-datetime-calendar.theme-blue .calendar-actions span:last-child:before{
+    background-color: #107bb7;
+}
+.tail-datetime-calendar.theme-blue .calendar-actions span[data-action]:hover{
+    background-color: #107bb7;
+}
+.tail-datetime-calendar.theme-blue .calendar-datepicker table tr td.date-today:before{
+    background-color: #32B93C;
+}
+.tail-datetime-calendar.theme-blue .calendar-datepicker table tr th.calendar-week.date-select span.inner,
+.tail-datetime-calendar.theme-blue .calendar-datepicker table tr td.calendar-day.date-select span.inner{
+    color: #32B93C;
+    border-color: #32B93C;
+}
+.tail-datetime-calendar.theme-blue .calendar-timepicker .timepicker-field input[type=number]:focus{
+    border-color: #32B93C;
+}
+/* @end GREEN */
+
+
+/* @start HARX THEME */
+.tail-datetime-calendar.theme-harx{
+    width: 360px;
+    height: auto;
+    margin: 15px;
+    padding: 0;
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    border-collapse: separate;
+    font-family: "Open Sans", Calibri, Arial, sans-serif;
+    background-color: #FFFFFF;
     border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+.tail-datetime-calendar.theme-harx:after{
+    clear: both;
+    content: "";
+    display: block;
+    font-size: 0;
+    visibility: hidden;
+}
+.tail-datetime-calendar.theme-harx.calendar-static{
+    margin-left: auto;
+    margin-right: auto;
+}
+.tail-datetime-calendar.theme-harx .calendar-tooltip{
+    color: #FFFFFF;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: absolute;
+    background-color: #202428;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
-.tail-datetime-calendar .calendar-date table.calendar-month tbody tr > *:hover span{
-    border-color: #d0d0d0;
-    box-shadow: 0 1px 0 0 #efefef;
-    -webkit-box-shadow: 0 1px 0 0 #efefef;
+.tail-datetime-calendar.theme-harx .calendar-tooltip .tooltip-inner{
+    width: auto;
+    margin: 0;
+    padding: 4px 7px;
+    display: block;
+    font-size: 12px;
+    line-height: 14px;
 }
-
-/* Select a Time */
-.tail-datetime-calendar .calendar-time{
+.tail-datetime-calendar.theme-harx .calendar-tooltip:before{
+    top: -7px;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin: 0 0 0 -6px;
+    content: "";
+    display: block;
+    position: absolute;
+    border-style: solid;
+    border-width: 0 7px 7px 7px;
+    border-color: transparent transparent #202428 transparent;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions{
     width: 100%;
+    height: 36px;
     margin: 0;
     padding: 0;
     display: table;
-    text-align: center;
-    background-color: #ffffff;
-    border-radius: 0 0 3px 3px;
-    -webkit-border-radius: 0 0 3px 3px;
+    border-spacing: 0;
+    border-collapse: separate;
+    background-color: #FFFFFF;
 }
-.tail-datetime-calendar .calendar-date+.calendar-time{
-    border-top: 1px solid #d0d0d0;
-    background-color: #f8f8f8;
-}
-.tail-datetime-calendar .calendar-time .calendar-field{
-    width: 33.3333333333%;
-    padding: 10px 0;
+.tail-datetime-calendar.theme-harx .calendar-actions span{
+    color: #303438;
+    margin: 0;
+    padding: 0;
+    opacity: 0.5;
     display: table-cell;
     position: relative;
     text-align: center;
-    vertical-align: top;
-}
-.tail-datetime-calendar .calendar-time .calendar-field:first-child{
-    text-align: right;
-}
-.tail-datetime-calendar .calendar-time .calendar-field:first-child:after{
-    top: 12px;
-    right: -10px;
-    content: ":";
-    position: absolute;
-}
-.tail-datetime-calendar .calendar-time .calendar-field:last-child{
-    text-align: left;
-}
-.tail-datetime-calendar .calendar-time .calendar-field:last-child:after{
-    top: 12px;
-    left: -10px;
-    content: ":";
-    position: absolute;
-}
-.tail-datetime-calendar .calendar-time .calendar-field input[type="number"]{
-    width: 100%;
-    max-width: 50px;
-    height: auto;
-    margin: 0;
-    padding: 3px 4px;
-    font-size: 12px;
-    line-height: 16px;
-    text-align: center;
-    border-width: 1px;
-    border-style: solid;
-    border-color: #d0d0d0;
-    background-color: #ffffff;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-}
-.tail-datetime-calendar .calendar-time .calendar-field input[type="number"]:hover{
-    border-color: #a0a0a0;
-}
-.tail-datetime-calendar .calendar-time .calendar-field input[type="number"]:focus{
-    border-color: #3296C8;
-}
-.tail-datetime-calendar .calendar-time .calendar-field label{
-    color: #778899;
-    margin: 5px 0 0 0;
-    padding: 0;
-    displaY: block;
-    font-size: 12px;
-    line-height: 12px;
-}
-/* @end tail.DateTime */
-
-
-/* @start tail.DateTime */
-.tail-datetime-calendar.theme-white{
-    width: 360px;
-    background-color: #ffffff;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 1px 2px 1px rgba(0, 0, 0, 0.1);
-}
-.tail-datetime-calendar.theme-white .calendar-navi{
-    background-color: #ffffff;
-}
-.tail-datetime-calendar.theme-white .calendar-navi span{
-    color: #000000;
-    opacity: 0.5;
     line-height: 40px;
     text-shadow: none;
+    background-repeat: no-repeat;
+    background-position: center center;
     transition: opacity 142ms linear, background 142ms linear;
+    -moz-transition: opacity 142ms linear, background 142ms linear;
     -webkit-transition: opacity 142ms linear, background 142ms linear;
 }
-.tail-datetime-calendar.theme-white .calendar-navi span:first-child,
-.tail-datetime-calendar.theme-white .calendar-navi span:last-child{
+.tail-datetime-calendar.theme-harx .calendar-actions span[data-action]{
+    cursor: pointer;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span.action{
     width: 50px;
+    font-size: 22px;
 }
-.tail-datetime-calendar.theme-white .calendar-navi span:hover{
+.tail-datetime-calendar.theme-harx .calendar-actions span.label{
+    width: auto;
+    opacity: 1;
+    font-size: 16px;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span:first-child{
+    border-radius: 4px 0 0 0;
+    -moz-border-radius: 4px 0 0 0;
+    -webkit-border-radius: 4px 0 0 0;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span:last-child{
+    border-radius: 0 4px 0 0;
+    -moz-border-radius: 0 4px 0 0;
+    -webkit-border-radius: 0 4px 0 0;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span:first-child:before,
+.tail-datetime-calendar.theme-harx .calendar-actions span:last-child:before{
+    top: 5px;
+    bottom: 5px;
+    width: 1px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    content: "";
+    display: inline-block;
+    position: absolute;
+    background-color: #e6e6e6;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span:first-child:before{
+    right: -1px;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span:last-child:before{
+    left: -1px;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span:first-child:hover:before,
+.tail-datetime-calendar.theme-harx .calendar-actions span:last-child:hover:before{
+    display: none;
+}
+.tail-datetime-calendar.theme-harx .calendar-actions span[data-action]:hover{
     opacity: 0.95;
-    background-color: #f0f0f0;
+    background-color: #e6e6e6;
 }
-.tail-datetime-calendar.theme-white .calendar-navi span.button-prev{
+.tail-datetime-calendar.theme-harx .calendar-actions span.action-prev{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZD0iTTYgMkwwIDhsNiA2VjJ6I\
     i8+PC9zdmc+");
 }
-.tail-datetime-calendar.theme-white .calendar-navi span.button-next{
+.tail-datetime-calendar.theme-harx .calendar-actions span.action-next{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZD0iTTAgMTRsNi02LTYtNnYxM\
     noiLz48L3N2Zz4=");
 }
-.tail-datetime-calendar.theme-white .calendar-navi span.button-check{
+.tail-datetime-calendar.theme-harx .calendar-actions span.action-submit{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBkPSJNMTIgNWwtOCA4LTQtN\
     CAxLjUtMS41TDQgMTBsNi41LTYuNUwxMiA1eiIvPjwvc3ZnPg==");
 }
-.tail-datetime-calendar.theme-white .calendar-navi span.button-close{
+.tail-datetime-calendar.theme-harx .calendar-actions span.action-cancel{
     background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
     9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBkPSJNNy40OCA4bDMuNzUgM\
     y43NS0xLjQ4IDEuNDhMNiA5LjQ4bC0zLjc1IDMuNzUtMS40OC0xLjQ4TDQuNTIgOCAuNzcgNC4yNWwxLjQ4LTEuNDhMNiA2\
     LjUybDMuNzUtMy43NSAxLjQ4IDEuNDhMNy40OCA4eiIvPjwvc3ZnPg==");
 }
-.tail-datetime-calendar.theme-white .calendar-date{
+.tail-datetime-calendar.theme-harx .calendar-datepicker{
+    width: 100%;
+    margin: 0 0 15px 0;
+    padding: 0;
+    display: block;
     position: relative;
+    background-color: #FFFFFF;
 }
-.tail-datetime-calendar.theme-white .calendar-date:after{
-    top: 0;
+.tail-datetime-calendar.theme-harx .calendar-datepicker:after{
+    top: -1px;
     left: 10px;
     right: 10px;
     content: "";
     position: absolute;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #e6e6e6;
 }
-.tail-datetime-calendar.theme-white .calendar-date table{
+.tail-datetime-calendar.theme-harx .calendar-datepicker table{
+    width: 100%;
+    margin: 0;
+    padding: 0;
     border-spacing: 1px;
     border-collapse: separate;
 }
-.tail-datetime-calendar.theme-white .calendar-date table thead tr > *,
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *{
-    color: #40454a;
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr th,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td{
+    color: #303438;
     width: 50px;
     height: 35px;
-    background-color: #ffffff;
-}
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *{
-    color: #40454a;
-    background-color: #ffffff;
-}
-
-/* Select a Day */
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *:after{
-    display: none;
-}
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *{
+    padding: 0;
+    position: relative;
+    font-size: 13px;
+    text-align: center;
+    font-weight: normal;
+    text-shadow: none;
+    line-height: 30px;
+    background-color: transparent;
     border: 1px solid transparent;
     border-radius: 3px;
+    -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
 }
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.today{
-    color: #3296C8;
-    border-color: #3296C8;
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td{
+    cursor: pointer;
 }
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *:hover{
-    color: #CD283C;
-    border-color: #CD283C;
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td span.inner{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    border: 0 !important;
 }
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.current{
-    border-color: #3296C8;
-    background-color: #3296C8;
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td span.inner:before,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td span.inner:after{
+    display: none !important;
 }
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.current span{
-    color: #fff;
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-previous,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-next{
+    color: #929aa2;
+    background-color: transparent;
 }
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.empty,
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.empty:hover,
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.disable,
-.tail-datetime-calendar.theme-white .calendar-date table tbody tr > *.disable:hover{
-    color: #b0b5ba;
-    border-color: transparent;
-    background-color: #fff;
-}
-
-/* Select A Month */
-.tail-datetime-calendar.theme-white .calendar-date table.calendar-month tbody tr > *{
-    width: 33.33333%;
-}
-.tail-datetime-calendar.theme-white .calendar-date table.calendar-month tbody tr > *:hover span{
-    border-color: transparent;
-    box-shadow: none;
-    -webkit-box-shadow: none;
-}
-.tail-datetime-calendar.theme-white .calendar-date table.calendar-month thead{
-    text-transform: uppercase;
-}
-
-/* Select a Time */
-.tail-datetime-calendar.theme-white .calendar-time{
-    position: relative;
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-today:before,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td .tooltip-tick{
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    margin: 0;
+    padding: 0;
+    z-index: 20;
+    content: "";
+    display: inline-block;
+    position: absolute;
     border: 0;
-    background-color: #ffffff;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 }
-.tail-datetime-calendar.theme-white .calendar-time:after{
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-today:before{
+    left: 5px;
+    background-color: #32B93C;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td .tooltip-tick{
+    right: 5px;
+    background-color: #202428;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-select.date-today:before,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-select .tooltip-tick{
+    background-color: #FFFFFF !important;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td .tooltip-tick:before,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td .tooltip-tick:after{
+    display: none;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-disabled{
+    cursor: not-allowed;
+    color: #858d96;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.date-disabled:after{
+    color: #535a61;
     top: 0;
+    left: 0;
+    width: 49px;
+    height: 35px;
+    margin: 0;
+    padding: 0;
+    content: "✕";
+    opacity: 0.25;
+    display: inline-block;
+    position: absolute;
+    font-size: 30px;
+    line-height: 35px;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-day,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-month,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade{
+    width: 14.28571428571429%;
+    height: 35px;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-day:hover,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-month:hover,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year:hover,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade:hover{
+    border-color: #a6a6a6;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-day.date-disabled:hover,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-month.date-disabled:hover,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year.date-disabled:hover,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade.date-disabled:hover{
+    border-color: #e6e6e6;
+    background-color: #f2f2f2;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-day.date-today,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-month.date-today,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year.date-today,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade.date-today{
+    color: #32B93C;
+    border-color: #32B93C;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-day.date-select,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-month.date-select,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year.date-select,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade.date-select{
+    border-color: #149BE6;
+    background-color: #149BE6;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-day.date-select span,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-month.date-select span,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year.date-select span,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade.date-select span{
+    color: #ffffff;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-year,
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade{
+    width: 25%;
+}
+.tail-datetime-calendar.theme-harx .calendar-datepicker table tr td.calendar-decade span.inner{
+    height: 54px;
+    padding: 7px 15px;
+    text-align: center;
+    line-height: 20px;
+}
+/* @end CALENDAR DATEPICKER */
+
+/* @start CALENDAR TIMEPICKER */
+.tail-datetime-calendar.theme-harx .calendar-timepicker{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: relative;
+    border-top: 0;
+}
+.tail-datetime-calendar.theme-harx .calendar-timepicker:after{
+    top: -1px;
     left: 10px;
     right: 10px;
     content: "";
     position: absolute;
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid #e6e6e6;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field{
-    padding: 20px 0;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field{
+    width: 27%;
+    margin: 0;
+    padding: 20px 10px 10px 10px;
+    display: inline-block;
+    text-align: center;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field:first-child:after,
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field:last-child:after{
-    top: 24px;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field:first-child{
+    width: 36.5%;
+    padding-left: 25px;
+    text-align: right;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field:first-child:after{
-    right: -15px;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field:last-child{
+    width: 36.5%;
+    padding-right: 25px;
+    text-align: left;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field:last-child:after{
-    top: 24px;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field input[type=number]{
+    color: #303438;
+    width: 75px;
+    height: auto;
+    margin: 0;
+    z-index: 4;
+    padding: 3px 5px;
+    display: inline-block;
+    position: relative;
+    font-size: 12px;
+    text-align: center;
+    background-color: #FFFFFF;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #bababa;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field:last-child:after{
-    left: -15px;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field input[type=number],
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field:first-child input[type=number],
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field:last-child input[type=number]{
+    background-color: #FFFFFF;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field input[type="number"]{
-    max-width: 65px;
-    padding: 5px 10px;
-    border-color: #e0e0e0;
-    background-color: #ffffff;
-    transition: border 142ms linear;
-    -webkit-transition: border 142ms linear;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field input[type=number]:hover{
+    z-index: 5;
+    border-color: #a1a1a1;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field input[type="number"]:hover{
-    border-color: #c0c0c0;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field input[type=number]:focus{
+    z-index: 6;
+    border-color: #149BE6;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field input[type="number"]:focus{
-    border-color: #3296C8;
+.tail-datetime-calendar.theme-harx .calendar-timepicker .timepicker-field label{
+    color: #909498;
+    margin: 0;
+    padding: 0;
+    display: block;
+    font-size: 12px;
 }
-.tail-datetime-calendar.theme-white .calendar-time .calendar-field label{
-    color: #778899;
+/* @end HARX THEME */
+
+/* @start THEME-HARX-BLACK */
+.tail-datetime-calendar.theme-harx.theme-black{
+    background-color: #202428;
 }
-.tail-datetime-calendar.theme-white .calendar-actions{
-    border-color: #d0d0d0;
-    background-color: #ffffff;
+.tail-datetime-calendar.theme-harx.theme-black .calendar-tooltip{
+    color: #202428;
+    background-color: #FFFFFF;
 }
-/* @end tail.DateTime */
+.tail-datetime-calendar.theme-harx.theme-black .calendar-tooltip:before{
+    border-color: transparent transparent #FFFFFF transparent;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions{
+    background-color: #202428;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span{
+    color: #c0c4c8;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span:first-child:before,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span:last-child:before{
+    background-color: transparent !important;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span[data-action]:hover{
+    background-color: #090a0c;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span.action-prev{
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
+    9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iT\
+    TYgMkwwIDhsNiA2VjJ6Ii8+PC9zdmc+");
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span.action-next{
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
+    9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjE2IiB2aWV3Qm94PSIwIDAgNiAxNiI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iT\
+    TAgMTRsNi02LTYtNnYxMnoiLz48L3N2Zz4=");
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span.action-submit{
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
+    9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkP\
+    SJNMTIgNWwtOCA4LTQtNCAxLjUtMS41TDQgMTBsNi41LTYuNUwxMiA1eiIvPjwvc3ZnPg==");
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-actions span.action-cancel{
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
+    9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjZmZmZmZmIiBkP\
+    SJNNy40OCA4bDMuNzUgMy43NS0xLjQ4IDEuNDhMNiA5LjQ4bC0zLjc1IDMuNzUtMS40OC0xLjQ4TDQuNTIgOCAuNzcgNC4y\
+    NWwxLjQ4LTEuNDhMNiA2LjUybDMuNzUtMy43NSAxLjQ4IDEuNDhMNy40OCA4eiIvPjwvc3ZnPg==");
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker{
+    background-color: #202428;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker:after{
+    border-top: 1px solid #373d44;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr th,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td{
+    color: #c0c4c8;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.date-previous,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.date-next{
+    color: #646b72;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td .tooltip-tick{
+    right: 5px;
+    background-color: #FFFFFF;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.date-select.date-today:before,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.date-select .tooltip-tick{
+    background-color: #202428 !important;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.date-disabled{
+    color: #646b72;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.date-disabled:after{
+    color: #979ea4;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-day:hover,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-month:hover,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-year:hover,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-decade:hover{
+    border-color: #6f7d8b;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-day.date-disabled:hover,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-month.date-disabled:hover,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-year.date-disabled:hover,
+.tail-datetime-calendar.theme-harx.theme-black .calendar-datepicker table tr td.calendar-decade.date-disabled:hover{
+    border-color: #090a0c;
+    background-color: #15171a;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-timepicker:after{
+    border-top: 1px solid #373d44;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-timepicker .timepicker-field input[type=number]{
+    color: #c0c4c8;
+    background-color: #101418;
+    border-color: #2f3a46;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-timepicker .timepicker-field input[type=number]:hover{
+    border-color: #434d58;
+}
+.tail-datetime-calendar.theme-harx.theme-black .calendar-timepicker .timepicker-field input[type=number]:focus{
+    border-color: #149BE6;
+}
+/* @end THEME-HARX-BLACK */
