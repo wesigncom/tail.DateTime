@@ -1,5 +1,6 @@
 tail.DateTime
 =============
+[![plainJS](https://s.pytes.net/3fd80118)](https://s.pytes.net/e0b6ce86)
 [![npm](https://s.pytes.net/4afcd19c)](https://s.pytes.net/64a7f3a3)
 [![npm](https://s.pytes.net/2f3f75c4)](https://s.pytes.net/64a7f3a3)
 [![Software License](https://s.pytes.net/8257ac72)](LICENSE.md)
