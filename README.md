@@ -1,5 +1,6 @@
 tail.DateTime
 =============
+[![plainJS](https://s.pytes.net/3fd80118)](https://s.pytes.net/e0b6ce86)
 [![npm](https://s.pytes.net/4afcd19c)](https://s.pytes.net/64a7f3a3)
 [![npm](https://s.pytes.net/2f3f75c4)](https://s.pytes.net/64a7f3a3)
 [![Software License](https://s.pytes.net/8257ac72)](LICENSE.md)
@@ -65,6 +66,9 @@ Thanks To
 -   [prismJS](https://prismjs.com) for the Syntax highlighting library
 -   [MenuSpy](https://github.com/lcdsantos/menuspy) for the Menu Navigation
 
+### Translations
+-   [Mohammed Alsiddeeq Ahmed](https://github.com/mosid) / [Arabic Translation](https://github.com/pytesNET/tail.DateTime/issues/1)
+
 Documentation
 -------------
 The Documentation has been moved to [GitHubs Wiki Pages](https://github.com/pytesNET/tail.DateTime/wiki),
@@ -123,6 +127,7 @@ tail.DateTime(".tail-datetime-field", {
     dateEnd: false,                 // New in 0.4.0
     locale: "en",                   // New in 0.4.0
     position: "bottom",
+    rtl: "auto",                    // New in 0.4.1
     startOpen: false,
     stayOpen: false,
     timeFormat: "HH:ii:ss",

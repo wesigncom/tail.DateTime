@@ -1,6 +1,6 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
- |  @file       ./langs/tail.datetime-de_AT.js
+ |  @file       ./langs/tail.datetime-ar.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.1 - Beta
  |
@@ -22,12 +22,10 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de_AT", {
-        months: ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-        shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
-        time:   ["Stunden", "Minuten", "Sekunden"],
-        header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
-    });
+    months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+    days:   ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+    shorts: ["أحد", "إثن", "ثلا", "أرب", "خمي", "جمع", "سبت"],
+    time:   ["ساعة", "دقيقة", "ثانية"],
+    header: ["إختر الشهر", "إخنر السنة", "إختر العقد", "إختر الوقت"]
     return datetime;
 }));

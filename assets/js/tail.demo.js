@@ -1,6 +1,14 @@
-(function(window){
+;(function(factory){
+    if(typeof(define) == "function" && define.amd){
+        define(function(){ return factory(window); });
+    } else {
+        document.addEventListener("DOMContentLoaded", function(){
+            factory(window);
+        });
+    }
+}(function(root){
 	"use strict";
-    var w = window, d = window.document;
+    var w = root, d = root.document;
 
     /*
      |  HELPER METHODs
@@ -120,9 +128,6 @@
     }
 
     // Ready
-    d.addEventListener("DOMContentLoaded", function(){
-
-        // Fix Sub Navigation
         tail.each(d.querySelectorAll("ul.sub-navi"), function(){
             var clone = this.cloneNode(true);
                 clone.style.zIndex = "-1";
@@ -173,5 +178,4 @@
             });
             change(source, this);
         });
-    });
-})(this);
+}));

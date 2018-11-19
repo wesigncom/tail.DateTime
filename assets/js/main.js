@@ -1,17 +1,14 @@
 require([
     "prism.min", "menuspy.min", "tail.demo", "tail.select.min", "source/tail.datetime",
-    "langs/tail.datetime-de", "langs/tail.datetime-de_AT", "langs/tail.datetime-es", "langs/tail.datetime-ru"
-], function(prism, menu, website, select, datetime, de, de_AT, es, ru){
+    "langs/tail.datetime-all"
+], function(prism, menu, website, select, datetime, languages){
     var d = document, cur = new Date(), holder = [];
     var renderSource = function(el, code){
         el.className = "language-javascript line-numbers";
         el.innerHTML = "<code>" + code + "</code>";
         Prism.highlightAllUnder(el.parentElement);
     }
-    de(datetime);
-    de_AT(datetime);
-    es(datetime);
-    ru(datetime);
+    languages(datetime);
 
     // Welcome Calendars
     datetime(".datetime-calendar");
@@ -36,7 +33,6 @@ require([
         } else {
             var value = "theme-" + this.value;
         }
-        console.log(value);
         for(var l = holder.length, i = 0; i < l; i++){
             holder[i].config("classNames", value);
         }
@@ -203,7 +199,6 @@ require([
             if(demo2.config("dateRanges").length > 0){
                 render += "    dateRanges: [\n";
                 for(var r = demo2.config("dateRanges"), i = 0; i < r.length; i++){
-                    console.log(r, r[i]);
                     render += "        {\n";
                     render += "            start: " + r[i].start + ",\n";
                     render += "            end: " + r[i].end + ",\n";
@@ -298,8 +293,8 @@ require([
                 for(var r = demo3.config("tooltips"), i = 0; i < r.length; i++){
                     render += "        {\n";
                     render += "            date: " + ((r[i].date instanceof Array)? "[" + r[i].date[0] + ", " + r[i].date[1] + "]": r[i].date) + ",\n";
-                    render += "            text: \"" + r[i].text + "\"" + ((r[i].color != "#202428")? ",\n": "\n");
-                    if(r[i].color != "#202428"){
+                    render += "            text: \"" + r[i].text + "\"" + ((r[i].color != "inherit")? ",\n": "\n");
+                    if(r[i].color != "inherit"){
                         render += "            color: \"" + r[i].color + "\"\n";
                     }
                     render += "        },\n";

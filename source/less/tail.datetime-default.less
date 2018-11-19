@@ -1,10 +1,15 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
- |  @author        SamBrishes <https://github.com/pytesNET/tail.DateTime/>
- |  @version       0.4.0 - Alpha
+ |  @file       ./less/tail.datetime-default.less
+ |  @author     SamBrishes <sam@pytes.net>
+ |  @version    0.4.1 - Beta
  |
- |  @license       X11 / MIT License
- |  @copyright     Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
+ |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar>
+ |              This script started as fork and is now completely independent!
+ |
+ |  @website    https://github.com/pytesNET/tail.DateTime
+ |  @license    X11 / MIT License
+ |  @copyright  Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  */
 
 /* @start MAIN COLORs */
@@ -70,6 +75,7 @@
     display: block;
     overflow: hidden;
     position: absolute;
+    direction: ltr;
     border-collapse: separate;
     font-family: "Open Sans", Calibri, Arial, sans-serif;
     background-color: @color_body_b;
@@ -478,3 +484,82 @@
     }
 }
 /* @end CALENDAR TIMEPICKER */
+
+/* @start RTL */
+.tail-datetime-calendar.rtl{
+    direction: rtl;
+
+    .calendar-actions span.action-next,
+    .calendar-actions span.action-prev{
+        transform: rotate(180deg);
+        -o-transform: rotate(180deg);
+        -ms-transform: rotate(180deg);
+        -moz-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+    }
+    .calendar-datepicker table tr td.date-disabled:after{
+        right: 3px;
+        transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+    .calendar-datepicker table tr td.date-today:before{
+        right: 5px;
+    }
+    .calendar-datepicker table tr td .tooltip-tick{
+        left: 5px;
+    }
+    .calendar-datepicker table tr td.calendar-month.date-today:before,
+    .calendar-datepicker table tr td.calendar-year.date-today:before,
+    .calendar-datepicker table tr td.calendar-decade.date-today:before{
+        right: 50%;
+        margin-right: -2.5px;
+    }
+    .calendar-datepicker table tr td.calendar-month:hover span.inner:before,
+    .calendar-datepicker table tr td.calendar-year:hover span.inner:before,
+    .calendar-datepicker table tr td.calendar-decade:hover span.inner:before{
+        right: 6px;
+        border-right-color: #cccccc;
+    }
+    .calendar-datepicker table tr td.calendar-month span.inner:after,
+    .calendar-datepicker table tr td.calendar-year span.inner:after,
+    .calendar-datepicker table tr td.calendar-decade span.inner:after{
+        left: 0;
+    }
+    .calendar-datepicker table tr td.calendar-month:hover span.inner:after,
+    .calendar-datepicker table tr td.calendar-year:hover span.inner:after,
+    .calendar-datepicker table tr td.calendar-decade:hover span.inner:after{
+        left: 6px;
+        border-left-color: #cccccc;
+    }
+    .calendar-datepicker table tr td.calendar-decade span.inner{
+        text-align: right;
+    }
+    .calendar-timepicker .timepicker-field:first-child{
+        text-align: left;
+        padding-left: 0;
+        padding-right: 25px;
+    }
+    .calendar-timepicker .timepicker-field:last-child{
+        text-align: right;
+        padding-left: 25px;
+        padding-right: 0;
+    }
+    .calendar-timepicker .timepicker-field:first-child input[type=number]{
+        margin-left: -1px;
+        margin-right: 0;
+        border-radius: 0 3px 3px 0;
+        -moz-border-radius: 0 3px 3px 0;
+        -webkit-border-radius: 0 3px 3px 0;
+    }
+    .calendar-timepicker .timepicker-field:last-child input[type=number]{
+        margin-left: 0;
+        margin-right: -1px;
+        border-radius: 3px 0 0 3px;
+        -moz-border-radius: 3px 0 0 3px;
+        -webkit-border-radius: 3px 0 0 3px;
+    }
+}
+/* @end RTL */

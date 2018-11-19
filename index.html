@@ -47,18 +47,15 @@
         <!-- Assets -->
         <link type="text/css" rel="stylesheet" href="assets/css/octicons.css?ver=8.1.0" />
         <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.2.0" />
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.4.0" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.4.1" />
         <link type="text/css" rel="stylesheet" href="assets/css/tail.select.css?ver=0.4.2" />
         <script type="text/javascript" src="assets/js/prism.min.js?ver=1.15.0"></script>
         <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.2.0"></script>
         <script type="text/javascript" src="assets/js/tail.select.min.js?ver=0.4.2"></script>
 
         <!-- Source -->
-        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.4.0"></script>
-        <script type="text/javascript" src="source/langs/tail.datetime-de.js?ver=0.4.0"></script>
-        <script type="text/javascript" src="source/langs/tail.datetime-de_AT.js?ver=0.4.0"></script>
-        <script type="text/javascript" src="source/langs/tail.datetime-es.js?ver=0.4.0"></script>
-        <script type="text/javascript" src="source/langs/tail.datetime-ru.js?ver=0.4.0"></script>
+        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.4.1"></script>
+        <script type="text/javascript" src="source/langs/tail.datetime-all.js?ver=0.4.1"></script>
 
         <!-- Inline Styles -->
         <style type="text/css">
@@ -150,7 +147,7 @@
                         </div>
                         <div class="tail-project">
                             <span class="tail-title">tail.<b>DateTime</b></span>
-                            <span class="tail-version">0.4.0 - <b>Beta</b></span>
+                            <span class="tail-version">0.4.1 - <b>Beta</b></span>
                         </div>
                     </a>
                 </div>
@@ -183,6 +180,8 @@
                 <div class="container-left toolbar-left">
                     <span class="label">Written in</span>
                     <span class="javascript" data-tooltip="Vanilla JavaScript">JavaScript</span>
+                    <span class="css" data-tooltip="CSS">CSS</span>
+                    <span class="less" data-tooltip="LESS">LESS</span>
                 </div>
                 <div class="container-right toolbar-right">
                     <ul>
@@ -258,6 +257,7 @@
                                 <option value="de_AT">Sprache: Österreichisch</option>
                                 <option value="es">Idioma: Español</option>
                                 <option value="ru">язык: русский</option>
+                                <option value="ar" style="direction:rtl;text-align:right;">اللغة: العربية</option>
                             </select>
                         </div>
                     </div>
@@ -855,8 +855,8 @@
                                 for(var r = demo3.config("tooltips"), i = 0; i < r.length; i++){
                                     render += "        {\n";
                                     render += "            date: " + ((r[i].date instanceof Array)? "[" + r[i].date[0] + ", " + r[i].date[1] + "]": r[i].date) + ",\n";
-                                    render += "            text: \"" + r[i].text + "\"" + ((r[i].color != "#202428")? ",\n": "\n");
-                                    if(r[i].color != "#202428"){
+                                    render += "            text: \"" + r[i].text + "\"" + ((r[i].color != "inherit")? ",\n": "\n");
+                                    if(r[i].color != "inherit"){
                                         render += "            color: \"" + r[i].color + "\"\n";
                                     }
                                     render += "        },\n";

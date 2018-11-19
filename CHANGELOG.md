@@ -1,6 +1,24 @@
 CHANGELOG
 =========
 
+Version 0.4.1 - Beta
+--------------------
+-   Add: The new Arabic Translation. Many Thanks to [Mohammed Alsiddeeq Ahmed](https://github.com/mosid)
+         [#1](https://github.com/pytesNET/tail.DateTime/issues/1)!
+-   Add: The new option `rtl`, which allows to display the DateTime picker in an RTL style.
+-   Update: The new RTL supported Stylesheets.
+-   Update: The default tooltip tick color depends now on the used theme.
+-   Update: The "Enter/Escape" Key listener now also works when the cursor is within an input field.
+-   Bugfix: Disabled dates could still be selected / clicked.
+-   Bugfix: The `keyup` document event listener has fired per instance.
+-   Bugfix: The "Enter" Key listener doesn't notice / used already selected dates!
+-   Bugfix: You cannot go back farther than to February of the displayed year.
+            [#3](https://github.com/pytesNET/tail.DateTime/issues/3)!
+
+
+-   Bugfix: Issue with Date Selection with Update to 0.4.0.
+            [#2](https://github.com/pytesNET/tail.DateTime/issues/2)!
+
 Version 0.4.0 - Beta
 --------------------
 -   Info: This is the first BETA version! :3
