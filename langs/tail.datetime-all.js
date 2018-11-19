@@ -1,12 +1,13 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @file       ./langs/tail.datetime-all.js
- |  @author     SamBrishes <https://github.com/pytesNET/tail.DateTime/>
- |  @version    0.4.0 - Alpha
+ |  @author     SamBrishes <sam@pytes.net>
+ |  @version    0.4.1 - Beta
  |
- |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
+ |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar>
  |              This script started as fork and is now completely independent!
  |
+ |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
  |  @copyright  Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  */
@@ -21,6 +22,13 @@
        }
    }
 }(function(datetime){
+    datetime.strings.register("ar", {
+        months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+        days:   ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+        shorts: ["أحد", "إثن", "ثلا", "أرب", "خمي", "جمع", "سبت"],
+        time:   ["ساعة", "دقيقة", "ثانية"],
+        header: ["إختر الشهر", "إخنر السنة", "إختر العقد", "إختر الوقت"]
+    });
     datetime.strings.register("de", {
         months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
         days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],

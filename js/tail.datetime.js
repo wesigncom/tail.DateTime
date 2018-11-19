@@ -1,12 +1,13 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @file       ./js/tail.datetime.js
- |  @author     SamBrishes <https://github.com/pytesNET/tail.DateTime/>
- |  @version    0.4.0 - Alpha
+ |  @author     SamBrishes <sam@pytes.net>
+ |  @version    0.4.1 - Beta
  |
- |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
+ |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar>
  |              This script started as fork and is now completely independent!
  |
+ |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
  |  @copyright  Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  */
@@ -73,41 +74,39 @@
      |  @since  0.1.0
      |  @update 0.4.0
      */
-    var tailDateTime = function(element, config){
-        if(typeof(element) == "string"){
-            element = d.querySelectorAll(element);
-        }
-        if(element instanceof NodeList || element instanceof HTMLCollection || element instanceof Array){
-            for(var _r = [], l = element.length, i = 0; i < l; i++){
-                _r.push(new tailDateTime(element[i], config));
+    var tailDateTime = function(el, config){
+        el = (typeof(el) == "string")? d.querySelectorAll(el): el;
+        if(el instanceof NodeList || el instanceof HTMLCollection || el instanceof Array){
+            for(var _r = [], l = el.length, i = 0; i < l; i++){
+                _r.push(new tailDateTime(el[i], config));
             }
             return (_r.length === 1)? _r[0]: ((_r.length === 0)? false: _r);
         }
-        if(!(element instanceof Element)){
+        if(!(el instanceof Element)){
             return false;
         } else if(!(this instanceof tailDateTime)){
-            return new tailDateTime(element, config);
+            return new tailDateTime(el, config);
         }
 
-        // Check Element
-        if(tailDateTime.inst[element.getAttribute("data-tail-datetime")]){
-            return tailDateTime.inst[element.getAttribute("data-tail-datetime")];
+        // Check el
+        if(tailDateTime.inst[el.getAttribute("data-tail-datetime")]){
+            return tailDateTime.inst[el.getAttribute("data-tail-datetime")];
         }
-        if(element.getAttribute("data-datetime")){
-            var test = JSON.parse(element.getAttribute("data-datetime").replace(/\'/g, '"'));
+        if(el.getAttribute("data-datetime")){
+            var test = JSON.parse(el.getAttribute("data-datetime").replace(/\'/g, '"'));
             if(test instanceof Object){
                 config = clone(config, test);
             }
         }
 
         // Init Instance
-        this.e = element;
+        this.e = el;
         this.id = ++tailDateTime.count;
         this.con = clone(tailDateTime.defaults, config);
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.0";
+    tailDateTime.version = "0.4.1";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -125,6 +124,7 @@
         dateEnd: false,
         locale: "en",
         position: "bottom",
+        rtl: "auto",
         startOpen: false,
         stayOpen: false,
         timeFormat: "HH:ii:ss",
@@ -145,16 +145,16 @@
      |  STORAGE :: STRINGS
      */
     tailDateTime.strings = {
-        "en":   {
+        en:   {
             months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             days:   ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
             shorts: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
             time:   ["Hours", "Minutes", "Seconds"],
             header: ["Select a Month", "Select a Year", "Select a Decade", "Select a Time"]
+        },
+        register: function(locale, object){
+            this[locale] = object;
         }
-    };
-    tailDateTime.strings.register = function(locale, object){
-        tailDateTime.strings[locale] = object;
     };
 
     /*
@@ -164,13 +164,13 @@
         /*
          |  INTERNAL :: INIT CALENDAR
          |  @since  0.1.0
-         |  @update 0.4.0
+         |  @update 0.4.1
          */
         init: function(){
             var self = this, temp;
-            this.__ = tailDateTime.strings[this.con.locale] || tailDateTime.strings["en"];
 
             // Options
+            this.__ = tailDateTime.strings[this.con.locale] || tailDateTime.strings.en;
             this.con.dateStart = parse(this.con.dateStart, true, true) || 0;
             this.con.dateEnd = parse(this.con.dateEnd, true, true) || 9999999999999;
             this.con.viewDefault = (!this.con.dateFormat)? "time": this.con.viewDefault;
@@ -236,7 +236,7 @@
                     r.push({
                         date: (s !== e)? [s, e]: s,
                         text: t[i].text || "Tooltip",
-                        color: t[i].color || "#202428",
+                        color: t[i].color || "inherit",
                         element: t[i].element || (function(tooltip){
                             tooltip.className = "calendar-tooltip";
                             tooltip.innerHTML = '<div class="tooltip-inner">' + t[i].text || "Tooltip" + '</div>';
@@ -284,7 +284,9 @@
                     self.bind.call(self, event);
                 });
                 d[e]("keyup", function(event){
-                    self.bind.call(self, event);
+                    if(self.dt.contains(event.target)){
+                        self.bind.call(self, event);
+                    }
                 });
                 d[e]("click", function(event){
                     if(self.dt.contains(event.target)){
@@ -317,6 +319,7 @@
         /*
          |  INTERNAL :: EVENT LISTENER
          |  @since  0.4.0
+         |  @udpate 0.4.1
          */
         bind: function(event){
             var self = event.target, a = "getAttribute", d = "data-action", v = "data-view",
@@ -339,11 +342,13 @@
                 if(!elem || (event.buttons != 1 && (event.which || event.button) != 1)){
                     return;
                 }
+                if(elem.hasAttribute("data-disabled")){
+                    return;
+                }
                 switch(elem[a](d)){
-                    case "prev":
-                        return this.browseView("prev");
+                    case "prev":    //@Fallthrough
                     case "next":
-                        return this.browseView("next");
+                        return this.browseView(elem[a](d));
                     case "submit":
                         return this.selectDate(this.fetchDate(elem[a]("data-date")));
                     case "cancel":
@@ -359,13 +364,13 @@
 
             // KeyEvents
             if(event.type == "keyup"){
-                if(event.target !== this.e){
+                if(event.target.tagName != "INPUT" && event.target !== this.e){
                     if(/calendar-(static|close)/i.test(this.dt.className)){
                         return false;
                     }
                 }
                 if((event.keyCode || event.which) == 13){ // Enter || Return
-                    this.selectDate(this.fetchDate());
+                    this.selectDate(this.fetchDate(this.select));
                     event.stopPropagation();
                     if(!this.con.stayOpen){ this.close(); }
                 }
@@ -487,11 +492,17 @@
             if(typeof(_t) == "string" || _t instanceof Array){
                 _c = _c.concat(((typeof(_t) == "string")? _t.split(" "): _t));
             }
+            var rtl = ["ar", "he", "mdr", "sam", "syr"], _rt = this.con.rtl;
+            if(_rt === true || (_rt === "auto" && rtl.indexOf(this.con.locale) >= 0)){
+                _c.push("rtl");
+            }
             if(this.con.stayOpen){
                 _c.push("calendar-stay");
             }
+
             dt.id = "tail-datetime-" + this.id;
             dt.className = _c.join(" ");
+            dt.style.cssText = (this.con.rtl)? "direction:rtl;": "direction:ltr;";
 
             // Render Action
             if(this.con.dateFormat){
@@ -686,6 +697,7 @@
         /*
          |  VIEW :: SHOW DAYs
          |  @since  0.4.0
+         |  @update 0.4.1
          */
         viewDays: function(){
             var date = new Date(this.view.date.getTime()), time,
@@ -762,7 +774,11 @@
                 if(tooltip[0] > 0){
                     c += ' date-tooltip';
                     a += ' data-tooltip="' + tooltip[1] + '" data-tooltip-time="' + time + '"';
-                    i += '<span class="tooltip-tick" style="background:' + tooltip[2] + ';"></span>';
+                    if(tooltip[2] !== "inherit"){
+                        i += '<span class="tooltip-tick" style="background:' + tooltip[2] + ';"></span>';
+                    } else {
+                        i += '<span class="tooltip-tick"></span>';
+                    }
                 }
                 t.push('<td class="' + c + '" ' + a + '>' + i + '</td>')
 
@@ -861,10 +877,11 @@
         /*
          |  PUBLIC :: SWITCH DATE
          |  @since  0.4.0
+         |  @update 0.4.1
          */
         switchDate: function(year, month, day, none){
-            this.view.date.setFullYear(year || this.view.date.getFullYear());
-            this.view.date.setMonth(month || this.view.date.getMonth());
+            this.view.date.setFullYear((year == undefined)? this.view.date.getFullYear(): year);
+            this.view.date.setMonth((month == undefined)? this.view.date.getMonth(): month);
             if(day == "auto"){
                 var test = this.view.date, now = new Date();
                 if(test.getMonth() == now.getMonth() && test.getYear() == now.getYear()){

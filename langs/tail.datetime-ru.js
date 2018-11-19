@@ -1,12 +1,13 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @file       ./langs/tail.datetime-ru.js
- |  @author     SamBrishes <https://github.com/pytesNET/tail.DateTime/>
- |  @version    0.4.0 - Alpha
+ |  @author     SamBrishes <sam@pytes.net>
+ |  @version    0.4.1 - Beta
  |
- |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar/>
+ |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar>
  |              This script started as fork and is now completely independent!
  |
+ |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
  |  @copyright  Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
  */
