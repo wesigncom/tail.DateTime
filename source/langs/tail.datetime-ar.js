@@ -1,7 +1,7 @@
 /*
  |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
  |  @file       ./langs/tail.datetime-ar.js
- |  @author     SamBrishes <sam@pytes.net>
+ |  @author     Mohammed Alsiddeeq Ahmed [https://github.com/mosid]
  |  @version    0.4.1 - Beta
  |
  |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar>
