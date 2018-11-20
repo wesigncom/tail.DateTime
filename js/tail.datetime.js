@@ -400,6 +400,7 @@
                     return args;
                 }(new Array(arguments.length), arguments, this.events[event][i].args)));
             }
+            return true;
         },
 
         /*
@@ -479,6 +480,7 @@
         /*
          |  RENDER :: CALENDAR
          |  @since  0.4.0
+         |  @update 0.4.1
          */
         renderCalendar: function(){
             var _s, _c = ["tail-datetime-calendar", "calendar-close"], dt = d.createElement("DIV"),
@@ -856,7 +858,7 @@
         /*
          |  PUBLIC :: SWITCH VIEW
          |  @since  0.1.0
-         |  @update 0.4.0
+         |  @update 0.4.1
          */
         switchView: function(view){
             var order = [null, "days", "months", "years", "decades", null];
@@ -870,7 +872,11 @@
                     view = false;
                 }
             }
-            return (!view)? false: !!this.renderDatePicker(this.dt, view);
+            if(!view){
+                return false;
+            }
+            this.renderDatePicker(this.dt, view);
+            return this.trigger("view", view);
         },
 
         /*
@@ -954,7 +960,7 @@
         /*
          |  PUBLIC :: SELECT DATE / TIME
          |  @since  0.1.0
-         |  @update 0.4.0
+         |  @update 0.4.1
          */
         selectDate: function(Y, M, D, H, I, S){
             var n = new Date(), f = [];
@@ -970,11 +976,12 @@
                 I? I: (I == undefined)? this.view.date.getMinutes():  0,
                 S? S: (S == undefined)? this.view.date.getSeconds():  0
             );
+            this.view.date = new Date(this.select.getTime());
 
             this.e.value = this.convertDate(this.select, f.join(" "));
             this.e.setAttribute("data-value", this.select.getTime());
-            this.trigger("change");
-            return this.switchView("days");
+            this.switchView("days");
+            return this.trigger("change");
         },
         selectTime: function(H, I, S){
             return this.selectDate(false, false, false, H, I, S);
@@ -1048,7 +1055,8 @@
          |  @update 0.4.0
          */
         on: function(event, func, args){
-            if(["open", "close", "change"].indexOf(event) < 0 || typeof(func) != "function"){
+            var events = ["open", "close", "change", "view"];
+            if(events.indexOf(event) < 0 || typeof(func) != "function"){
                 return false;
             }
             if(!(event in this.events)){
