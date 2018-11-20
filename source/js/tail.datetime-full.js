@@ -385,7 +385,7 @@
                     case "next":
                         return this.browseView(elem[a](d));
                     case "submit":
-                        return this.selectDate(this.fetchDate(elem[a]("data-date")));
+                        return this.selectDate(this.fetchDate(parseInt(elem[a]("data-date"))));
                     case "cancel":
                         if(!this.con.stayOpen){
                             this.close();
@@ -751,8 +751,7 @@
                 time = date.getTime();
 
                 // Attributes and ClassNames
-                a = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-                a = 'data-action="submit" data-date="' + a + '"';
+                a = 'data-action="submit" data-date="' + date.getTime() + '"';
                 c = 'calendar-day date-' + ((date.getMonth() > month)? 'next':
                     (date.getMonth() < month)? 'previous': 'current');
                 if(this.con.today && today == date.toDateString()){

@@ -14,6 +14,8 @@ Version 0.4.1 - Beta
 -   Bugfix: The "Enter" Key listener doesn't notice / used already selected dates!
 -   Bugfix: You cannot go back farther than to February of the displayed year.
             [#3](https://github.com/pytesNET/tail.DateTime/issues/3)!
+-   Bugfix: Issue with Date Selection with Update to 0.4.0.
+            [#2](https://github.com/pytesNET/tail.DateTime/issues/2)!
 
 Version 0.4.0 - Beta
 --------------------
