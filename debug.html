@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="content-language" content="en" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="robots" content="index, follow" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>tail.DateTime - A pure, vanilla JavaScript DateTime Picker</title>
+
+        <!-- Common -->
+        <meta name="author" content="SamBrishes, pytesNET" />
+        <meta name="publisher" content="SamBrishes, pytesNET" />
+        <meta name="copyright" content="SamBrishes, pytesNET" />
+
+        <meta name="name" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+        <meta name="keywords" content="Date, DateTime, Time, Picker, Calendar, Clock, JavaScript, JS, Vanilla, Pure, Form, Formular, Input, GitHub, OpenSource, Free." />
+
+        <meta itemprop="name" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta itemprop="description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+        <meta itemprop="keywords" content="Date, DateTime, Time, Picker, Calendar, Clock, JavaScript, JS, Vanilla, Pure, Form, Formular, Input, GitHub, OpenSource, Free." />
+
+        <!-- Dublin Core -->
+        <meta name="DC.Language" content="en" />
+        <meta name="DC.Creator" content="SamBrishes, pytesNET" />
+        <meta name="DC.Publisher" content="SamBrishes, pytesNET" />
+        <meta name="DC.Rights" content="SamBrishes, pytesNET" />
+        <meta name="DC.Description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="pytesNET" />
+        <meta name="twitter:creator" content="pytesNET" />
+        <meta name="twitter:title" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="twitter:description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+
+        <!-- Open Graph -->
+        <meta name="og:type" content="website" />
+        <meta name="og:url" content="http://pytesNET.github.io/tail.DateTime" />
+        <meta name="og:locale" content="en" />
+        <meta name="og:title" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="og:site_name" content="tail.DateTime - A pure, vanilla JavaScript DateTime Picker" />
+        <meta name="og:description" content="A light-weight and Open Source Datetime Picker, written in pure vanilla JavaScript (Based on the PureJSCalendar Script)." />
+
+        <!-- Assets -->
+        <link type="text/css" rel="stylesheet" href="assets/css/octicons.css?ver=8.1.0" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.2.0" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.4.1" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.select.css?ver=0.4.2" />
+        <script type="text/javascript" src="assets/js/prism.min.js?ver=1.15.0"></script>
+        <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.2.0"></script>
+        <script type="text/javascript" src="assets/js/tail.select.min.js?ver=0.4.2"></script>
+
+        <!-- Source -->
+        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.4.1"></script>
+        <script type="text/javascript" src="source/langs/tail.datetime-all.js?ver=0.4.1"></script>
+
+        <style type="text/css">
+            #debugger{
+                color: #cccccc;
+                width: 100%;
+            	margin: 15px 0;
+                padding: 10px 15px;
+                font-size: 14px;
+                font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+                background-color: #202428;
+                word-wrap: normal;
+            	word-break: normal;
+                text-align: left;
+                white-space: pre;
+                word-spacing: normal;
+                line-height: 1.5;
+                tab-size: 4;
+            	-o-tab-size: 4;
+                -moz-tab-size: 4;
+                hyphens: none;
+                -ms-hyphens: none;
+            	-moz-hyphens: none;
+                -webkit-hyphens: none;
+            	border-radius: 2px;
+            	-moz-border-radius: 2px;
+            	-webkit-border-radius: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="container">
+                <div class="container-left header-left">
+                    <a href="https://pytesnet.github.io/tail.DateTime" class="tail">
+                        <div class="tail-logo">
+                            <div class="tail-logo-circle"></div>
+                        </div>
+                        <div class="tail-project">
+                            <span class="tail-title">tail.<b>DateTime</b></span>
+                            <span class="tail-version">0.4.1 - <b>Debugger</b></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="container-right header-right">
+                    <ul class="main-navi">
+                        <li class="navi-item item-internal has-submenu active">
+                            <a href="./index.html"><span>Demo</span></a>
+                        </li>
+                        <li class="navi-item item-internal"><a href="https://github.com/pytesNET/tail.DateTime/wiki"><span>Docs</span></a></li>
+
+                        <li class="navi-item item-external">
+                            <a href="https://www.github.com/pytesNET/tail.DateTime"><span class="octicon octicon-mark-github"></span></a>
+                        </li>
+                        <li class="navi-item item-external">
+                            <a href="https://github.com/pytesNET/tail.DateTime/tarball/master" class="tar"><span>.TAR</span></a><a href="https://github.com/pytesNET/tail.DateTime/zipball/master" class="zip"><span>.ZIP</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar">
+            <div class="container">
+                <div class="container-left toolbar-left">
+                    <span class="label">Written in</span>
+                    <span class="javascript" data-tooltip="Vanilla JavaScript">JavaScript</span>
+                    <span class="css" data-tooltip="CSS">CSS</span>
+                    <span class="less" data-tooltip="LESS">LESS</span>
+                </div>
+                <div class="container-right toolbar-right">
+                    <ul>
+                        <li class="firefox" data-tooltip="Mozilla Firefox"></li>
+                        <li class="chrome" data-tooltip="Google Chrome"></li>
+                        <li class="opera" data-tooltip="Opera"></li>
+                        <li class="ie" data-tooltip="Internet Explorer"></li>
+                    </ul>
+                    <span class="label">Supported</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="container">
+                <div class="actionbar">
+                    <div class="actionbar-left">
+                        <div class="action-select">
+                            <div class="select-icon"><span class="octicon octicon-gear"></span></div>
+                            <select id="change-design">
+                                <option value="default">Design: Default</option>
+                                <option value="harx">Design: Harx</option>
+                            </select>
+                        </div>
+
+                        <div class="action-select">
+                            <div class="select-icon"><span class="octicon octicon-paintcan"></span></div>
+                            <select id="change-color" data-connect="#change-design">
+                                <option data-value="default" value="red">Color: Red</option>
+                                <option data-value="default" value="orange">Color: Orange</option>
+                                <option data-value="default" value="green">Color: Green</option>
+                                <option data-value="default" value="blue">Color: Blue</option>
+
+                                <option data-value="harx" value="white">Color: White</option>
+                                <option data-value="harx" value="black">Color: Black</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="actionbar-right">
+                        <div class="action-select">
+                            <div class="select-icon"><span class="octicon octicon-book"></span></div>
+                            <select id="change-locale">
+                                <option value="en">Language: English</option>
+                                <option value="de">Sprache: Deutsch</option>
+                                <option value="de_AT">Sprache: Österreichisch</option>
+                                <option value="es">Idioma: Español</option>
+                                <option value="ru">язык: русский</option>
+                                <option value="ar" style="direction:rtl;text-align:right;">اللغة: العربية</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <section class="demo-content separate">
+                <div class="container">
+                    <header><h1>Just a simple <b>Date/Time</b> Picker</h1></header>
+                    <article class="side-by-side">
+                        <aside class="aside-50" style="padding: 0;">
+                            <div class="example">
+                                <input type="hidden" id="datetime-1" class="datetime" />
+                                <div id="datetime-1-holder" class="datetime-folder"></div>
+                            </div>
+                        </aside>
+                        <aside class="aside-50 text-left" style="padding: 0;">
+                            <div class="example bordered">
+                                <h1>Debugger</h1>
+                                <div id="debugger" class="output">Waiting for Change...</div>
+                            </div>
+                        </aside>
+                    </article>
+                </div>
+            </section>
+        </div>
+
+        <div class="footer">
+            <div class="container">
+                <div class="container-left footer-left">
+                    Copyright &copy; 2018 SamBrishes @ pytesNET<br />
+                    Published under the MIT / X11 License
+                </div>
+                <div class="container-right footer-right">
+                    Star, Fork and Download on <a href="https://github.com/pytesNET/tail.DateTime"><span class="octicon octicon-logo-github"></span>!</a><br />
+                    This Page uses <a href="https://prismjs.com/" target="_blank">prismJS</a> and <a href="https://github.com/lcdsantos/menuspy" target="_blank">MenuSpy</a>!
+                </div>
+            </div>
+        </div>
+
+        <div class="js-footer">
+            <script type="text/javascript">
+                var renderSource = function(el, code){
+                    el.className = "language-javascript line-numbers";
+                    el.innerHTML = "<code>" + code + "</code>";
+                    Prism.highlightAllUnder(el.parentElement);
+                }
+
+                // Ready
+                document.addEventListener("DOMContentLoaded", function(){
+                    var d = document, cur = new Date(), holder = [];
+
+                    // Welcome Calendars
+                    tail.DateTime(".datetime-calendar");
+
+                    // General Actions
+                    d.querySelector("select#change-design").addEventListener("change", function(){
+                        if(this.value == "harx"){
+                            for(var l = holder.length, i = 0; i < l; i++){
+                                holder[i].config("classNames", "theme-" + this.value);
+                            }
+                            d.querySelector("select#change-color").options.selectedIndex = 4;
+                        } else {
+                            for(var l = holder.length, i = 0; i < l; i++){
+                                holder[i].config("classNames", "");
+                            }
+                            d.querySelector("select#change-color").options.selectedIndex = 0;
+                        }
+                    });
+                    d.querySelector("select#change-color").addEventListener("change", function(){
+                        if(d.querySelector("select#change-design").value == "harx"){
+                            var value = "theme-harx theme-" + this.value;
+                        } else {
+                            var value = "theme-" + this.value;
+                        }
+                        console.log(value);
+                        for(var l = holder.length, i = 0; i < l; i++){
+                            holder[i].config("classNames", value);
+                        }
+                    });
+                    d.querySelector("select#change-locale").addEventListener("change", function(){
+                        for(var l = holder.length, i = 0; i < l; i++){
+                            holder[i].config("locale", this.value);
+                        }
+                    });
+                    d.querySelector("select#change-design").options.selectedIndex = 0;
+                    d.querySelector("select#change-color").options.selectedIndex = 0;
+                    d.querySelector("select#change-locale").options.selectedIndex = 0;
+
+                    // Helper
+                    var dateHelper = tail.DateTime(".datetime-helper", {
+                        timeFormat: false,
+                        position: "right"
+                    });
+                    holder = holder.concat(dateHelper);
+
+                    // DateTime Positions
+                    var dateFields = tail.DateTime(".datetime-field");
+                    holder = holder.concat(dateFields);
+
+                    /*
+                     |  DEBUG
+                     */
+                    var debug = tail.DateTime("#datetime-1", {
+                        position: "#datetime-1-holder",
+                        startOpen: true,
+                        stayOpen: true
+                    });
+                    holder.push(debug);
+
+                    var consolelog = function(){
+                        if(this.select.getTime){
+                            var date = this.select.getFullYear() + "-" + this.select.getMonth() + "-" + this.select.getDate()
+                                     + " " + this.select.getHours() + ":" + this.select.getMinutes() + ":" + this.select.getSeconds();
+                        } else {
+                            var date = "None";
+                        }
+                        var view = this.view.date.getFullYear() + "-" + this.view.date.getMonth() + "-" + this.view.date.getDate()
+                                 + " " + this.view.date.getHours() + ":" + this.view.date.getMinutes() + ":" + this.view.date.getSeconds();
+
+                        if(this.dt.querySelector("table.calendar-days tbody td.date-select")){
+                            var check = this.dt.querySelector("table.calendar-days tbody td.date-select").innerText;
+                        } else {
+                            var check = "None";
+                        }
+
+                        // Write Content
+                        var content = "ID:     " + this.id + "<br />"
+                                    + "Check:  " + check + "<br />"
+                                    + "Select: " + date + "<br />"
+                                    + "View:   " + view + " (" + this.view.type + ")<br />";
+                        d.querySelector("#debugger").innerHTML = content;
+                    }
+
+                    debug.on("change", function(){
+                        consolelog.apply(this, arguments);
+                    });;
+                    debug.on("view", function(){
+                        consolelog.apply(this, arguments);
+                    });
+                });
+            </script>
+        </div>
+    </body>
+</html>
