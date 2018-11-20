@@ -304,7 +304,9 @@
                         var content = "ID:     " + this.id + "<br />"
                                     + "Check:  " + check + "<br />"
                                     + "Select: " + date + "<br />"
-                                    + "View:   " + view + " (" + this.view.type + ")<br />";
+                                    + "        " + (this.select.getTime? this.select.toDateString(): "") + "<br />"
+                                    + "View:   " + view + " (" + this.view.type + ")<br />"
+                                    + "        " + this.view.date.toDateString();
                         d.querySelector("#debugger").innerHTML = content;
                     }
 
