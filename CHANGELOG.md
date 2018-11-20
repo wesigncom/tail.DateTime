@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Version 0.4.1 - Beta
---------------------
+Unreleased Changes!
+-------------------
 -   Add: The new Arabic Translation. Many Thanks to [Mohammed Alsiddeeq Ahmed](https://github.com/mosid)
          [#1](https://github.com/pytesNET/tail.DateTime/issues/1)!
 -   Add: The new option `rtl`, which allows to display the DateTime picker in an RTL style.
