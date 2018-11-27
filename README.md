@@ -36,15 +36,15 @@ archive, or just visit the [Releases](https://github.com/pytesNET/tail.DateTime/
 on GitHub directly. You can also be cool and using NPM (or YARN):
 
 ```markup
-npm install tail.DateTime --save
+npm install tail.datetime --save
 ```
 
 ```markup
-yarn add tail.DateTime --save
+yarn add tail.datetime --save
 ```
 
 ```markup
-bower install tail.DateTime --save
+bower install tail.datetime --save
 ```
 
 ### Using a CDN
