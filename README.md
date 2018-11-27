@@ -74,13 +74,12 @@ Documentation
 The Documentation has been moved to [GitHubs Wiki Pages](https://github.com/pytesNET/tail.DateTime/wiki),
 but I will keep a table of contents list here and some basic instructions.
 
--   [Instructions]()
--   [Default Usage]()
--   [Public Options]()
--   [Public Methods]()
--   [Events & Callbacks]()
--   [Help Translating]()
--   [Internal]()
+-   [Install & Embed](https://www.github.com/pytesNET/tail.DateTime/wiki/instructions)
+-   [Default Usage](https://www.github.com/pytesNET/tail.DateTime/wiki/default-usage)
+-   [Public Options](https://www.github.com/pytesNET/tail.DateTime/wiki/public-options)
+-   [Public Methods](https://www.github.com/pytesNET/tail.DateTime/wiki/public-methods)
+-   [Events & Callbacks](https://www.github.com/pytesNET/tail.DateTime/wiki/events-callbacks)
+-   [Internal Variables & Methods](https://www.github.com/pytesNET/tail.DateTime/wiki/internal)
 
 ### Basic Instructions
 You can pass up to 2 arguments to the **tail.DateTime** constructor, the first parameter is required
