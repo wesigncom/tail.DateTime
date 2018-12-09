@@ -13,6 +13,14 @@
  */
 
 /* @start MAIN CALENDAR */
+.tail-datetime-calendar,
+.tail-datetime-calendar *,
+.tail-datetime-calendar *:before,
+.tail-datetime-calendar *:after{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
 .tail-datetime-calendar{
     width: 275px;
     height: auto;
@@ -421,6 +429,7 @@
     position: relative;
     font-size: 12px;
     text-align: center;
+    line-height: 1.6;
     background-color: #fafafa;
     border-width: 1px;
     border-style: solid;
