@@ -1,15 +1,12 @@
 /*
- |  tail.DateTime - A pure, vanilla JavaScript DateTime Picker
- |  @file       ./js/tail.datetime.js
+ |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
+ |  @file       ./js/tail.datetime-full.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.1 - Beta
- |
- |  @fork       MrGuiseppe <https://github.com/MrGuiseppe/pureJSCalendar>
- |              This script started as fork and is now completely independent!
+ |  @version    0.4.2 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
- |  @copyright  Copyright © 2018 - SamBrishes, pytesNET <pytes@gmx.net>
+ |  @copyright  Copyright © 2018 SamBrishes, pytesNET <info@pytes.net>
  */
 ;(function(factory){
     if(typeof(define) == "function" && define.amd){
@@ -71,8 +68,7 @@
 
     /*
      |  CONSTRUCTOR
-     |  @since  0.1.0
-     |  @update 0.4.0
+     |  @version    0.4.0 [0.2.0]
      */
     var tailDateTime = function(el, config){
         el = (typeof(el) == "string")? d.querySelectorAll(el): el;
@@ -106,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.1";
+    tailDateTime.version = "0.4.2";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -145,50 +141,67 @@
      |  STORAGE :: STRINGS
      */
     tailDateTime.strings = {
-        ar:     {
+        ar: {
             months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
             days:   ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
             shorts: ["أحد", "إثن", "ثلا", "أرب", "خمي", "جمع", "سبت"],
             time:   ["ساعة", "دقيقة", "ثانية"],
             header: ["إختر الشهر", "إخنر السنة", "إختر العقد", "إختر الوقت"]
         },
-        de:     {
+        de: {
             months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
             days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
             shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
             time:   ["Stunden", "Minuten", "Sekunden"],
             header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
         },
-        de_AT:  {
+        de_AT: {
             months: ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
             days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
             shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
             time:   ["Stunden", "Minuten", "Sekunden"],
             header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
         },
-        en:   {
+        en: {
             months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             days:   ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
             shorts: ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"],
             time:   ["Hours", "Minutes", "Seconds"],
             header: ["Select a Month", "Select a Year", "Select a Decade", "Select a Time"]
         },
-        es:     {
+        es: {
             months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             days:   ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
             shorts: ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"],
             time:   ["Horas", "Minutos", "Segundos"],
             header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
         },
-        ru:     {
+        ru: {
             months: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
             days:   ["воскресенье", "понедельник", "вторник", "среда","четверг","пятница","суббота",],
             shorts: ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
             time:   ["часов", "минут", "секунд"],
             header: ["Выберите месяц", "Выберите год", "Выберите Десятилетие", "Выберите время"]
         },
+        modify: function(locale, id, string){
+            if(!(locale in this)){
+                return false;
+            }
+            if((id instanceof Object)){
+                for(var key in id){
+                    this.modify(locale, key, id[key]);
+                }
+            } else {
+                this[locale][id] = (typeof(string) == "string")? string: this[locale][id];
+            }
+            return true;
+        },
         register: function(locale, object){
+            if(typeof(locale) != "string" || !(object instanceof Object)){
+                return false;
+            }
             this[locale] = object;
+            return true;
         }
     };
 
@@ -198,8 +211,7 @@
     tailDateTime.prototype = {
         /*
          |  INTERNAL :: INIT CALENDAR
-         |  @since  0.1.0
-         |  @update 0.4.1
+         |  @version    0.4.1 [0.2.0]
          */
         init: function(){
             var self = this, temp;
@@ -353,8 +365,7 @@
 
         /*
          |  INTERNAL :: EVENT LISTENER
-         |  @since  0.4.0
-         |  @udpate 0.4.1
+         |  @version    0.4.1 [0.4.0]
          */
         bind: function(event){
             var self = event.target, a = "getAttribute", d = "data-action", v = "data-view",
@@ -417,7 +428,7 @@
 
         /*
          |  INTERNAL :: EVENT TRIGGER
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         trigger: function(event){
             var obj = {bubbles: false, cancelable: true, detail: {args: arguments, self: this}};
@@ -440,12 +451,11 @@
 
         /*
          |  HELPER :: CALCULATE POSITION
-         |  @since  0.3.1
-         |  @update 0.4.0
+         |  @version    0.4.2 [0.3.1]
          */
         calcPosition: function(){
             var a = this.dt.style, b = w.getComputedStyle(this.dt),
-                x =  parseInt(b.marginLeft)+parseInt(b.marginRight),
+                x = parseInt(b.marginLeft)+parseInt(b.marginRight),
                 y = parseInt(b.marginTop) +parseInt(b.marginBottom),
                 p = (function(e, r){
                     r = {
@@ -460,30 +470,31 @@
             a.visibility = "hidden";
             switch(this.con.position){
                 case "top":
-                    a.top = p.top - (this.dt.offsetHeight + y) + "px";
-                    a.left = (p.left + (p.width / 2)) - (this.dt.offsetWidth / 2 + x / 2) + "px";
+                    var top = p.top - (this.dt.offsetHeight + y),
+                        left = (p.left + (p.width / 2)) - (this.dt.offsetWidth / 2 + x / 2);
                     break;
                 case "left":
-                    a.top = (p.top + p.height/2) - (this.dt.offsetHeight / 2 + y) + "px";
-                    a.left = p.left - (this.dt.offsetWidth + x) + "px";
+                    var top = (p.top + p.height/2) - (this.dt.offsetHeight / 2 + y),
+                        left = p.left - (this.dt.offsetWidth + x);
                     break;
                 case "right":
-                    a.top = (p.top + p.height/2) - (this.dt.offsetHeight / 2 + y) + "px";
-                    a.left = p.left + p.width + "px";
+                    var top = (p.top + p.height/2) - (this.dt.offsetHeight / 2 + y),
+                        left = p.left + p.width;
                     break;
-                case "bottom":
-                    a.top = p.top + p.height + "px";
-                    a.left = (p.left + (p.width / 2)) - (this.dt.offsetWidth / 2 + x / 2) + "px";
+                default:
+                    var top = p.top + p.height,
+                        left = (p.left + (p.width / 2)) - (this.dt.offsetWidth / 2 + x / 2);
                     break;
             }
+            a.top = ((top >= 0)? top: this.e.offsetTop) + "px";
+            a.left = ((left >= 0)? left: 0) + "px";
             a.visibility = "visible";
             return this;
         },
 
         /*
          |  HELPER :: CONVERT DATE
-         |  @since  0.1.0
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.1.0]
          */
         convertDate: function(inDate, format){
             var dateObject = {
@@ -514,8 +525,7 @@
 
         /*
          |  RENDER :: CALENDAR
-         |  @since  0.4.0
-         |  @update 0.4.1
+         |  @version    0.4.1 [0.4.0]
          */
         renderCalendar: function(){
             var _s, _c = ["tail-datetime-calendar", "calendar-close"], dt = d.createElement("DIV"),
@@ -575,7 +585,7 @@
 
         /*
          |  RENDER :: DATE PICKER
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         renderDatePicker: function(dt, view){
             if(!view || ["decades", "years", "months", "days"].indexOf(view) < 0){
@@ -601,13 +611,13 @@
 
         /*
          |  RENDER :: TIME PICKER
-         |  @since  0.4.0
+         |  @version    0.4.1 [0.4.0]
          */
         renderTimePicker: function(dt){
             if(!this.con.timeFormat){ return false; }
 
             // Render View
-            var div = d.createElement("DIV"), inp;
+            var div = d.createElement("DIV");
             div.className = "calendar-timepicker";
             div.innerHTML = '<div class="timepicker-field timepicker-hours">'
                           + '<input type="number" name="dt[h]" value="" min="00" max="23" step="1" />'
@@ -620,13 +630,19 @@
                           + '<div class="timepicker-field timepicker-seconds">'
                           + '<input type="number" name="dt[s]" value="" min="00" max="59" step="5" />'
                           + '<label>' + this.__["time"][2] + '</label>'
-                          + '</div>',
+                          + '</div>';
 
             // Set Data
-            inp = div.querySelectorAll("input");
-            inp[0].value = this.view.date.getHours(),
+            var selectTime = function(event){
+                var time = this.parentElement.parentElement.querySelectorAll("input");
+                self.selectTime(time[0].value, time[1].value, time[2].value);
+            }, self = this, inp = div.querySelectorAll("input");
+            inp[0].value = this.view.date.getHours();
+            inp[0].addEventListener("input", selectTime);
             inp[1].value = this.view.date.getMinutes();
+            inp[1].addEventListener("input", selectTime);
             inp[2].value = this.view.date.getSeconds();
+            inp[2].addEventListener("input", selectTime);
 
             // Append Element
             if(dt.querySelector(".calendar-timepicker")){
@@ -639,7 +655,7 @@
 
         /*
          |  VIEW :: HANDLE LABEL
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         handleLabel: function(dt){
             var label = dt.querySelector(".label"), text, year;
@@ -661,7 +677,7 @@
 
         /*
          |  VIEW :: SHOW DECADEs
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         viewDecades: function(){
             var year = this.view.date.getFullYear(),
@@ -686,7 +702,7 @@
 
         /*
          |  VIEW :: SHOW YEARs
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         viewYears: function(){
             var year = this.view.date.getFullYear(),
@@ -711,7 +727,7 @@
 
         /*
          |  VIEW :: SHOW MONTHs
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         viewMonths: function(){
             var strings = this.__["months"], today = this.con.today? (new Date()).getMonth(): -1;
@@ -733,8 +749,7 @@
 
         /*
          |  VIEW :: SHOW DAYs
-         |  @since  0.4.0
-         |  @update 0.4.1
+         |  @version    0.4.1 [0.4.0]
          */
         viewDays: function(){
             var date = new Date(this.view.date.getTime()), time,
@@ -832,7 +847,7 @@
 
         /*
          |  VIEW :: SHOW TOOLTIP
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         showTooltip: function(id, field, time){
             var t = this.con.tooltips[id].element, e = t.style, w, h,
@@ -868,7 +883,7 @@
 
         /*
          |  VIEW :: HIDE TOOLTIP
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         hideTooltip: function(id){
             var t = this.dt.querySelector("#tooltip-" + id), e = t.style;
@@ -892,8 +907,7 @@
 
         /*
          |  PUBLIC :: SWITCH VIEW
-         |  @since  0.1.0
-         |  @update 0.4.1
+         |  @version    0.4.1 [0.1.0]
          */
         switchView: function(view){
             var order = [null, "days", "months", "years", "decades", null];
@@ -916,8 +930,7 @@
 
         /*
          |  PUBLIC :: SWITCH DATE
-         |  @since  0.4.0
-         |  @update 0.4.1
+         |  @version    0.4.1 [0.4.0]
          */
         switchDate: function(year, month, day, none){
             this.view.date.setFullYear((year == undefined)? this.view.date.getFullYear(): year);
@@ -936,8 +949,7 @@
 
         /*
          |  PUBLIC :: SWITCH MONTH
-         |  @since  0.1.0
-         |  @update 0.4.0 - Alias for `.switchDate()`
+         |  @version    0.4.0 [0.1.0]
          */
         switchMonth: function(month, year){
             if(typeof(month) == "string"){
@@ -949,8 +961,7 @@
 
         /*
          |  PUBLIC :: SWITCH YEAR
-         |  @since  0.1.0
-         |  @update 0.4.0 - Alias for `.switchDate()`
+         |  @version    0.4.0 [0.1.0]
          */
         switchYear: function(year){
             if(typeof(year) == "string"){
@@ -962,7 +973,7 @@
 
         /*
          |  PUBLIC :: BROWSE VIEW
-         |  @since  0.4.0 - Helper for `switchDate()`
+         |  @version    0.4.0 [0.4.0]
          */
         browseView: function(type){
             type = (["previous", "prev"].indexOf(type) >= 0)? -1: 1;
@@ -981,7 +992,7 @@
 
         /*
          |  PUBLIC :: FETCH DATE / DTIME
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         fetchDate: function(date){
             date = parse(date || false) || this.view.date;
@@ -994,8 +1005,7 @@
 
         /*
          |  PUBLIC :: SELECT DATE / TIME
-         |  @since  0.1.0
-         |  @update 0.4.1
+         |  @version    0.4.2 [0.1.0]
          */
         selectDate: function(Y, M, D, H, I, S){
             var n = new Date(), f = [];
@@ -1019,13 +1029,12 @@
             return this.trigger("change");
         },
         selectTime: function(H, I, S){
-            return this.selectDate(false, false, false, H, I, S);
+            return this.selectDate(undefined, undefined, undefined, H, I, S);
         },
 
         /*
          |  PUBLIC :: OPEN CALENDAR
-         |  @since  0.1.0
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.1.0]
          */
         open: function(){
             if(!cHAS(this.dt, "calendar-close")){
@@ -1049,8 +1058,7 @@
 
         /*
          |  PUBLIC :: CLOSE CALENDAR
-         |  @since  0.1.0
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.1.0]
          */
         close: function(){
             if(!cHAS(this.dt, "calendar-open")){
@@ -1074,8 +1082,7 @@
 
         /*
          |  PUBLIC :: CLOSE CALENDAR
-         |  @since  0.1.0
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.1.0]
          */
         toggle: function(){
             if(cHAS(this.dt, "calendar-open")){
@@ -1086,8 +1093,7 @@
 
         /*
          |  PUBLIC :: ADD EVENT LISTENER
-         |  @since  0.3.0
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.3.0]
          */
         on: function(event, func, args){
             var events = ["open", "close", "change", "view"];
@@ -1103,8 +1109,7 @@
 
         /*
          |  PUBLIC :: REMOVE CALENDAR
-         |  @since  0.3.0
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.3.0]
          */
         remove: function(){
             this.e.removeAttribute("data-tail-datetime");
@@ -1115,8 +1120,7 @@
 
         /*
          |  PUBLIC :: REMOVE CALENDAR
-         |  @since  0.3.3
-         |  @update 0.4.0
+         |  @version    0.4.0 [0.3.3]
          */
         reload: function(){
             this.remove();
@@ -1125,7 +1129,7 @@
 
         /*
          |  PUBLIC :: (G|S)ET OPOTION
-         |  @since  0.4.0
+         |  @version    0.4.0 [0.4.0]
          */
         config: function(key, value, rebuild){
             if(key instanceof Object){

@@ -1,6 +1,19 @@
 CHANGELOG
 =========
 
+Unreleased Changes
+------------------
+-   Info: May become Version 0.4.2
+-   Add: The new `modify()` method on the string Storage to change the strings globally.
+-   Update: The `.register()` method checks now if locale is a string and object a object.
+-   Update: The `.register()` method returns now `true` on success and `false` on failure!
+-   Bugfix: The `.selectTime()` method didn't used the "already select / current viewed" date.
+-   Bugfix: Changing time has no effect.
+            Thanks to: [#5](https://github.com/pytesNET/tail.DateTime/issues/5)
+-   Bugfix: Calculations are wrong in some Environments.
+            Thanks to: [#6](https://github.com/pytesNET/tail.DateTime/issues/6),
+            **Fixed by:** AndrewDRX @ [#8](https://github.com/pytesNET/tail.DateTime/pull/8)
+
 Version 0.4.1 - Beta
 --------------------
 -   Add: The new Arabic Translation. Many Thanks to [Mohammed Alsiddeeq Ahmed](https://github.com/mosid)

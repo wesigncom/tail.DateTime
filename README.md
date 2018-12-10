@@ -51,11 +51,11 @@ bower install tail.datetime --save
 You can also use the awesome CDN services from jsDelivr or UNPKG.
 
 ```markup
-https://cdn.jsdelivr.net/npm/tail.DateTime@latest/
+https://cdn.jsdelivr.net/npm/tail.datetime@latest/
 ```
 
 ```markup
-https://unpkg.com/tail.DateTime/
+https://unpkg.com/tail.datetime/
 ```
 
 Thanks To
