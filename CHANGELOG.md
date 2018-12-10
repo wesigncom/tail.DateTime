@@ -1,9 +1,8 @@
 CHANGELOG
 =========
 
-Unreleased Changes
-------------------
--   Info: May become Version 0.4.2
+Version 0.4.2
+-------------
 -   Add: The new `modify()` method on the string Storage to change the strings globally.
 -   Update: The `.register()` method checks now if locale is a string and object a object.
 -   Update: The `.register()` method returns now `true` on success and `false` on failure!
