@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Unreleased Changes
+------------------
+-   Add: The new Italian Translation. Many Thanks to [Fabio Di Stasio](https://github.com/Fabio286)
+         [#10](https://github.com/pytesNET/tail.DateTime/issues/10)!
+
 Version 0.4.2
 -------------
 -   Add: The new `modify()` method on the string Storage to change the strings globally.

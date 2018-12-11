@@ -47,6 +47,13 @@
         time:   ["Horas", "Minutos", "Segundos"],
         header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
     });
+    datetime.strings.register("it", {
+        months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
+        days:   ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
+        shorts: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
+        time:   ["Ore", "Minuti", "Secondi"],
+        header: ["Seleziona un mese", "Seleziona un anno", "Seleziona un decennio", "Seleziona un orario"]
+    });
     datetime.strings.register("ru", {
         months: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
         days:   ["воскресенье", "понедельник", "вторник", "среда","четверг","пятница","суббота",],
