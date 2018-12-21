@@ -1,10 +1,16 @@
 CHANGELOG
 =========
 
-Unreleased Changes
-------------------
+Version 0.4.3
+-------------
 -   Add: The new Italian Translation. Many Thanks to [Fabio Di Stasio](https://github.com/Fabio286)
          [#10](https://github.com/pytesNET/tail.DateTime/issues/10)!
+-   Add: The new Brazilian Portuguese Translation. Many Thanks to [Júnior Garcia](https://github.com/juniorgarcia)
+         [#10](https://github.com/pytesNET/tail.DateTime/issues/13)!
+-   Add: The new options `timeStep*` to change the step size of the input fields.
+         Thanks to: [#9](https://github.com/pytesNET/tail.DateTime/issues/9)
+-   Bugfix: Error in dateRanges visualization
+            Thanks to: [#12](https://github.com/pytesNET/tail.DateTime/issues/12)
 
 Version 0.4.2
 -------------
