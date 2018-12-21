@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./langs/tail.datetime-de.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.2 - Beta
+ |  @version    0.4.3 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License

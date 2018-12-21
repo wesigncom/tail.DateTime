@@ -1,8 +1,8 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./js/tail.datetime-full.js
+ |  @file       ./js/tail.datetime.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.2 - Beta
+ |  @version    0.4.3 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.2";
+    tailDateTime.version = "0.4.3";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -127,6 +127,9 @@
         timeHours: null,
         timeMinutes: null,
         timeSeconds: 0,
+        timeStepHours: 1,
+        timeStepMinutes: 5,
+        timeStepSeconds: 5,
         today: true,
         tooltips: [],
         viewDefault: "days",
@@ -183,6 +186,13 @@
             time:   ["Ore", "Minuti", "Secondi"],
             header: ["Seleziona un mese", "Seleziona un anno", "Seleziona un decennio", "Seleziona un orario"]
         },
+        pt_BR: {
+            months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+            days:   ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+            shorts: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+            time:   ["Horas", "Minutos", "Segundos"],
+            header: ["Escolha um mês", "Escolha um ano", "Escolha uma década", "Escolha um horário"]
+        },
         ru: {
             months: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
             days:   ["воскресенье", "понедельник", "вторник", "среда","четверг","пятница","суббота",],
@@ -218,7 +228,7 @@
     tailDateTime.prototype = {
         /*
          |  INTERNAL :: INIT CALENDAR
-         |  @version    0.4.1 [0.2.0]
+         |  @version    0.4.3 [0.2.0]
          */
         init: function(){
             var self = this, temp;
@@ -253,8 +263,8 @@
                     }
 
                     // Prepare Days
-                    e[i].days = (!e[i].days)? true: e[i].days;
-                    e[i].days = (typeof(days) !== "boolean")? (function(days){
+                    e[i].days = ("days" in e[i])? e[i].days: true;
+                    e[i].days = (typeof(e[i].days) !== "boolean")? (function(days){
                         for(var _r = [], _l = days.length, _i = 0; _i < _l; _i++){
                             if(typeof(days[_i]) == "string"){
                                 days[_i] = tailDateTime.strings.en.shorts.indexOf(days[_i]);
@@ -618,26 +628,27 @@
 
         /*
          |  RENDER :: TIME PICKER
-         |  @version    0.4.1 [0.4.0]
+         |  @version    0.4.3 [0.4.0]
          */
         renderTimePicker: function(dt){
             if(!this.con.timeFormat){ return false; }
+            var h ='<div class="timepicker-field timepicker-hours">'
+                  + '<input type="number" name="dt[h]" value="" min="00" max="23" step="' + this.con.timeStepHours + '" />'
+                  + '<label>' + this.__["time"][0] + '</label>'
+                  + '</div>',
+                m = '<div class="timepicker-field timepicker-minutes">'
+                  + '<input type="number" name="dt[m]" value="" min="00" max="59" step="' + this.con.timeStepMinutes + '" />'
+                  + '<label>' + this.__["time"][1] + '</label>'
+                  + '</div>',
+                s = '<div class="timepicker-field timepicker-seconds">'
+                  + '<input type="number" name="dt[s]" value="" min="00" max="59" step="' + this.con.timeStepSeconds + '" />'
+                  + '<label>' + this.__["time"][2] + '</label>'
+                  + '</div>';
 
             // Render View
             var div = d.createElement("DIV");
             div.className = "calendar-timepicker";
-            div.innerHTML = '<div class="timepicker-field timepicker-hours">'
-                          + '<input type="number" name="dt[h]" value="" min="00" max="23" step="1" />'
-                          + '<label>' + this.__["time"][0] + '</label>'
-                          + '</div>'
-                          + '<div class="timepicker-field timepicker-minutes">'
-                          + '<input type="number" name="dt[m]" value="" min="00" max="59" step="5" />'
-                          + '<label>' + this.__["time"][1] + '</label>'
-                          + '</div>'
-                          + '<div class="timepicker-field timepicker-seconds">'
-                          + '<input type="number" name="dt[s]" value="" min="00" max="59" step="5" />'
-                          + '<label>' + this.__["time"][2] + '</label>'
-                          + '</div>';
+            div.innerHTML = h + m + s;
 
             // Set Data
             var selectTime = function(event){

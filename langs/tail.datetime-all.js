@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./langs/tail.datetime-all.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.2 - Beta
+ |  @version    0.4.3 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -53,6 +53,13 @@
         shorts: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
         time:   ["Ore", "Minuti", "Secondi"],
         header: ["Seleziona un mese", "Seleziona un anno", "Seleziona un decennio", "Seleziona un orario"]
+    });
+    datetime.strings.register("pt_BR", {
+        months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+        days:   ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+        shorts: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+        time:   ["Horas", "Minutos", "Segundos"],
+        header: ["Escolha um mês", "Escolha um ano", "Escolha uma década", "Escolha um horário"]
     });
     datetime.strings.register("ru", {
         months: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
