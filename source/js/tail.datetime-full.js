@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.3";
+    tailDateTime.version = "0.4.4";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
