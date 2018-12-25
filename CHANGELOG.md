@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Version 0.4.4
+-------------
+-   Add: The new `jsdelivr` key => value in the `package.json` file!
+-   Remove: The `project.synder` file until the new Synder Format is finished!
+-   Bugfix: CDN / NPM Hotfix (because I uploaded the wrong branch to NPM)!
+
 Version 0.4.3
 -------------
 -   Add: The new Italian Translation. Many Thanks to [Fabio Di Stasio](https://github.com/Fabio286)
