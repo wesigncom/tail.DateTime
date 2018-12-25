@@ -69,6 +69,7 @@ Thanks To
 ### Translations
 -   [Mohammed Alsiddeeq Ahmed](https://github.com/mosid) / [Arabic Translation](https://github.com/pytesNET/tail.DateTime/issues/1)
 -   [Fabio Di Stasio](https://github.com/Fabio286) / [Italian Translation](https://github.com/pytesNET/tail.DateTime/issues/10)
+-   [Júnior Garcia](https://github.com/juniorgarcia) / [Brazilian Portuguese Translation](https://github.com/pytesNET/tail.DateTime/issues/13)
 
 Documentation
 -------------
@@ -134,6 +135,9 @@ tail.DateTime(".tail-datetime-field", {
     timeHours: null,                // New in 0.4.0
     timeMinutes: null,              // New in 0.4.0
     timeSeconds: 0,                 // New in 0.4.0
+    timeStepHours: 1,               // New in 0.4.3
+    timeStepMinutes: 5,             // New in 0.4.3
+    timeStepSeconds: 5,             // New in 0.4.3
     today: true,                    // New in 0.4.0
     tooltips: [],                   // New in 0.4.0
     viewDefault: "days",            // New in 0.4.0
@@ -147,4 +151,4 @@ tail.DateTime(".tail-datetime-field", {
 
 Copyright & License
 -------------------
-Licensed under the MIT-License; Copyright &copy; 2018 SamBrishes, pytesNET
+Published under the MIT-License; Copyright &copy; 2018 SamBrishes, pytesNET
