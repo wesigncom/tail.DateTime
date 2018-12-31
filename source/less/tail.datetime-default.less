@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./less/tail.datetime-default.less
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.4 - Beta
+ |  @version    0.4.5 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -76,7 +76,6 @@
     margin: 15px;
     padding: 0;
     display: block;
-    overflow: hidden;
     position: absolute;
     direction: ltr;
     border-collapse: separate;
@@ -128,6 +127,36 @@
         border-style: solid;
         border-width: 0 7px 7px 7px;
         border-color: transparent transparent @color_tool_b transparent;
+    }
+    button.calendar-close{
+        top: 100%;
+        right: 15px;
+        color: #303438;
+        width: 35px;
+        height: 25px;
+        margin: 1px 0 0 0;
+        padding: 5px 10px;
+        opacity: 0.5;
+        display: inline-block;
+        position: absolute;
+        font-size: 14px;
+        line-height: 1.125em;
+        text-shadow: none;
+        border: 0;
+        outline: none;
+        background-color: #ffffff;
+        background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC\
+        9zdmciIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNiIgdmlld0JveD0iMCAwIDEyIDE2Ij48cGF0aCBmaWxsPSIjMzAzNDM4IiBkP\
+        SJNNy40OCA4bDMuNzUgMy43NS0xLjQ4IDEuNDhMNiA5LjQ4bC0zLjc1IDMuNzUtMS40OC0xLjQ4TDQuNTIgOCAuNzcgNC4y\
+        NWwxLjQ4LTEuNDhMNiA2LjUybDMuNzUtMy43NSAxLjQ4IDEuNDhMNy40OCA4eiIvPjwvc3ZnPg==");
+        background-repeat: no-repeat;
+        background-position: center center;
+        .radius(0 0 3px 3px);
+        .shadow(0 1px 3px rgba(0, 0, 0, 0.3125));
+        .transition(opacity 142ms linear);
+    }
+    button.calendar-close:hover{
+        opacity: 1.0;
     }
 }
 /* @end MAIN CALENDAR */

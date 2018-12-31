@@ -47,15 +47,15 @@
         <!-- Assets -->
         <link type="text/css" rel="stylesheet" href="assets/css/octicons.css?ver=8.1.0" />
         <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.css?ver=2.2.0" />
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.4.4" />
-        <link type="text/css" rel="stylesheet" href="assets/css/tail.select.css?ver=0.4.4" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.demo.datetime.css?ver=0.4.5" />
+        <link type="text/css" rel="stylesheet" href="assets/css/tail.select.css?ver=0.4.5" />
         <script type="text/javascript" src="assets/js/prism.min.js?ver=1.15.0"></script>
         <script type="text/javascript" src="assets/js/tail.demo.js?ver=2.2.0"></script>
-        <script type="text/javascript" src="assets/js/tail.select.min.js?ver=0.4.4"></script>
+        <script type="text/javascript" src="assets/js/tail.select.min.js?ver=0.4.5"></script>
 
         <!-- Source -->
-        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.4.4"></script>
-        <script type="text/javascript" src="source/langs/tail.datetime-all.js?ver=0.4.4"></script>
+        <script type="text/javascript" src="source/js/tail.datetime.js?ver=0.4.5"></script>
+        <script type="text/javascript" src="source/langs/tail.datetime-all.js?ver=0.4.5"></script>
 
         <!-- Inline Styles -->
         <style type="text/css">
@@ -147,7 +147,7 @@
                         </div>
                         <div class="tail-project">
                             <span class="tail-title">tail.<b>DateTime</b></span>
-                            <span class="tail-version">0.4.4 - <b>Beta</b></span>
+                            <span class="tail-version">0.4.5 - <b>Beta</b></span>
                         </div>
                     </a>
                 </div>
@@ -594,7 +594,6 @@
                         } else {
                             var value = "theme-" + this.value;
                         }
-                        console.log(value);
                         for(var l = holder.length, i = 0; i < l; i++){
                             holder[i].config("classNames", value);
                         }
@@ -626,8 +625,8 @@
                         position: "#datetime-1-holder",
                         startOpen: true,
                         stayOpen: true,
-                        timeHours: false,
-                        timeMinutes: false,
+                        timeHours: null,
+                        timeMinutes: null,
                     });
                     holder.push(demo1);
 
@@ -763,7 +762,6 @@
                             if(demo2.config("dateRanges").length > 0){
                                 render += "    dateRanges: [\n";
                                 for(var r = demo2.config("dateRanges"), i = 0; i < r.length; i++){
-                                    console.log(r, r[i]);
                                     render += "        {\n";
                                     render += "            start: " + r[i].start + ",\n";
                                     render += "            end: " + r[i].end + ",\n";

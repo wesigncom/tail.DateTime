@@ -1,14 +1,23 @@
 CHANGELOG
 =========
 
-Version 0.4.4
--------------
--   Add: The new `jsdelivr` key => value in the `package.json` file!
+Version 0.4.5 - Beta
+--------------------
+-   Add: The new Dutch Translation. Many Thanks to [mickeybyte](https://github.com/mickeybyte)
+         [#15](https://github.com/pytesNET/tail.DateTime/issues/15)!
+-   Add: Increase and Loop the Time fields by clicking Up and Down.
+-   Add: The new option `timeIncrement`, which increase the next unit on loop of the previous one.
+-   Add: The new option `closeButton`, which adds a close Button to the DateTime picker.
+-   Add: The new internal method `handleTime()` which handles the time events.
+-   Update: The `time*` options allows now also `false` as parameter to disable the field.
+
+Version 0.4.4 - Beta
+--------------------
 -   Remove: The `project.synder` file until the new Synder Format is finished!
 -   Bugfix: CDN / NPM Hotfix (because I uploaded the wrong branch to NPM)!
 
-Version 0.4.3
--------------
+Version 0.4.3 - Beta
+--------------------
 -   Add: The new Italian Translation. Many Thanks to [Fabio Di Stasio](https://github.com/Fabio286)
          [#10](https://github.com/pytesNET/tail.DateTime/issues/10)!
 -   Add: The new Brazilian Portuguese Translation. Many Thanks to [Júnior Garcia](https://github.com/juniorgarcia)
@@ -18,8 +27,8 @@ Version 0.4.3
 -   Bugfix: Error in dateRanges visualization
             Thanks to: [#12](https://github.com/pytesNET/tail.DateTime/issues/12)
 
-Version 0.4.2
--------------
+Version 0.4.2 - Beta
+--------------------
 -   Add: The new `modify()` method on the string Storage to change the strings globally.
 -   Update: The `.register()` method checks now if locale is a string and object a object.
 -   Update: The `.register()` method returns now `true` on success and `false` on failure!
