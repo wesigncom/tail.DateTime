@@ -120,32 +120,34 @@ about each single option!
 
 ```javascript
 tail.DateTime(".tail-datetime-field", {
-    animate: true,                  // New in 0.4.0
+    animate: true,
     classNames: false,
+    closeButton: true,              // New in 0.4.5
     dateFormat: "YYYY-mm-dd",
-    dateStart: false,               // New in 0.4.0
-    dateRanges: [],                 // New Syntax in 0.4.0
-    dateBlacklist: true,            // New in 0.4.0
-    dateEnd: false,                 // New in 0.4.0
-    locale: "en",                   // New in 0.4.0
+    dateStart: false,
+    dateRanges: [],
+    dateBlacklist: true,
+    dateEnd: false,
+    locale: "en",
     position: "bottom",
-    rtl: "auto",                    // New in 0.4.1
+    rtl: "auto",
     startOpen: false,
     stayOpen: false,
     timeFormat: "HH:ii:ss",
-    timeHours: null,                // New in 0.4.0
-    timeMinutes: null,              // New in 0.4.0
-    timeSeconds: 0,                 // New in 0.4.0
-    timeStepHours: 1,               // New in 0.4.3
+    timeHours: null,                // New Syntax in 0.4.5
+    timeMinutes: null,              // New Syntax in 0.4.5
+    timeSeconds: 0,                 // New Syntax in 0.4.5
+    timeIncrement: true,            // New in 0.4.5
+    timeStepHours: 1,
     timeStepMinutes: 5,             // New in 0.4.3
     timeStepSeconds: 5,             // New in 0.4.3
-    today: true,                    // New in 0.4.0
-    tooltips: [],                   // New in 0.4.0
-    viewDefault: "days",            // New in 0.4.0
-    viewDecades: true,              // New in 0.4.0
-    viewYears: true,                // New in 0.4.0
-    viewMonths: true,               // New in 0.4.0
-    viewDays: true,                 // New in 0.4.0
+    today: true,
+    tooltips: [],
+    viewDefault: "days",
+    viewDecades: true,
+    viewYears: true,
+    viewMonths: true,
+    viewDays: true,
     weekStart: 0
 });
 ```

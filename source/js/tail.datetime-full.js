@@ -113,7 +113,7 @@
     tailDateTime.defaults = {
         animate: true,
         classNames: false,
-        closeButton: true,              // New in 0.4.5
+        closeButton: true,
         dateFormat: "YYYY-mm-dd",
         dateStart: false,
         dateRanges: [],
@@ -125,10 +125,10 @@
         startOpen: false,
         stayOpen: false,
         timeFormat: "HH:ii:ss",
-        timeHours: null,                // New Syntax in 0.4.5
-        timeMinutes: null,              // New Syntax in 0.4.5
-        timeSeconds: 0,                 // New Syntax in 0.4.5
-        timeIncrement: true,            // New in 0.4.5
+        timeHours: null,
+        timeMinutes: null,
+        timeSeconds: 0,
+        timeIncrement: true,
         timeStepHours: 1,
         timeStepMinutes: 5,
         timeStepSeconds: 5,
