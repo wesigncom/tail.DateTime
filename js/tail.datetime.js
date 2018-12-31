@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.4 - Beta
+ |  @version    0.4.5 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.4";
+    tailDateTime.version = "0.4.5";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -113,6 +113,7 @@
     tailDateTime.defaults = {
         animate: true,
         classNames: false,
+        closeButton: true,
         dateFormat: "YYYY-mm-dd",
         dateStart: false,
         dateRanges: [],
@@ -127,6 +128,7 @@
         timeHours: null,
         timeMinutes: null,
         timeSeconds: 0,
+        timeIncrement: true,
         timeStepHours: 1,
         timeStepMinutes: 5,
         timeStepSeconds: 5,
@@ -493,7 +495,7 @@
 
         /*
          |  RENDER :: CALENDAR
-         |  @version    0.4.1 [0.4.0]
+         |  @version    0.4.5 [0.4.0]
          */
         renderCalendar: function(){
             var _s, _c = ["tail-datetime-calendar", "calendar-close"], dt = d.createElement("DIV"),
@@ -541,6 +543,17 @@
                 this.renderTimePicker(dt);
             }
 
+            // Render Close Button
+            if(this.con.closeButton && !_s){
+                var close = d.createElement("BUTTON"), self = this;
+                close.className = "calendar-close";
+                close.addEventListener("click", function(event){
+                    event.preventDefault();
+                    self.close();
+                });
+                dt.appendChild(close);
+            }
+
             // Append Calendar
             if(_s){
                 dt.style.cssText = 'position:static;visibility:visible;';
@@ -579,22 +592,23 @@
 
         /*
          |  RENDER :: TIME PICKER
-         |  @version    0.4.3 [0.4.0]
+         |  @version    0.4.5 [0.4.0]
          */
         renderTimePicker: function(dt){
             if(!this.con.timeFormat){ return false; }
-            var h ='<div class="timepicker-field timepicker-hours">'
-                  + '<input type="number" name="dt[h]" value="" min="00" max="23" step="' + this.con.timeStepHours + '" />'
-                  + '<label>' + this.__["time"][0] + '</label>'
-                  + '</div>',
-                m = '<div class="timepicker-field timepicker-minutes">'
-                  + '<input type="number" name="dt[m]" value="" min="00" max="59" step="' + this.con.timeStepMinutes + '" />'
-                  + '<label>' + this.__["time"][1] + '</label>'
-                  + '</div>',
-                s = '<div class="timepicker-field timepicker-seconds">'
-                  + '<input type="number" name="dt[s]" value="" min="00" max="59" step="' + this.con.timeStepSeconds + '" />'
-                  + '<label>' + this.__["time"][2] + '</label>'
-                  + '</div>';
+            var h = this.con.timeStepHours, m = this.con.timeStepMinutes, s = this.con.timeStepSeconds;
+            h ='<div class="timepicker-field timepicker-hours">'
+              + '<input type="number" name="dt[h]" value="" min="00" max="23" step="' + h + '" />'
+              + '<label>' + this.__["time"][0] + '</label>'
+              + '</div>',
+            m = '<div class="timepicker-field timepicker-minutes">'
+              + '<input type="number" name="dt[m]" value="" min="00" max="59" step="' + m + '" />'
+              + '<label>' + this.__["time"][1] + '</label>'
+              + '</div>',
+            s = '<div class="timepicker-field timepicker-seconds">'
+              + '<input type="number" name="dt[s]" value="" min="00" max="59" step="' + s + '" />'
+              + '<label>' + this.__["time"][2] + '</label>'
+              + '</div>';
 
             // Render View
             var div = d.createElement("DIV");
@@ -602,16 +616,13 @@
             div.innerHTML = h + m + s;
 
             // Set Data
-            var selectTime = function(event){
-                var time = this.parentElement.parentElement.querySelectorAll("input");
-                self.selectTime(time[0].value, time[1].value, time[2].value);
-            }, self = this, inp = div.querySelectorAll("input");
-            inp[0].value = this.view.date.getHours();
-            inp[0].addEventListener("input", selectTime);
-            inp[1].value = this.view.date.getMinutes();
-            inp[1].addEventListener("input", selectTime);
-            inp[2].value = this.view.date.getSeconds();
-            inp[2].addEventListener("input", selectTime);
+            var self = this, inp = div.querySelectorAll("input");
+            for(var l = ["Hours", "Minutes", "Seconds"], i = 0; i < 3; i++){
+                inp[i].value = this.view.date["get" + l[i]]();
+                inp[i].disabled = (this.con["time" + l[i]] === false);
+                inp[i].addEventListener("input", function(ev){ self.handleTime.call(self, ev, this) });
+                inp[i].addEventListener("keydown", function(ev){ self.handleTime.call(self, ev, this) });
+            }
 
             // Append Element
             if(dt.querySelector(".calendar-timepicker")){
@@ -620,6 +631,43 @@
                 dt.appendChild(div);
             }
             return this.handleLabel(dt);
+        },
+
+        /*
+         |  HANDLE :: TIME FIELDs
+         |  @version    0.4.5 [0.4.5]
+         */
+        handleTime: function(event, element){
+            var min = parseInt(element.getAttribute("min")),
+                max = parseInt(element.getAttribute("max")),
+                step = parseInt(element.getAttribute("step")),
+                value = parseInt(element.value), action = "none";
+
+            if((event.keyCode || event.which) == 38 || value > max){
+                var action = "up";
+            } if((event.keyCode || event.which) == 40 || value < min){
+                var action = "down";
+            }
+
+            // Increase Time
+            if(action == "up" && value + step > max){
+                var add = 1;
+                element.value = value - (max+1);
+            } else if(action == "down" && value - step < 0){
+                var add = -1;
+                element.value = (max+1) + value;
+            }
+            if(add && this.con.timeIncrement && element.parentElement.previousElementSibling){
+                var next = element.parentElement.previousElementSibling.querySelector("input");
+                if(next.disabled === false){
+                    next.value = parseInt(next.value) + add;
+                    return this.handleTime({}, next);
+                }
+            }
+
+            // Set Time
+            var time = element.parentElement.parentElement.querySelectorAll("input");
+            this.selectTime(time[0].value, time[1].value, time[2].value);
         },
 
         /*

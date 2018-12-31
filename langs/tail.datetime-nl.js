@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./langs/tail.datetime-de.js
+ |  @file       ./langs/tail.datetime-nl.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.5 - Beta
  |
@@ -19,12 +19,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de", {
-        months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-        shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
-        time:   ["Stunden", "Minuten", "Sekunden"],
-        header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
+    datetime.strings.register("nl", {
+        months: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
+        days:   ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
+        shorts: ["ZO", "MA", "DI", "WO", "DO", "VR", "ZA"],
+        time:   ["Uur", "Minuten", "Seconden"],
+        header: ["Kies een Maand", "Kies een Jaar", "Kies een Decennium", "Kies een Tijdstip"]
     });
     return datetime;
 }));
