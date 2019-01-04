@@ -6,9 +6,10 @@ tail.DateTime
 [![Software License](https://s.pytes.net/8257ac72)](LICENSE.md)
 [![Author](https://s.pytes.net/5542d1fa)](https://www.github.com/pytesNET)
 
-The **tail.DateTime** Calendar Interface is written in pure vanilla JavaScript and doesn't require
-any additional dependencies. It was originally a fork of MrGuiseppes [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar),
-however version 0.4.0 has separated from the last origin lines and is now completely independent.
+The **tail.DateTime** package provides an extensive and configurable Date/Time Calendar Picker for
+your website, written in vanilla JavaScript and without any dependencies! It was originally a fork
+of MrGuiseppes [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), but version 0.4.0
+broke away from the last original lines and the script is now completely independent!
 
 [Wanna see **tail.DateTime** in action?](https://github.pytes.net/tail.DateTime)
 
@@ -20,7 +21,7 @@ Features
 -   Definable ranges of selectable dates (Blacklist / Whitelist)
 -   Colorable Tooltips with an cute animation
 -   Different Views to navigate quickly: Days, Months, Years & Decades
--   Completely Translatable and available in 5 languages (de, de_AT, en, es, ru)
+-   Completely Translatable and already available in 9 languages
 -   Extendable and Bindable through different Events
 -   Compatible with AMD, tested with requireJS
 -   Many Settings to adapt and configure the design and behavior
@@ -138,7 +139,7 @@ tail.DateTime(".tail-datetime-field", {
     timeMinutes: null,              // New Syntax in 0.4.5
     timeSeconds: 0,                 // New Syntax in 0.4.5
     timeIncrement: true,            // New in 0.4.5
-    timeStepHours: 1,
+    timeStepHours: 1,               // New in 0.4.3
     timeStepMinutes: 5,             // New in 0.4.3
     timeStepSeconds: 5,             // New in 0.4.3
     today: true,
@@ -154,4 +155,4 @@ tail.DateTime(".tail-datetime-field", {
 
 Copyright & License
 -------------------
-Published under the MIT-License; Copyright &copy; 2018 SamBrishes, pytesNET
+Published under the MIT-License; Copyright &copy; 2018 - 2019 SamBrishes, pytesNET

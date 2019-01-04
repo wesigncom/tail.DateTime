@@ -1,13 +1,29 @@
 {
     "name": "tail.datetime",
-    "description": "A light-weight, translat- and configurable Open Source DateTime Picker, written in pure vanilla JavaScript!",
-    "main": "js/tail.datetime.js",
+    "description": "A powerful, translat- and configurable DateTime Picker, written in Vanilla JavaScript without any dependencies!",
+    "keywords": [
+        "datetime-picker",
+        "datetime",
+        "date",
+        "time",
+        "picker",
+        "calendar",
+        "vanilla",
+        "tail"
+    ],
     "authors": [
-        "SamBrishes", "pytesNET"
+        "SamBrishes <sam@pytes.net> (https://www.pytes.net)",
+        "pytesNET <info@pytes.net> (https://www.pytes.net)"
     ],
     "license": "MIT",
-    "keywords": [
-        "datetime-picker", "datetime", "date", "time", "picker", "calendar", "form"
+    "homepage": "https://github.com/pytesNET/tail.DateTime",
+
+    "main": [
+        "js/tail.datetime.js",
+        "css/tail.datetime-default.css"
     ],
-    "homepage": "https://github.com/pytesNET/tail.DateTime"
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/pytesNET/tail.DateTime.git"
+    }
 }

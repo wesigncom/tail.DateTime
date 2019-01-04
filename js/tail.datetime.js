@@ -2,11 +2,11 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.5 - Beta
+ |  @version    0.4.6 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
- |  @copyright  Copyright © 2018 SamBrishes, pytesNET <info@pytes.net>
+ |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
 ;(function(factory){
     if(typeof(define) == "function" && define.amd){
@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.5";
+    tailDateTime.version = "0.4.6";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -672,7 +672,7 @@
 
         /*
          |  VIEW :: HANDLE LABEL
-         |  @version    0.4.0 [0.4.0]
+         |  @version    0.4.6 [0.4.0]
          */
         handleLabel: function(dt){
             var label = dt.querySelector(".label"), text, year;
@@ -687,6 +687,8 @@
                 case "decades":
                     year = parseInt((this.view.date.getFullYear()).toString().slice(0, 2) + "00");
                     text = year + " - " + (year+100); break;
+                case "time":
+                    text = this.__.header[3];
             }
             label.innerText = text;
             return dt;
