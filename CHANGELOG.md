@@ -1,6 +1,14 @@
 CHANGELOG
 =========
 
+Version 0.4.6 - Beta
+--------------------
+-   Add: An `@import` rule on the single colors, so only one file need to be included.
+-   Update: the `bower.json` and `package.json` files
+-   Update: Add 2019 to all Copyright notes.
+-   Bugfix: When showing only time picker, the calendar label says undefined.
+            Thanks to: [#16](https://github.com/pytesNET/tail.DateTime/issues/16)
+
 Version 0.4.5 - Beta
 --------------------
 -   Add: The new Dutch Translation. Many Thanks to [mickeybyte](https://github.com/mickeybyte)
