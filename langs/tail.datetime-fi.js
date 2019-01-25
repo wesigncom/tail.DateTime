@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./langs/tail.datetime-de.js
+ |  @file       ./langs/tail.datetime-fi.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.6 - Beta
  |
@@ -8,7 +8,6 @@
  |  @license    X11 / MIT License
  |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
- 
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
        define(function(){
