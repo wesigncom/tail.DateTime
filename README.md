@@ -71,6 +71,7 @@ Thanks To
 -   [Mohammed Alsiddeeq Ahmed](https://github.com/mosid) / [Arabic Translation](https://github.com/pytesNET/tail.DateTime/issues/1)
 -   [Júnior Garcia](https://github.com/juniorgarcia) / [Brazilian Portuguese Translation](https://github.com/pytesNET/tail.DateTime/issues/13)
 -   [mickeybyte](https://github.com/mickeybyte) / [Dutch Translation](https://github.com/pytesNET/tail.DateTime/issues/15)
+-   [noxludio](https://github.com/noxludio) / [Finnish Translation](https://github.com/pytesNET/tail.DateTime/pull/17)
 -   [Fabio Di Stasio](https://github.com/Fabio286) / [Italian Translation](https://github.com/pytesNET/tail.DateTime/issues/10)
 
 Documentation
