@@ -1,8 +1,8 @@
 CHANGELOG
 =========
 
-Unreleased Changes
-------------------
+Version 0.4.7 - Beta
+--------------------
 -   Add: The new Finish Translation. Many Thanks to [noxludio](https://github.com/noxludio)
          [#17](https://github.com/pytesNET/tail.DateTime/pull/17)!
 

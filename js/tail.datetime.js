@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.6 - Beta
+ |  @version    0.4.7 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.6";
+    tailDateTime.version = "0.4.7";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};

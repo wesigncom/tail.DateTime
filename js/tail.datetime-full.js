@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.6 - Beta
+ |  @version    0.4.7 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.6";
+    tailDateTime.version = "0.4.7";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -180,6 +180,13 @@
             shorts: ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"],
             time:   ["Horas", "Minutos", "Segundos"],
             header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
+        },
+        fi: {
+            months: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu", "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"],
+            days:   ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"],
+            shorts: ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"],
+            time:   ["Tunnit", "Minuutit", "Sekuntit"],
+            header: ["Valitse kuukausi", "Valitse vuosi", "Valitse vuosikymmen", "Valitse aika"]
         },
         it: {
             months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
