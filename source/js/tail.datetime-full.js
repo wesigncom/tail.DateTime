@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.7 - Beta
+ |  @version    0.4.8 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -102,7 +102,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.7";
+    tailDateTime.version = "0.4.8";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -188,6 +188,13 @@
             time:   ["Tunnit", "Minuutit", "Sekuntit"],
             header: ["Valitse kuukausi", "Valitse vuosi", "Valitse vuosikymmen", "Valitse aika"]
         },
+        fr: {
+            months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+            days:   ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+            shorts: ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"],
+            time:   ["Heure", "Minute", "Seconde"],
+            header: ["Choisissez un mois", "Choisissez une année", "Choisissez une décénie", "Kies een Tijdstip"]
+        },
         it: {
             months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
             days:   ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
@@ -244,7 +251,7 @@
     tailDateTime.prototype = {
         /*
          |  INTERNAL :: INIT CALENDAR
-         |  @version    0.4.3 [0.2.0]
+         |  @version    0.4.8 [0.2.0]
          */
         init: function(){
             var self = this, temp;
@@ -306,7 +313,7 @@
                     // Prepare Dates
                     if(t[i].date instanceof Array){
                         s = parse(t[i].date[0] || false, true, true);
-                        e = parse(t[i].date[0] || false, true, true) || s;
+                        e = parse(t[i].date[1] || false, true, true) || s;
                     } else {
                         s = e = parse(t[i].date || false, true, true);
                     }

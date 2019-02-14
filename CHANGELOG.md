@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+Version 0.4.8 - Beta
+--------------------
+-   Add: The new French Translation. Many Thanks to [FlashPanther](https://github.com/FlashPanther)
+         [#19](https://github.com/pytesNET/tail.DateTime/pull/19)!
+-   Bugfix: Tooltips doesn't support date range
+            Thanks to: [FlashPanther](/FlashPanther) @ [#20](https://github.com/pytesNET/tail.DateTime/issues/20)
+
 Version 0.4.7 - Beta
 --------------------
 -   Add: The new Finish Translation. Many Thanks to [noxludio](https://github.com/noxludio)

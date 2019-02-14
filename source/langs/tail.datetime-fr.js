@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./langs/tail.datetime-fi.js
+ |  @file       ./langs/tail.datetime-fr.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.8 - Beta
  |
@@ -19,12 +19,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("fi", {
-        months: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu", "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"],
-        days:   ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"],
-        shorts: ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"],
-        time:   ["Tunnit", "Minuutit", "Sekuntit"],
-        header: ["Valitse kuukausi", "Valitse vuosi", "Valitse vuosikymmen", "Valitse aika"]
+    datetime.strings.register("fr", {
+        months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+        days:   ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+        shorts: ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"],
+        time:   ["Heure", "Minute", "Seconde"],
+        header: ["Choisissez un mois", "Choisissez une année", "Choisissez une décénie", "Kies een Tijdstip"]
     });
     return datetime;
 }));
