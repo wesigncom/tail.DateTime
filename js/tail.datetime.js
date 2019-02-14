@@ -243,7 +243,7 @@
                     // Prepare Dates
                     if(t[i].date instanceof Array){
                         s = parse(t[i].date[0] || false, true, true);
-                        e = parse(t[i].date[0] || false, true, true) || s;
+                        e = parse(t[i].date[1] || false, true, true) || s;
                     } else {
                         s = e = parse(t[i].date || false, true, true);
                     }
