@@ -2,11 +2,15 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./langs/tail.datetime-pt_BR.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.8 - Beta
+ |  @version    0.4.9 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
  |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
+ */
+/*
+ |  Translator:     Júnior Garcia - (https://github.com/juniorgarcia)
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/13
  */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){

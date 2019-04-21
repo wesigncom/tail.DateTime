@@ -1,6 +1,6 @@
 {
     "name": "tail.datetime",
-    "version": "0.4.8",
+    "version": "0.4.9",
     "description": "A powerful, translat- and configurable DateTime Picker, written in Vanilla JavaScript without any dependencies!",
     "keywords": [
         "datetime-picker",
@@ -27,5 +27,6 @@
     },
 
     "reveal": true,
+    "browser": "js/tail.datetime.full.js",
     "jsdelivr": "js/tail.datetime.full.js"
 }
