@@ -1,23 +1,41 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./js/tail.datetime.js
+ |  @file       ./js/tail.datetime.full.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.8 - Beta
+ |  @version    0.4.9 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
- |  @copyright  Copyright © 2018 SamBrishes, pytesNET <info@pytes.net>
+ |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
-;(function(factory){
-    if(typeof(define) == "function" && define.amd){
-        define(function(){ return factory(window); });
+;(function(root, factory){
+    if(typeof define === "function" && define.amd){
+        define(function(){ return factory(root); });
+    } else if(typeof module === "object" && module.exports){
+        module.exports = factory(root);
     } else {
-        if(typeof(window.tail) == "undefined"){
-            window.tail = {};
+        if(typeof root.tail === "undefined"){
+            root.tail = {};
         }
-        window.tail.DateTime = factory(window);
+        root.tail.DateTime = factory(root);
+
+        // jQuery Support
+        if(typeof jQuery !== "undefined"){
+            if(typeof jQuery.fn.tail === "undefined"){
+                jQuery.fn.tail = function(method, options){
+                    if(method.toLowerCase() === "datetime"){
+                        return this.DateTime(options);
+                    }
+                };
+            }
+            jQuery.fn.DateTime = function(o){
+                var r = [], i;
+                this.each(function(){ if((i = tail.DateTime(this, o)) !== false){ r.push(i); } });
+                return (r.length === 1)? r[0]: (r.length === 0)? false: r;
+            };
+        }
     }
-}(function(root){
+}(this, function(root){
     "use strict";
     var w = root, d = root.document;
 
@@ -71,7 +89,7 @@
      |  @version    0.4.0 [0.2.0]
      */
     var tailDateTime = function(el, config){
-        el = (typeof(el) == "string")? d.querySelectorAll(el): el;
+        el = (typeof el == "string")? d.querySelectorAll(el): el;
         if(el instanceof NodeList || el instanceof HTMLCollection || el instanceof Array){
             for(var _r = [], l = el.length, i = 0; i < l; i++){
                 _r.push(new tailDateTime(el[i], config));
@@ -102,7 +120,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.8";
+    tailDateTime.version = "0.4.9";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -232,12 +250,12 @@
                     this.modify(locale, key, id[key]);
                 }
             } else {
-                this[locale][id] = (typeof(string) == "string")? string: this[locale][id];
+                this[locale][id] = (typeof string == "string")? string: this[locale][id];
             }
             return true;
         },
         register: function(locale, object){
-            if(typeof(locale) != "string" || !(object instanceof Object)){
+            if(typeof locale != "string" || !(object instanceof Object)){
                 return false;
             }
             this[locale] = object;
@@ -261,7 +279,7 @@
             this.con.dateStart = parse(this.con.dateStart, true, true) || 0;
             this.con.dateEnd = parse(this.con.dateEnd, true, true) || 9999999999999;
             this.con.viewDefault = (!this.con.dateFormat)? "time": this.con.viewDefault;
-            if(typeof(this.con.weekStart) == "string"){
+            if(typeof this.con.weekStart == "string"){
                 this.con.weekStart = tailDateTime.strings.en.shorts.indexOf(this.con.weekStart);
             }
             if(this.con.weekStart < 0 && this.con.weekStart > 6){
@@ -287,9 +305,9 @@
 
                     // Prepare Days
                     e[i].days = ("days" in e[i])? e[i].days: true;
-                    e[i].days = (typeof(e[i].days) !== "boolean")? (function(days){
+                    e[i].days = (typeof e[i].days !== "boolean")? (function(days){
                         for(var _r = [], _l = days.length, _i = 0; _i < _l; _i++){
-                            if(typeof(days[_i]) == "string"){
+                            if(typeof days[_i] == "string"){
                                 days[_i] = tailDateTime.strings.en.shorts.indexOf(days[_i]);
                             }
                             if(days[_i] >= 0 && days[_i] <= 6){ _r.push(days[_i]); }
@@ -354,7 +372,7 @@
                 };
             }
             for(var l = ["Hours", "Minutes", "Seconds"], i = 0; i < 3; i++){
-                if(typeof(this.con["time" + l[i]]) == "number"){
+                if(typeof this.con["time" + l[i]] == "number"){
                     this.view.date["set" + l[i]](this.con["time" + l[i]]);
                 }
             }
@@ -432,16 +450,19 @@
                     return;
                 }
                 switch(elem[a](d)){
-                    case "prev":    //@Fallthrough
+                    case "prev":    //@fallthrough
                     case "next":
                         return this.browseView(elem[a](d));
-                    case "submit":
-                        return this.selectDate(this.fetchDate(parseInt(elem[a]("data-date"))));
                     case "cancel":
                         if(!this.con.stayOpen){
                             this.close();
                         }
                         break;
+                    case "submit":
+                        if(!this.con.stayOpen){
+                            this.close();
+                        }
+                        return this.selectDate(this.fetchDate(parseInt(elem[a]("data-date"))));
                     case "view":
                         this.switchDate(elem[a]("data-year") || null, elem[a]("data-month") || null, elem[a]("data-day") || null);
                         return this.switchView(elem[a](v));
@@ -576,8 +597,8 @@
                 _s = d.querySelector(this.con.position);
                 _c.push("calendar-static");
             }
-            if(typeof(_t) == "string" || _t instanceof Array){
-                _c = _c.concat(((typeof(_t) == "string")? _t.split(" "): _t));
+            if(typeof _t == "string" || _t instanceof Array){
+                _c = _c.concat(((typeof _t == "string")? _t.split(" "): _t));
             }
             var rtl = ["ar", "he", "mdr", "sam", "syr"], _rt = this.con.rtl;
             if(_rt === true || (_rt === "auto" && rtl.indexOf(this.con.locale) >= 0)){
@@ -601,7 +622,7 @@
                        + '<span class="label"></span>'
                        + '<span class="action action-cancel" data-action="cancel"></span>'
             }
-            if(typeof(_a) != "undefined"){
+            if(typeof _a != "undefined"){
                 dt.innerHTML = '<div class="calendar-actions">' + _a + '</div>';
             }
 
@@ -1041,7 +1062,7 @@
          |  @version    0.4.0 [0.1.0]
          */
         switchMonth: function(month, year){
-            if(typeof(month) == "string"){
+            if(typeof month == "string"){
                 month = ["previous", "prev"].indexOf(month) >= 0? -1: 1;
                 month = this.view.date.getMonth() + type;
             }
@@ -1053,7 +1074,7 @@
          |  @version    0.4.0 [0.1.0]
          */
         switchYear: function(year){
-            if(typeof(year) == "string"){
+            if(typeof year == "string"){
                 year = ["previous", "prev"].indexOf(year) >= 0? -1: 1;
                 year = this.view.date.getFullYear() + type;
             }
@@ -1186,7 +1207,7 @@
          */
         on: function(event, func, args){
             var events = ["open", "close", "change", "view"];
-            if(events.indexOf(event) < 0 || typeof(func) != "function"){
+            if(events.indexOf(event) < 0 || typeof func != "function"){
                 return false;
             }
             if(!(event in this.events)){
@@ -1228,14 +1249,14 @@
                 this.reload();
                 return this.con;
             }
-            if(typeof(key) == "undefined"){
+            if(typeof key == "undefined"){
                 return this.con;
             } else if(!(key in this.con)){
                 return false;
             }
 
             // Set | Return
-            if(typeof(value) == "undefined"){
+            if(typeof value == "undefined"){
                 return this.con[key];
             }
             this.con[key] = value;

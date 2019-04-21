@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./langs/tail.datetime-all.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.8 - Beta
+ |  @version    0.4.9 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -19,6 +19,10 @@
        }
    }
 }(function(datetime){
+    /*
+     |  Translator:     Mohammed Alsiddeeq Ahmed - (https://github.com/mosid)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/1
+     */
     datetime.strings.register("ar", {
         months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
         days:   ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
@@ -26,6 +30,11 @@
         time:   ["ساعة", "دقيقة", "ثانية"],
         header: ["إختر الشهر", "إخنر السنة", "إختر العقد", "إختر الوقت"]
     });
+
+    /*
+     |  Translator:     SamBrishes - (https://www.pytes.net)
+     |  GitHub:         <internal>
+     */
     datetime.strings.register("de", {
         months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
         days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
@@ -33,6 +42,11 @@
         time:   ["Stunden", "Minuten", "Sekunden"],
         header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
     });
+
+    /*
+     |  Translator:     SamBrishes - (https://www.pytes.net)
+     |  GitHub:         <internal>
+     */
     datetime.strings.register("de_AT", {
         months: ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
         days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
@@ -40,6 +54,11 @@
         time:   ["Stunden", "Minuten", "Sekunden"],
         header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
     });
+
+    /*
+     |  Translator:     SamBrishes - (https://www.pytes.net)
+     |  GitHub:         <internal>
+     */
     datetime.strings.register("es", {
         months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
         days:   ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
@@ -47,6 +66,11 @@
         time:   ["Horas", "Minutos", "Segundos"],
         header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
     });
+
+    /*
+     |  Translator:     noxludio - (https://github.com/noxludio)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/17
+     */
     datetime.strings.register("fi", {
         months: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu", "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"],
         days:   ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"],
@@ -54,6 +78,11 @@
         time:   ["Tunnit", "Minuutit", "Sekuntit"],
         header: ["Valitse kuukausi", "Valitse vuosi", "Valitse vuosikymmen", "Valitse aika"]
     });
+
+    /*
+     |  Translator:     FlashPanther - (https://github.com/FlashPanther)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/19
+     */
     datetime.strings.register("fr", {
         months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
         days:   ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
@@ -61,6 +90,11 @@
         time:   ["Heure", "Minute", "Seconde"],
         header: ["Choisissez un mois", "Choisissez une année", "Choisissez une décénie", "Kies een Tijdstip"]
     });
+
+    /*
+     |  Translator:     Fabio Di Stasio - (https://github.com/Fabio286)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/10
+     */
     datetime.strings.register("it", {
         months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
         days:   ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
@@ -68,6 +102,11 @@
         time:   ["Ore", "Minuti", "Secondi"],
         header: ["Seleziona un mese", "Seleziona un anno", "Seleziona un decennio", "Seleziona un orario"]
     });
+
+    /*
+     |  Translator:     Mickeybyte - (https://github.com/mickeybyte)
+     |  GitHub:         <internal>
+     */
     datetime.strings.register("nl", {
         months: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
         days:   ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
@@ -75,6 +114,11 @@
         time:   ["Uur", "Minuten", "Seconden"],
         header: ["Kies een Maand", "Kies een Jaar", "Kies een Decennium", "Kies een Tijdstip"]
     });
+
+    /*
+     |  Translator:     Júnior Garcia - (https://github.com/juniorgarcia)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/13
+     */
     datetime.strings.register("pt_BR", {
         months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
         days:   ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
@@ -82,6 +126,11 @@
         time:   ["Horas", "Minutos", "Segundos"],
         header: ["Escolha um mês", "Escolha um ano", "Escolha uma década", "Escolha um horário"]
     });
+
+    /*
+     |  Translator:     SamBrishes - (https://www.pytes.net)
+     |  GitHub:         <internal>
+     */
     datetime.strings.register("ru", {
         months: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
         days:   ["воскресенье", "понедельник", "вторник", "среда","четверг","пятница","суббота",],

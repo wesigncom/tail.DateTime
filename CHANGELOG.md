@@ -1,11 +1,21 @@
 CHANGELOG
 =========
 
+Version 0.4.9 - Beta
+--------------------
+-   Add: Support for module exporting, using browserfy.
+-   Add: A jQuery implementation using `jQuery().DateTime()` or `jQuery().tail("DateTime")`.
+-   Update: Remove Parentheses on the `typeof` oeprator ('cause, it isn't a function).
+-   Update: Should close (or test with stayopen) after submit time.
+            Thanks to: [#24](https://github.com/pytesNET/tail.DateTime/issues/24).
+-   Bugfix: Can't resolve '../tail.datetime-default.css'.
+            Thanks to: [#25](https://github.com/pytesNET/tail.DateTime/issues/25).
+
 Version 0.4.8 - Beta
 --------------------
 -   Add: The new French Translation. Many Thanks to [FlashPanther](https://github.com/FlashPanther)
          [#19](https://github.com/pytesNET/tail.DateTime/pull/19)!
--   Bugfix: Tooltips doesn't support date range
+-   Bugfix: Tooltips doesn't support date range [Pull Request]
             Thanks to: [FlashPanther](/FlashPanther) @ [#20](https://github.com/pytesNET/tail.DateTime/issues/20)
 
 Version 0.4.7 - Beta
