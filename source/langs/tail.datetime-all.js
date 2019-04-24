@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./langs/tail.datetime-all.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.9 - Beta
+ |  @version    0.4.10 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -137,6 +137,18 @@
         shorts: ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
         time:   ["часов", "минут", "секунд"],
         header: ["Выберите месяц", "Выберите год", "Выберите Десятилетие", "Выберите время"]
+    });
+
+    /*
+     |  Translator:     Murat Pala - (https://github.com/Prozexis)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/30
+     */
+    datetime.strings.register("tr", {
+        months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+        days:   ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+        shorts: ["PA", "PT", "SA", "ÇA", "PE", "CU", "CT"],
+        time:   ["Saat", "Dakika", "Saniye"],
+        header: ["Ay Seçin", "Yıl Seçin", "On Yıl Seçin", "Zaman Seçin"]
     });
     return datetime;
 }));

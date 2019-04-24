@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./langs/tail.datetime-es.js
+ |  @file       ./langs/tail.datetime-tr.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.10 - Beta
  |
@@ -9,8 +9,8 @@
  |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
 /*
- |  Translator:     SamBrishes - (https://www.pytes.net)
- |  GitHub:         <internal>
+ |  Translator:     Murat Pala - (https://github.com/Prozexis)
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/30
  */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
@@ -23,12 +23,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("es", {
-        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
-        days:   ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
-        shorts: ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"],
-        time:   ["Horas", "Minutos", "Segundos"],
-        header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
+    datetime.strings.register("tr", {
+        months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+        days:   ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+        shorts: ["PA", "PT", "SA", "ÇA", "PE", "CU", "CT"],
+        time:   ["Saat", "Dakika", "Saniye"],
+        header: ["Ay Seçin", "Yıl Seçin", "On Yıl Seçin", "Zaman Seçin"]
     });
     return datetime;
 }));
