@@ -74,6 +74,7 @@ Thanks To
 -   [noxludio](https://github.com/noxludio) / [Finnish Translation](https://github.com/pytesNET/tail.DateTime/pull/17)
 -   [FlashPanther](https://github.com/FlashPanther) / [French Translation](https://github.com/pytesNET/tail.DateTime/pull/19)
 -   [Fabio Di Stasio](https://github.com/Fabio286) / [Italian Translation](https://github.com/pytesNET/tail.DateTime/issues/10)
+-   [Murat Pala](https://github.com/Prozexis) / [Turkish Translation](https://github.com/pytesNET/tail.DateTime/pull/30)
 
 Documentation
 -------------

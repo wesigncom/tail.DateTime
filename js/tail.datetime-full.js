@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime.full.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.9 - Beta
+ |  @version    0.4.10 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -21,18 +21,18 @@
 
         // jQuery Support
         if(typeof jQuery !== "undefined"){
-            if(typeof jQuery.fn.tail === "undefined"){
-                jQuery.fn.tail = function(method, options){
-                    if(method.toLowerCase() === "datetime"){
-                        return this.DateTime(options);
-                    }
-                };
-            }
-            jQuery.fn.DateTime = function(o){
+            jQuery.fn.DateTime = jQuery.fn.datetime = function(o){
                 var r = [], i;
                 this.each(function(){ if((i = tail.DateTime(this, o)) !== false){ r.push(i); } });
                 return (r.length === 1)? r[0]: (r.length === 0)? false: r;
             };
+            if(typeof jQuery.fn.tail === "undefined"){
+                jQuery.fn.tail = function(method, options){
+                    if(method in jQuery.fn){
+                        return this[method](options);
+                    }
+                };
+            }
         }
     }
 }(this, function(root){
@@ -120,7 +120,7 @@
         tailDateTime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.9";
+    tailDateTime.version = "0.4.10";
     tailDateTime.status = "beta";
     tailDateTime.count = 0;
     tailDateTime.inst = {};
@@ -240,6 +240,13 @@
             shorts: ["вс", "пн", "вт", "ср", "чт", "пт", "сб"],
             time:   ["часов", "минут", "секунд"],
             header: ["Выберите месяц", "Выберите год", "Выберите Десятилетие", "Выберите время"]
+        },
+        tr: {
+            months: ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"],
+            days:   ["Pazar", "Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi"],
+            shorts: ["PA", "PT", "SA", "ÇA", "PE", "CU", "CT"],
+            time:   ["Saat", "Dakika", "Saniye"],
+            header: ["Ay Seçin", "Yıl Seçin", "On Yıl Seçin", "Zaman Seçin"]
         },
         modify: function(locale, id, string){
             if(!(locale in this)){
@@ -555,7 +562,7 @@
 
         /*
          |  HELPER :: CONVERT DATE
-         |  @version    0.4.0 [0.1.0]
+         |  @version    0.4.10 [0.1.0]
          */
         convertDate: function(inDate, format){
             var dateObject = {
@@ -577,7 +584,7 @@
             return format.replace(/([HGismd]{1,2}|[Y]{2,4}|y{2})/g, function(token){
                 if(token.length == 4 || token.length == 2){
                     return dateObject[token.slice(-1)].toString().slice(-Math.abs(token.length));
-                } else if(token.length == 1 && datePart[0] == "0"){
+                } else if(token.length == 1 && token[0] == "0"){
                     return dateObject[token.slice(-1)].toString().slice(-1)
                 }
                 return dateObject[token.slice(-1)].toString();

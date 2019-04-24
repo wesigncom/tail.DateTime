@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+Version 0.4.10 - Beta
+---------------------
+-   Add: The new French Translation. Many Thanks to [Murat Pala](https://github.com/Prozexis)
+         [#30](https://github.com/pytesNET/tail.DateTime/pull/30)!
+-   Bugfix: Use of undefined variable `datePart` in the `convertDate` method.
+-   Bugfix: The jQuery implementation has been fixed.
+
 Version 0.4.9 - Beta
 --------------------
 -   Add: Support for module exporting, using browserfy.
