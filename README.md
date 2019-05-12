@@ -1,10 +1,11 @@
 tail.DateTime
 =============
-[![plainJS](https://s.pytes.net/3fd80118)](https://s.pytes.net/e0b6ce86)
-[![npm](https://s.pytes.net/4afcd19c)](https://s.pytes.net/64a7f3a3)
-[![npm](https://s.pytes.net/2f3f75c4)](https://s.pytes.net/64a7f3a3)
-[![Software License](https://s.pytes.net/8257ac72)](LICENSE.md)
-[![Author](https://s.pytes.net/5542d1fa)](https://www.github.com/pytesNET)
+[![npm Version](https://s.pytes.me/a7034683)](https://s.pytes.me/2a8c886a)
+[![npm Downloads](https://s.pytes.me/e3024ed7)](https://s.pytes.me/2a8c886a)
+[![Support Me](https://s.pytes.me/4a1717aa)](https://buymeacoffee.com/pytesNET)
+[![plainJS](https://s.pytes.me/3fd80118)](https://s.pytes.me/e0b6ce86)
+[![License](https://s.pytes.me/8257ac72)](LICENSE.md)
+
 
 The **tail.DateTime** package provides an extensive and configurable Date/Time Calendar Picker for
 your website, written in vanilla JavaScript and without any dependencies! It was originally a fork
@@ -14,6 +15,14 @@ broke away from the last original lines and the script is now completely indepen
 [Wanna see **tail.DateTime** in action?](https://github.pytes.net/tail.DateTime)
 
 [Wanna translate **tail.DateTime** in your language?](https://github.com/pytesNET/tail.DateTime/wiki/Help-Translating)
+
+Support
+-------
+<p align="center" atyle="text-align:center">
+You really like my <b>tail.DateTime</b> script and want to support me and all of my projects?<br/>
+Then I would be extremely grateful for a coffee! (<b>Thanks to all Supporters</b>)<br/><br/>
+<a href="https://www.buymeacoffee.com/pytesNET"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" title="Buy Me A Coffee" /></a>
+</p>
 
 Features
 --------
