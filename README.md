@@ -1,11 +1,10 @@
 tail.DateTime
 =============
-[![npm Version](https://s.pytes.me/a7034683)](https://s.pytes.me/2a8c886a)
-[![npm Downloads](https://s.pytes.me/e3024ed7)](https://s.pytes.me/2a8c886a)
+[![npm Version](https://s.pytes.me/a7034683)](https://s.pytes.net/64a7f3a3)
+[![npm Downloads](https://s.pytes.me/e3024ed7)](https://s.pytes.net/64a7f3a3)
 [![Support Me](https://s.pytes.me/4a1717aa)](https://buymeacoffee.com/pytesNET)
 [![plainJS](https://s.pytes.me/3fd80118)](https://s.pytes.me/e0b6ce86)
 [![License](https://s.pytes.me/8257ac72)](LICENSE.md)
-
 
 The **tail.DateTime** package provides an extensive and configurable Date/Time Calendar Picker for
 your website, written in vanilla JavaScript and without any dependencies! It was originally a fork
