@@ -19,7 +19,7 @@
     "homepage": "https://github.com/pytesNET/tail.DateTime",
 
     "main": [
-        "js/tail.datetime.js",
+        "js/tail.datetime-full.js",
         "css/tail.datetime-default.css"
     ],
     "repository": {

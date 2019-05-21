@@ -1,7 +1,7 @@
 tail.DateTime
 =============
-[![npm Version](https://s.pytes.me/a7034683)](https://s.pytes.net/64a7f3a3)
-[![npm Downloads](https://s.pytes.me/e3024ed7)](https://s.pytes.net/64a7f3a3)
+[![npm Version](https://s.pytes.me/a7034683)](https://s.pytes.me/64a7f3a3)
+[![npm Downloads](https://s.pytes.me/e3024ed7)](https://s.pytes.me/64a7f3a3)
 [![Support Me](https://s.pytes.me/4a1717aa)](https://buymeacoffee.com/pytesNET)
 [![plainJS](https://s.pytes.me/3fd80118)](https://s.pytes.me/e0b6ce86)
 [![License](https://s.pytes.me/8257ac72)](LICENSE.md)
@@ -25,14 +25,14 @@ Then I would be extremely grateful for a coffee! (<b>Thanks to all Supporters</b
 
 Features
 --------
--   A beautiful Date/Time Picker (in 2 Designs + 6 Color Schemes)
--   Definable ranges of selectable dates (Blacklist / Whitelist)
--   Colorable Tooltips with an cute animation
--   Different Views to navigate quickly: Days, Months, Years & Decades
--   Completely Translatable and already available in 9 languages
--   Extendable and Bindable through different Events
--   Compatible with AMD, tested with requireJS
--   Many Settings to adapt and configure the design and behavior
+-   A beautiful Date/Time Picker (in 2 Designs + 6 Color Schemes).
+-   Definable ranges of selectable dates (Blacklist / Whitelist).
+-   Colorable Tooltips with an cute animation.
+-   Different Views to navigate quickly: Days, Months, Years & Decades.
+-   Completely Translatable and already available in 9 languages.
+-   Extendable and Bindable through different Events.
+-   Many Settings to adapt and configure the design and behaviour.
+-   Supports AMD (requireJS) and available as browserify module.
 -   Compatible with all modern browsers **(including IE 10+)**
 -   No Dependencies, just embed and use
 -   Free/To/Use - MIT Licensed

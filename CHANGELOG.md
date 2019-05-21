@@ -1,11 +1,17 @@
 CHANGELOG
 =========
 
+Version 0.4.12 - Beta
+---------------------
+-   Bugfix: The new `classList` helper methods didn't worked as expected.
+-   Bugfix: Add correct file to the `main` bower variable.
+-   Bugfix: Add correct file to the `jsdelivr` package variable.
+
 Version 0.4.11 - Beta
 ---------------------
 -   Info: This is the first version, which drops IE 9 support!
 -   Add: The new Norwegian Translation. Many Thanks to [Lars Athle Larsen](https://github.com/larsathle)
-         [#30](https://github.com/pytesNET/tail.DateTime/pull/30)!
+         [#31](https://github.com/pytesNET/tail.DateTime/pull/31)!
 -   Add: Support for MooTools.
 -   Add: Global `window` implementation using `datetime`, next to the existing `DateTime`, variable.
 -   Update: Using `classList` to add / remove / check class names.
