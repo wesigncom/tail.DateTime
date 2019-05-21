@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+Version 0.4.12 - Beta
+---------------------
+-   Bugfix: The new `classList` helper methods didn't worked as expected.
+-   Bugfix: Add correct file to the `main` bower variable.
+-   Bugfix: Add correct file to the `jsdelivr` package variable.
+
 Version 0.4.11 - Beta
 ---------------------
 -   Info: This is the first version, which drops IE 9 support!

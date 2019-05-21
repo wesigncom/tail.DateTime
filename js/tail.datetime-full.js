@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./js/tail.datetime-full.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.11 - Beta
+ |  @version    0.4.12 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -40,13 +40,13 @@
 
     // Internal Helper Methods
     function cHAS(el, name){
-        return (el.classList)? el.classList.contains(name): false;
+        return (!el.classList)? false: el.classList.contains(name);
     }
     function cADD(el, name){
-        return (el.classList && el.classList.add(name))? el: false;
+        return (!el.classList)? false: (el.classList.add(name))? el: el;
     }
     function cREM(el, name){
-        return (el.classList.remove && el.classList.remove(name))? el: false;
+        return (!el.classList)? false: (el.classList.remove(name))? el: el;
     }
     function trigger(el, event, opt){
         if(CustomEvent && CustomEvent.name){
@@ -106,7 +106,7 @@
         datetime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    datetime.version = "0.4.11";
+    datetime.version = "0.4.12";
     datetime.status = "beta";
     datetime.count = 0;
     datetime.inst = {};
