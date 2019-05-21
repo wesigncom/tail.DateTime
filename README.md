@@ -33,7 +33,7 @@ Features
 -   Extendable and Bindable through different Events
 -   Compatible with AMD, tested with requireJS
 -   Many Settings to adapt and configure the design and behavior
--   Compatible with all modern browsers **(including IE 9+)**
+-   Compatible with all modern browsers **(including IE 10+)**
 -   No Dependencies, just embed and use
 -   Free/To/Use - MIT Licensed
 
@@ -83,6 +83,7 @@ Thanks To
 -   [FlashPanther](https://github.com/FlashPanther) / [French Translation](https://github.com/pytesNET/tail.DateTime/pull/19)
 -   [Fabio Di Stasio](https://github.com/Fabio286) / [Italian Translation](https://github.com/pytesNET/tail.DateTime/issues/10)
 -   [Murat Pala](https://github.com/Prozexis) / [Turkish Translation](https://github.com/pytesNET/tail.DateTime/pull/30)
+-   [Lars Athle Larsen](https://github.com/larsathle) / [Norwegian Translation](https://github.com/pytesNET/tail.DateTime/pull/31)
 
 Documentation
 -------------

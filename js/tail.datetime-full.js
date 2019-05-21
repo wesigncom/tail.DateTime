@@ -1,8 +1,8 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./js/tail.datetime.full.js
+ |  @file       ./js/tail.datetime-full.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.10 - Beta
+ |  @version    0.4.11 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -17,7 +17,7 @@
         if(typeof root.tail === "undefined"){
             root.tail = {};
         }
-        root.tail.DateTime = factory(root);
+        root.tail.DateTime = root.tail.datetime = factory(root);
 
         // jQuery Support
         if(typeof jQuery !== "undefined"){
@@ -26,13 +26,12 @@
                 this.each(function(){ if((i = tail.DateTime(this, o)) !== false){ r.push(i); } });
                 return (r.length === 1)? r[0]: (r.length === 0)? false: r;
             };
-            if(typeof jQuery.fn.tail === "undefined"){
-                jQuery.fn.tail = function(method, options){
-                    if(method in jQuery.fn){
-                        return this[method](options);
-                    }
-                };
-            }
+        }
+
+        // MooTools Support
+        if(typeof(MooTools) != "undefined"){
+            Element.implement({ DateTime: function(o){ return new tail.DateTime(this, o); } });
+            Element.implement({ datetime: function(o){ return new tail.DateTime(this, o); } });
         }
     }
 }(this, function(root){
@@ -40,39 +39,26 @@
     var w = root, d = root.document;
 
     // Internal Helper Methods
-    function cHAS(e, name){
-        return (new RegExp("\\b" + name + "\\b")).test((e.className || ""));
+    function cHAS(el, name){
+        return (el.classList)? el.classList.contains(name): false;
     }
-    function cADD(e, name){
-        if(!(new RegExp("\\b" + name + "\\b")).test(e.className || name)){
-            e.className += " " + name;
-        }
-        return e;
+    function cADD(el, name){
+        return (el.classList && el.classList.add(name))? el: false;
     }
-    function cREM(e, name, regex){
-        if((regex = new RegExp("\\b(" + name + ")\\b")) && regex.test(e.className || "")){
-            e.className = e.className.replace(regex, "");
-        }
-        return e;
+    function cREM(el, name){
+        return (el.classList.remove && el.classList.remove(name))? el: false;
     }
-    function trigger(e, event, opt){
+    function trigger(el, event, opt){
         if(CustomEvent && CustomEvent.name){
             var ev = new CustomEvent(event, opt);
         } else {
             var ev = d.createEvent("CustomEvent");
             ev.initCustomEvent(event, !!opt.bubbles, !!opt.cancelable, opt.detail);
         }
-        return e.dispatchEvent(ev);
+        return el.dispatchEvent(ev);
     }
     function clone(obj, rep){
-        if(Object.assign){
-            return Object.assign({}, obj, rep || {});
-        }
-        var clone = Object.constructor();
-        for(var key in obj){
-            clone[key] = (key in rep)? rep[key]: obj[key];
-        }
-        return clone;
+        return Object.assign({}, obj, rep || {});
     }
     function first(str){ return str.charAt(0).toUpperCase() + str.slice(1); };
     function parse(str, time, reset){
@@ -86,25 +72,25 @@
 
     /*
      |  CONSTRUCTOR
-     |  @version    0.4.0 [0.2.0]
+     |  @sicne  0.4.11 [0.2.0]
      */
-    var tailDateTime = function(el, config){
+    var datetime = function(el, config){
         el = (typeof el == "string")? d.querySelectorAll(el): el;
         if(el instanceof NodeList || el instanceof HTMLCollection || el instanceof Array){
             for(var _r = [], l = el.length, i = 0; i < l; i++){
-                _r.push(new tailDateTime(el[i], config));
+                _r.push(new datetime(el[i], config));
             }
             return (_r.length === 1)? _r[0]: ((_r.length === 0)? false: _r);
         }
         if(!(el instanceof Element)){
             return false;
-        } else if(!(this instanceof tailDateTime)){
-            return new tailDateTime(el, config);
+        } else if(!(this instanceof datetime)){
+            return new datetime(el, config);
         }
 
         // Check el
-        if(tailDateTime.inst[el.getAttribute("data-tail-datetime")]){
-            return tailDateTime.inst[el.getAttribute("data-tail-datetime")];
+        if(datetime.inst[el.getAttribute("data-tail-datetime")]){
+            return datetime.inst[el.getAttribute("data-tail-datetime")];
         }
         if(el.getAttribute("data-datetime")){
             var test = JSON.parse(el.getAttribute("data-datetime").replace(/\'/g, '"'));
@@ -115,20 +101,20 @@
 
         // Init Instance
         this.e = el;
-        this.id = ++tailDateTime.count;
-        this.con = clone(tailDateTime.defaults, config);
-        tailDateTime.inst["tail-" + this.id] = this;
+        this.id = ++datetime.count;
+        this.con = clone(datetime.defaults, config);
+        datetime.inst["tail-" + this.id] = this;
         return this.init();
     };
-    tailDateTime.version = "0.4.10";
-    tailDateTime.status = "beta";
-    tailDateTime.count = 0;
-    tailDateTime.inst = {};
+    datetime.version = "0.4.11";
+    datetime.status = "beta";
+    datetime.count = 0;
+    datetime.inst = {};
 
     /*
      |  STORAGE :: DEFAULT OPTIONS
      */
-    tailDateTime.defaults = {
+    datetime.defaults = {
         animate: true,
         classNames: false,
         closeButton: true,
@@ -163,7 +149,7 @@
     /*
      |  STORAGE :: STRINGS
      */
-    tailDateTime.strings = {
+    datetime.strings = {
         ar: {
             months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
             days:   ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
@@ -227,6 +213,13 @@
             time:   ["Uur", "Minuten", "Seconden"],
             header: ["Kies een Maand", "Kies een Jaar", "Kies een Decennium", "Kies een Tijdstip"]
         },
+        no: {
+            months: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+            days:   ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+            shorts: ["SØN", "MAN", "TIR", "ONS", "TOR", "FRE", "LØR"],
+            time:   ["Timer", "Minutter", "Sekunder"],
+            header: ["Velg måned", "Velg år", "Velg tiår", "Velg klokkeslett"]
+        },
         pt_BR: {
             months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
             days:   ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
@@ -271,23 +264,23 @@
     };
 
     /*
-     |  METHODS
+     |  DATETIME HANDLER
      */
-    tailDateTime.prototype = {
+    datetime.prototype = {
         /*
          |  INTERNAL :: INIT CALENDAR
-         |  @version    0.4.8 [0.2.0]
+         |  @sicne  0.4.11 [0.2.0]
          */
         init: function(){
             var self = this, temp;
 
             // Options
-            this.__ = tailDateTime.strings[this.con.locale] || tailDateTime.strings.en;
+            this.__ = clone(datetime.strings.en, datetime.strings[this.con.locale] || {});
             this.con.dateStart = parse(this.con.dateStart, true, true) || 0;
             this.con.dateEnd = parse(this.con.dateEnd, true, true) || 9999999999999;
             this.con.viewDefault = (!this.con.dateFormat)? "time": this.con.viewDefault;
             if(typeof this.con.weekStart == "string"){
-                this.con.weekStart = tailDateTime.strings.en.shorts.indexOf(this.con.weekStart);
+                this.con.weekStart = datetime.strings.en.shorts.indexOf(this.con.weekStart);
             }
             if(this.con.weekStart < 0 && this.con.weekStart > 6){
                 this.con.weekStart = 0;
@@ -315,7 +308,7 @@
                     e[i].days = (typeof e[i].days !== "boolean")? (function(days){
                         for(var _r = [], _l = days.length, _i = 0; _i < _l; _i++){
                             if(typeof days[_i] == "string"){
-                                days[_i] = tailDateTime.strings.en.shorts.indexOf(days[_i]);
+                                days[_i] = datetime.strings.en.shorts.indexOf(days[_i]);
                             }
                             if(days[_i] >= 0 && days[_i] <= 6){ _r.push(days[_i]); }
                         }
@@ -430,7 +423,7 @@
 
         /*
          |  INTERNAL :: EVENT LISTENER
-         |  @version    0.4.1 [0.4.0]
+         |  @since  0.4.1 [0.4.0]
          */
         bind: function(event){
             var self = event.target, a = "getAttribute", d = "data-action", v = "data-view",
@@ -496,7 +489,7 @@
 
         /*
          |  INTERNAL :: EVENT TRIGGER
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         trigger: function(event){
             var obj = {bubbles: false, cancelable: true, detail: {args: arguments, self: this}};
@@ -519,7 +512,7 @@
 
         /*
          |  HELPER :: CALCULATE POSITION
-         |  @version    0.4.2 [0.3.1]
+         |  @since  0.4.2 [0.3.1]
          */
         calcPosition: function(){
             var a = this.dt.style, b = w.getComputedStyle(this.dt),
@@ -562,7 +555,7 @@
 
         /*
          |  HELPER :: CONVERT DATE
-         |  @version    0.4.10 [0.1.0]
+         |  @since  0.4.10 [0.1.0]
          */
         convertDate: function(inDate, format){
             var dateObject = {
@@ -593,7 +586,7 @@
 
         /*
          |  RENDER :: CALENDAR
-         |  @version    0.4.5 [0.4.0]
+         |  @since  0.4.5 [0.4.0]
          */
         renderCalendar: function(){
             var _s, _c = ["tail-datetime-calendar", "calendar-close"], dt = d.createElement("DIV"),
@@ -664,7 +657,7 @@
 
         /*
          |  RENDER :: DATE PICKER
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         renderDatePicker: function(dt, view){
             if(!view || ["decades", "years", "months", "days"].indexOf(view) < 0){
@@ -690,7 +683,7 @@
 
         /*
          |  RENDER :: TIME PICKER
-         |  @version    0.4.5 [0.4.0]
+         |  @since  0.4.5 [0.4.0]
          */
         renderTimePicker: function(dt){
             if(!this.con.timeFormat){ return false; }
@@ -733,7 +726,7 @@
 
         /*
          |  HANDLE :: TIME FIELDs
-         |  @version    0.4.5 [0.4.5]
+         |  @since  0.4.5 [0.4.5]
          */
         handleTime: function(event, element){
             var min = parseInt(element.getAttribute("min")),
@@ -770,7 +763,7 @@
 
         /*
          |  VIEW :: HANDLE LABEL
-         |  @version    0.4.6 [0.4.0]
+         |  @since  0.4.6 [0.4.0]
          */
         handleLabel: function(dt){
             var label = dt.querySelector(".label"), text, year;
@@ -794,7 +787,7 @@
 
         /*
          |  VIEW :: SHOW DECADEs
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         viewDecades: function(){
             var year = this.view.date.getFullYear(),
@@ -819,7 +812,7 @@
 
         /*
          |  VIEW :: SHOW YEARs
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         viewYears: function(){
             var year = this.view.date.getFullYear(),
@@ -844,7 +837,7 @@
 
         /*
          |  VIEW :: SHOW MONTHs
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         viewMonths: function(){
             var strings = this.__["months"], today = this.con.today? (new Date()).getMonth(): -1;
@@ -866,7 +859,7 @@
 
         /*
          |  VIEW :: SHOW DAYs
-         |  @version    0.4.1 [0.4.0]
+         |  @since  0.4.1 [0.4.0]
          */
         viewDays: function(){
             var date = new Date(this.view.date.getTime()), time,
@@ -964,7 +957,7 @@
 
         /*
          |  VIEW :: SHOW TOOLTIP
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         showTooltip: function(id, field, time){
             var t = this.con.tooltips[id].element, e = t.style, w, h,
@@ -1000,7 +993,7 @@
 
         /*
          |  VIEW :: HIDE TOOLTIP
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         hideTooltip: function(id){
             var t = this.dt.querySelector("#tooltip-" + id), e = t.style;
@@ -1024,7 +1017,7 @@
 
         /*
          |  PUBLIC :: SWITCH VIEW
-         |  @version    0.4.1 [0.1.0]
+         |  @since  0.4.1 [0.1.0]
          */
         switchView: function(view){
             var order = [null, "days", "months", "years", "decades", null];
@@ -1047,7 +1040,7 @@
 
         /*
          |  PUBLIC :: SWITCH DATE
-         |  @version    0.4.1 [0.4.0]
+         |  @since  0.4.1 [0.4.0]
          */
         switchDate: function(year, month, day, none){
             this.view.date.setFullYear((year == undefined)? this.view.date.getFullYear(): year);
@@ -1066,7 +1059,7 @@
 
         /*
          |  PUBLIC :: SWITCH MONTH
-         |  @version    0.4.0 [0.1.0]
+         |  @since  0.4.0 [0.1.0]
          */
         switchMonth: function(month, year){
             if(typeof month == "string"){
@@ -1078,7 +1071,7 @@
 
         /*
          |  PUBLIC :: SWITCH YEAR
-         |  @version    0.4.0 [0.1.0]
+         |  @since  0.4.0 [0.1.0]
          */
         switchYear: function(year){
             if(typeof year == "string"){
@@ -1090,7 +1083,7 @@
 
         /*
          |  PUBLIC :: BROWSE VIEW
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         browseView: function(type){
             type = (["previous", "prev"].indexOf(type) >= 0)? -1: 1;
@@ -1109,7 +1102,7 @@
 
         /*
          |  PUBLIC :: FETCH DATE / DTIME
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         fetchDate: function(date){
             date = parse(date || false) || this.view.date;
@@ -1122,7 +1115,7 @@
 
         /*
          |  PUBLIC :: SELECT DATE / TIME
-         |  @version    0.4.2 [0.1.0]
+         |  @since  0.4.2 [0.1.0]
          */
         selectDate: function(Y, M, D, H, I, S){
             var n = new Date(), f = [];
@@ -1151,7 +1144,7 @@
 
         /*
          |  PUBLIC :: OPEN CALENDAR
-         |  @version    0.4.0 [0.1.0]
+         |  @since  0.4.0 [0.1.0]
          */
         open: function(){
             if(!cHAS(this.dt, "calendar-close")){
@@ -1175,7 +1168,7 @@
 
         /*
          |  PUBLIC :: CLOSE CALENDAR
-         |  @version    0.4.0 [0.1.0]
+         |  @since  0.4.0 [0.1.0]
          */
         close: function(){
             if(!cHAS(this.dt, "calendar-open")){
@@ -1199,7 +1192,7 @@
 
         /*
          |  PUBLIC :: CLOSE CALENDAR
-         |  @version    0.4.0 [0.1.0]
+         |  @since  0.4.0 [0.1.0]
          */
         toggle: function(){
             if(cHAS(this.dt, "calendar-open")){
@@ -1210,7 +1203,7 @@
 
         /*
          |  PUBLIC :: ADD EVENT LISTENER
-         |  @version    0.4.0 [0.3.0]
+         |  @since  0.4.0 [0.3.0]
          */
         on: function(event, func, args){
             var events = ["open", "close", "change", "view"];
@@ -1226,7 +1219,7 @@
 
         /*
          |  PUBLIC :: REMOVE CALENDAR
-         |  @version    0.4.0 [0.3.0]
+         |  @since  0.4.0 [0.3.0]
          */
         remove: function(){
             this.e.removeAttribute("data-tail-datetime");
@@ -1237,7 +1230,7 @@
 
         /*
          |  PUBLIC :: REMOVE CALENDAR
-         |  @version    0.4.0 [0.3.3]
+         |  @since  0.4.0 [0.3.3]
          */
         reload: function(){
             this.remove();
@@ -1246,7 +1239,7 @@
 
         /*
          |  PUBLIC :: (G|S)ET OPOTION
-         |  @version    0.4.0 [0.4.0]
+         |  @since  0.4.0 [0.4.0]
          */
         config: function(key, value, rebuild){
             if(key instanceof Object){
@@ -1275,5 +1268,5 @@
     }
 
     // Return
-    return tailDateTime;
+    return datetime;
 }));

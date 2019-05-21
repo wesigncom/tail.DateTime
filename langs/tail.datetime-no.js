@@ -1,8 +1,8 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./langs/tail.datetime-de.js
+ |  @file       ./langs/tail.datetime-no.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.10 - Beta
+ |  @version    0.4.11 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -10,7 +10,7 @@
  */
 /*
  |  Translator:     Lars Athle Larsen - (https://github.com/larsathle)
- |  GitHub:         <internal>
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/31
  */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
