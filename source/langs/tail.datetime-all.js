@@ -2,7 +2,7 @@
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
  |  @file       ./langs/tail.datetime-all.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.10 - Beta
+ |  @version    0.4.11 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -113,6 +113,18 @@
         shorts: ["ZO", "MA", "DI", "WO", "DO", "VR", "ZA"],
         time:   ["Uur", "Minuten", "Seconden"],
         header: ["Kies een Maand", "Kies een Jaar", "Kies een Decennium", "Kies een Tijdstip"]
+    });
+
+    /*
+     |  Translator:     Lars Athle Larsen - (https://github.com/larsathle)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/31
+     */
+    datetime.strings.register("no", {
+        months: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+        days:   ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+        shorts: ["SØN", "MAN", "TIR", "ONS", "TOR", "FRE", "LØR"],
+        time:   ["Timer", "Minutter", "Sekunder"],
+        header: ["Velg måned", "Velg år", "Velg tiår", "Velg klokkeslett"]
     });
 
     /*

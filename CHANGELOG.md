@@ -1,6 +1,20 @@
 CHANGELOG
 =========
 
+Version 0.4.11 - Beta
+---------------------
+-   Info: This is the first version, which drops IE 9 support!
+-   Add: The new Norwegian Translation. Many Thanks to [Lars Athle Larsen](https://github.com/larsathle)
+         [#30](https://github.com/pytesNET/tail.DateTime/pull/30)!
+-   Add: Support for MooTools.
+-   Add: Global `window` implementation using `datetime`, next to the existing `DateTime`, variable.
+-   Update: Using `classList` to add / remove / check class names.
+-   Update: Using `Object.assign` only to merge / clone object properties.
+-   Update: Clone language strings (with the english ones, for backward compatibilities).
+-   Rename: The internal `tailDateTime` variable has been renamed into `datetime`.
+-   Remove: Support for Internet Explorer 9.
+-   Remove: The jQuery `jQuery().tail("DateTime")` method (this was just a test).
+
 Version 0.4.10 - Beta
 ---------------------
 -   Add: The new French Translation. Many Thanks to [Murat Pala](https://github.com/Prozexis)

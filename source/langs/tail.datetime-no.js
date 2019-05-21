@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
- |  @file       ./langs/tail.datetime-de_AT.js
+ |  @file       ./langs/tail.datetime-no.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.11 - Beta
  |
@@ -9,8 +9,8 @@
  |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
 /*
- |  Translator:     SamBrishes - (https://www.pytes.net)
- |  GitHub:         <internal>
+ |  Translator:     Lars Athle Larsen - (https://github.com/larsathle)
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/31
  */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
@@ -23,12 +23,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de_AT", {
-        months: ["Jänner", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-        shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
-        time:   ["Stunden", "Minuten", "Sekunden"],
-        header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
+    datetime.strings.register("no", {
+        months: ["Januar", "Februar", "Mars", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Desember"],
+        days:   ["Søndag", "Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag", "Lørdag"],
+        shorts: ["SØN", "MAN", "TIR", "ONS", "TOR", "FRE", "LØR"],
+        time:   ["Timer", "Minutter", "Sekunder"],
+        header: ["Velg måned", "Velg år", "Velg tiår", "Velg klokkeslett"]
     });
     return datetime;
 }));
