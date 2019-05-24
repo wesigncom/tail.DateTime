@@ -126,6 +126,18 @@
         time:   ["Timer", "Minutter", "Sekunder"],
         header: ["Velg måned", "Velg år", "Velg tiår", "Velg klokkeslett"]
     });
+    
+    /*
+     |  Translator:     Jacob273 - (https://github.com/Jacob273)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/32
+     */
+    datetime.strings.register("pl", {
+        months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
+        days:   ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+        shorts: ["ND", "PN", "WT", "ŚR", "CZW", "PT", "SOB"],
+        time:   ["Godzina", "Minuta", "Sekunda"],
+        header: ["Wybierz miesiąc", "Wybierz rok", "Wybierz dekadę", "Wybierz czas"]
+    });
 
     /*
      |  Translator:     Júnior Garcia - (https://github.com/juniorgarcia)
