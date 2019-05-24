@@ -1,0 +1,20 @@
+; (function (factory) {
+    if (typeof (define) == "function" && define.amd) {
+        define(function () {
+            return function (datetime) { factory(datetime); };
+        });
+    } else {
+        if (typeof (window.tail) != "undefined" && window.tail.DateTime) {
+            factory(window.tail.DateTime);
+        }
+    }
+}(function (datetime) {
+    datetime.strings.register("pl", {
+        months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
+        days: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+        shorts: ["ND", "PN", "WT", "ŚR", "CZW", "PT", "SOB"],
+        time: ["Godzina", "Minuta", "Sekunda"],
+        header: ["Wybierz miesiąc", "Wybierz rok", "Wybierz dekadę", "Wybierz czas"]
+    });
+    return datetime;
+}));
