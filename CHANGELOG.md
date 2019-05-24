@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Unreleased Changes
+------------------
+-   Add: The new Norwegian Translation. Many Thanks to [Jacob273](https://github.com/Jacob273)
+         [#32](https://github.com/pytesNET/tail.DateTime/pull/32)!
+
 Version 0.4.12 - Beta
 ---------------------
 -   Bugfix: The new `classList` helper methods didn't worked as expected.
