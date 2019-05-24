@@ -220,6 +220,13 @@
             time:   ["Timer", "Minutter", "Sekunder"],
             header: ["Velg måned", "Velg år", "Velg tiår", "Velg klokkeslett"]
         },
+        pl: {
+            months: ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"],
+            days:   ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+            shorts: ["ND", "PN", "WT", "ŚR", "CZW", "PT", "SOB"],
+            time:   ["Godzina", "Minuta", "Sekunda"],
+            header: ["Wybierz miesiąc", "Wybierz rok", "Wybierz dekadę", "Wybierz czas"]
+        },
         pt_BR: {
             months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
             days:   ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
