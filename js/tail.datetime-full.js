@@ -656,7 +656,7 @@
             if(_s){
                 dt.style.cssText = 'position:static;visibility:visible;';
             } else {
-                dt.style.cssText = 'top:0;left:0;z-index:999;position:absolute;visibility:hidden;';
+                dt.style.cssText = 'top:0;left:0;z-index:3000;position:absolute;visibility:hidden;';
             }
             (_s || document.body).appendChild(dt);
             return dt;
