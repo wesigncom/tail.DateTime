@@ -1,3 +1,17 @@
+/*
+ |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
+ |  @file       ./langs/tail.datetime-cs.js
+ |  @author     SamBrishes <sam@pytes.net>
+ |  @version    0.4.13 - Beta
+ |
+ |  @website    https://github.com/pytesNET/tail.DateTime
+ |  @license    X11 / MIT License
+ |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
+ */
+/*
+ |  Translator:     Milan Kyncl - (https://github.com/milankyncl)
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/39
+ */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
        define(function(){
@@ -9,7 +23,7 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de", {
+    datetime.strings.register("cs", {
         months: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
         days:   ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"],
         shorts: ["NE", "PO", "ÚT", "ST", "ČT", "PÁ", "SO"],
