@@ -502,8 +502,8 @@ input, select, textarea{
 }
 input:disabled, select:disabled, textarea:disabled,
 input.disabled, select.disabled, textarea.disabled{
-    border-color: #a0a0a0 !important;
-    background-color: #f0f0f0 !important;
+    border-color: #a0a0a0;
+    background-color: #f0f0f0;
 }
 html.invert input, html.invert select, html.invert textarea{
     color: rgba(255, 255, 255, 0.75);

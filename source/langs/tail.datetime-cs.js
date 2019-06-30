@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - The vanilla way to select dates and times!
- |  @file       ./langs/tail.datetime-de.js
+ |  @file       ./langs/tail.datetime-cs.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.13 - Beta
  |
@@ -9,8 +9,8 @@
  |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
 /*
- |  Translator:     SamBrishes - (https://www.pytes.net)
- |  GitHub:         <internal>
+ |  Translator:     Milan Kyncl - (https://github.com/milankyncl)
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/39
  */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
@@ -23,12 +23,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de", {
-        months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-        shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
-        time:   ["Stunden", "Minuten", "Sekunden"],
-        header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
+    datetime.strings.register("cs", {
+        months: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
+        days:   ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"],
+        shorts: ["NE", "PO", "ÚT", "ST", "ČT", "PÁ", "SO"],
+        time:   ["Hodiny", "Minuty", "Sekundy"],
+        header: ["Vyberte měsíc", "Vyberte rok", "Vyberte desetiletí", "Vyberte čas"]
     });
     return datetime;
 }));

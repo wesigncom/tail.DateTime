@@ -6,10 +6,18 @@ tail.DateTime
 [![plainJS](https://s.pytes.me/3fd80118)](https://s.pytes.me/e0b6ce86)
 [![License](https://s.pytes.me/8257ac72)](LICENSE.md)
 
-The **tail.DateTime** package provides an extensive and configurable Date/Time Calendar Picker for
-your website, written in vanilla JavaScript and without any dependencies! It was originally a fork
-of MrGuiseppes [Pure JS Calendar](https://github.com/MrGuiseppe/pureJSCalendar), but version 0.4.0
-broke away from the last original lines and the script is now completely independent!
+The perfect Date/Time Picker for your perfect Website / Web-Application!
+
+<p align="center" style="text-align:center"><a href="https://github.pytes.net/tail.DateTime">
+<img src="https://repository-images.githubusercontent.com/157055836/51d40e80-9b33-11e9-8fbb-f05ce51a16c4" style="width:auto;max-width:640px;" />
+</a></p>
+
+The **tail.DateTime** script is an extensive and fully-featured Date/Time Picker, written in vanilla
+JavaScfript and without any dependency. It is compatible with all major browsers, starting with
+**IE 10** and above, and is optimized for a direct use in the browser, as AMD (using requireJS) or
+as browserify module.
+
+----------------------------
 
 [Wanna see **tail.DateTime** in action?](https://github.pytes.net/tail.DateTime)
 
@@ -17,7 +25,7 @@ broke away from the last original lines and the script is now completely indepen
 
 Support
 -------
-<p align="center" atyle="text-align:center">
+<p align="center" style="text-align:center">
 You really like my <b>tail.DateTime</b> script and want to support me and all of my projects?<br/>
 Then I would be extremely grateful for a coffee! (<b>Thanks to all Supporters</b>)<br/><br/>
 <a href="https://www.buymeacoffee.com/pytesNET"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" title="Buy Me A Coffee" /></a>
@@ -25,17 +33,16 @@ Then I would be extremely grateful for a coffee! (<b>Thanks to all Supporters</b
 
 Features
 --------
--   A beautiful Date/Time Picker (in 2 Designs + 6 Color Schemes).
--   Definable ranges of selectable dates (Blacklist / Whitelist).
--   Colorable Tooltips with an cute animation.
--   Different Views to navigate quickly: Days, Months, Years & Decades.
--   Completely Translatable and already available in 9 languages.
--   Extendable and Bindable through different Events.
--   Many Settings to adapt and configure the design and behaviour.
--   Supports AMD (requireJS) and available as browserify module.
--   Compatible with all modern browsers **(including IE 10+)**
--   No Dependencies, just embed and use
--   Free/To/Use - MIT Licensed
+-   **Beautiful**. 2 different Designs in 4 / 2 color schemes...
+-   **Extensive**.
+    -   Define Black- or Whitelists...
+    -   Use colorizable tooltips...
+    -   Restrict the date/time selection...
+    -   ... and way more ...
+-   **Configurable**. 30 settings and 4 bindable events...
+-   **Translatable**. Already available in 17 languages...
+-   **Zero Dependencies**. And written in vanilla JavaScript...
+-   **Free/To/Use**. Because it's MIT licensed <3
 
 Install & Embed
 ---------------
@@ -72,8 +79,8 @@ Thanks To
 -   [MrGuiseppe](https://github.com/MrGuiseppe) for the Inspiration
 -   [Octicons](https://octicons.github.com/) for the cute Icons
 -   [jsCompress](https://jscompress.com/) for the Compressor
--   [prismJS](https://prismjs.com) for the Syntax highlighting library
--   [MenuSpy](https://github.com/lcdsantos/menuspy) for the Menu Navigation
+-   [prismJS](https://prismjs.com) for the Syntax highlighting library _[used on the demo]_
+-   [MenuSpy](https://github.com/lcdsantos/menuspy) for the Menu Navigation _[used on the demo]_
 
 ### Translations
 -   [Mohammed Alsiddeeq Ahmed](https://github.com/mosid) / [Arabic Translation](https://github.com/pytesNET/tail.DateTime/issues/1)
@@ -85,6 +92,9 @@ Thanks To
 -   [Murat Pala](https://github.com/Prozexis) / [Turkish Translation](https://github.com/pytesNET/tail.DateTime/pull/30)
 -   [Lars Athle Larsen](https://github.com/larsathle) / [Norwegian Translation](https://github.com/pytesNET/tail.DateTime/pull/31)
 -   [Jacob273](https://github.com/Jacob273) / [Polish Translation](https://github.com/pytesNET/tail.DateTime/pull/32)
+-   [elPesecillo](https://github.com/elPesecillo) / [Spanish Mexican Translation](https://github.com/pytesNET/tail.DateTime/issue/34)
+-   [Milan Kyncl](https://github.com/milankyncl) / [Czech Translation](https://github.com/pytesNET/tail.DateTime/pill/39)
+-   [tsakal](https://github.com/tsakal) / [Greek Translation](https://github.com/pytesNET/tail.DateTime/issues/41)
 
 Documentation
 -------------
@@ -102,7 +112,7 @@ but I will keep a table of contents list here and some basic instructions.
 You can pass up to 2 arguments to the **tail.DateTime** constructor, the first parameter is required
 and need to be an `Element`, a `NodeList`, a `HTMLCollection`, an Array with `Element` objects or
 just a single selector as `string`, which calls the `querySelectorAll()` method on its own. The
-second parameter is optional and, if set, MUST be an object with your *tail.DateTime* options.
+second parameter is optional and, if set, MUST be an object with your **tail.DateTime** options.
 
 ```html
 <!DOCTYPE html>
@@ -134,35 +144,36 @@ about each single option!
 
 ```javascript
 tail.DateTime(".tail-datetime-field", {
-    animate: true,
-    classNames: false,
-    closeButton: true,              // New in 0.4.5
-    dateFormat: "YYYY-mm-dd",
-    dateStart: false,
-    dateRanges: [],
-    dateBlacklist: true,
-    dateEnd: false,
-    locale: "en",
-    position: "bottom",
-    rtl: "auto",
-    startOpen: false,
-    stayOpen: false,
-    timeFormat: "HH:ii:ss",
-    timeHours: null,                // New Syntax in 0.4.5
-    timeMinutes: null,              // New Syntax in 0.4.5
-    timeSeconds: 0,                 // New Syntax in 0.4.5
-    timeIncrement: true,            // New in 0.4.5
-    timeStepHours: 1,               // New in 0.4.3
-    timeStepMinutes: 5,             // New in 0.4.3
-    timeStepSeconds: 5,             // New in 0.4.3
-    today: true,
-    tooltips: [],
-    viewDefault: "days",
-    viewDecades: true,
-    viewYears: true,
-    viewMonths: true,
-    viewDays: true,
-    weekStart: 0
+    animate: true,                  // [0.4.0]          Boolean
+    classNames: false,              // [0.3.0]          Boolean, String, Array, null
+    closeButton: true,              // [0.4.5]          Boolean
+    dateFormat: "YYYY-mm-dd",       // [0.1.0]          String (PHP similar Date)
+    dateStart: false,               // [0.4.0]          String, Date, Integer, False
+    dateRanges: [],                 // [0.3.0]          Array
+    dateBlacklist: true,            // [0.4.0]          Boolean
+    dateEnd: false,                 // [0.4.0]          String, Date, Integer, False
+    locale: "en",                   // [0.4.0]          String
+    position: "bottom",             // [0.1.0]          String
+    rtl: "auto",                    // [0.4.1]          String, Boolean
+    startOpen: false,               // [0.3.0]          Boolean
+    stayOpen: false,                // [0.3.0]          Boolean
+    time12h: false,                 // [0.4.13][NEW]    Boolean
+    timeFormat: "HH:ii:ss",         // [0.1.0]          String (PHP similar Date)
+    timeHours: true,                // [0.4.13][UPD]    Integer, Boolean, null
+    timeMinutes: true,              // [0.4.13][UPD]    Integer, Boolean, null
+    timeSeconds: 0,                 // [0.4.13][UPD]    Integer, Boolean, null
+    timeIncrement: true,            // [0.4.5]          Boolean
+    timeStepHours: 1,               // [0.4.3]          Integer
+    timeStepMinutes: 5,             // [0.4.3]          Integer
+    timeStepSeconds: 5,             // [0.4.3]          Integer
+    today: true,                    // [0.4.0]          Boolean
+    tooltips: [],                   // [0.4.0]          Array
+    viewDefault: "days",            // [0.4.0]          String
+    viewDecades: true,              // [0.4.0]          Boolean
+    viewYears: true,                // [0.4.0]          Boolean
+    viewMonths: true,               // [0.4.0]          Boolean
+    viewDays: true,                 // [0.4.0]          Boolean
+    weekStart: 0                    // [0.1.0]          String, Integer
 });
 ```
 

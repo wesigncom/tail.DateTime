@@ -1,5 +1,5 @@
 /*
- |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
+ |  tail.datetime - The vanilla way to select dates and times!
  |  @file       ./langs/tail.datetime-all.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.12 - Beta
@@ -32,6 +32,18 @@
     });
 
     /*
+     |  Translator:     Milan Kyncl - (https://github.com/milankyncl)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/39
+     */
+    datetime.strings.register("cs", {
+        months: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
+        days:   ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"],
+        shorts: ["NE", "PO", "ÚT", "ST", "ČT", "PÁ", "SO"],
+        time:   ["Hodiny", "Minuty", "Sekundy"],
+        header: ["Vyberte měsíc", "Vyberte rok", "Vyberte desetiletí", "Vyberte čas"]
+    });
+
+    /*
      |  Translator:     SamBrishes - (https://www.pytes.net)
      |  GitHub:         <internal>
      */
@@ -56,6 +68,18 @@
     });
 
     /*
+     |  Translator:     Tsakal - (https://github.com/tsakal)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/41
+     */
+    datetime.strings.register("el", {
+        months: ["Ιανουάριος", "Φεβρουάριος", "Μάρτιος", "Απρίλιος", "Μάιος", "Ιούνιος", "Ιούλιος", "Αύγουστος", "Σεπτέμβριος", "Οκτώβριος", "Νοέμβριος", "Δεκέμβριος"],
+        days:   ["Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο"],
+        shorts: ["ΚΥΡ", "ΔΕΥ", "ΤΡΙ", "ΤΕΤ", "ΠΕΜ", "ΠΑΡ", "ΣΑΒ"],
+        time:   ["Ώρες", "Λεπτά", "Δευτερόλεπτα"],
+        header: ["Επιλογή Μηνός", "Επιλογή Έτους", "Επιλογή Δεκαετίας", "Επιλογή Ώρας"]
+    });
+
+    /*
      |  Translator:     SamBrishes - (https://www.pytes.net)
      |  GitHub:         <internal>
      */
@@ -65,6 +89,18 @@
         shorts: ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"],
         time:   ["Horas", "Minutos", "Segundos"],
         header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
+    });
+
+    /*
+     |  Translator:     elPesecillo - (https://github.com/elPesecillo)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/34
+     */
+    datetime.strings.register("es_MX", {
+        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        days:   ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        shorts: ["DO", "LU", "MA", "MI", "JU", "VI", "SÁ"],
+        time:   ["Horas", "Minutos", "Segundos"],
+        header: ["Selecciona un Mes", "Selecciona un Año", "Selecciona una Decada", "Selecciona la Hora"]
     });
 
     /*
@@ -105,7 +141,7 @@
 
     /*
      |  Translator:     Mickeybyte - (https://github.com/mickeybyte)
-     |  GitHub:         <internal>
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/15
      */
     datetime.strings.register("nl", {
         months: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
@@ -126,7 +162,7 @@
         time:   ["Timer", "Minutter", "Sekunder"],
         header: ["Velg måned", "Velg år", "Velg tiår", "Velg klokkeslett"]
     });
-    
+
     /*
      |  Translator:     Jacob273 - (https://github.com/Jacob273)
      |  GitHub:         https://github.com/pytesNET/tail.DateTime/pull/32

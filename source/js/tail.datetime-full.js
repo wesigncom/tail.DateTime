@@ -1,8 +1,8 @@
 /*
- |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
+ |  tail.datetime - The vanilla way to select dates and times!
  |  @file       ./js/tail.datetime-full.js
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.12 - Beta
+ |  @version    0.4.13 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -10,14 +10,14 @@
  */
 ;(function(root, factory){
     if(typeof define === "function" && define.amd){
-        define(function(){ return factory(root); });
+        define(function(){ return factory(root, root.document); });
     } else if(typeof module === "object" && module.exports){
-        module.exports = factory(root);
+        module.exports = factory(root, root.document);
     } else {
         if(typeof root.tail === "undefined"){
             root.tail = {};
         }
-        root.tail.DateTime = root.tail.datetime = factory(root);
+        root.tail.DateTime = root.tail.datetime = factory(root, root.document);
 
         // jQuery Support
         if(typeof jQuery !== "undefined"){
@@ -34,19 +34,19 @@
             Element.implement({ datetime: function(o){ return new tail.DateTime(this, o); } });
         }
     }
-}(this, function(root){
+}(window, function(w, d){
     "use strict";
-    var w = root, d = root.document;
+    d.forms.inputmode = true;
 
     // Internal Helper Methods
     function cHAS(el, name){
-        return (!el.classList)? false: el.classList.contains(name);
+        return (el && "classList" in el)? el.classList.contains(name): false;
     }
     function cADD(el, name){
-        return (!el.classList)? false: (el.classList.add(name))? el: el;
+        return (el && "classList" in el)? el.classList.add(name): undefined;
     }
     function cREM(el, name){
-        return (!el.classList)? false: (el.classList.remove(name))? el: el;
+        return (el && "classList" in el)? el.classList.remove(name): undefined;
     }
     function trigger(el, event, opt){
         if(CustomEvent && CustomEvent.name){
@@ -58,9 +58,23 @@
         return el.dispatchEvent(ev);
     }
     function clone(obj, rep){
-        return Object.assign({}, obj, rep || {});
+        if(typeof Object.assign === "function"){
+            return Object.assign({}, obj, rep || {});
+        }
+        var clone = Object.constructor();
+        for(var key in obj){
+            clone[key] = (key in rep)? rep[key]: obj[key];
+        }
+        return clone;
     }
-    function first(str){ return str.charAt(0).toUpperCase() + str.slice(1); };
+    function create(tag, classes){
+        var r = d.createElement(tag);
+            r.className = (classes && classes.join)? classes.join(" "): classes || "";
+        return r;
+    }
+    function first(str){
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
     function parse(str, time, reset){
         var date = (str instanceof Date)? str: (str)? new Date(str): false;
         if(!(date instanceof Date) || isNaN(date.getDate())){
@@ -68,7 +82,7 @@
         }
         (reset)? date.setHours(0, 0, 0, 0): date;
         return (time === true)? date.getTime(): date;
-    };
+    }
 
     /*
      |  CONSTRUCTOR
@@ -88,7 +102,7 @@
             return new datetime(el, config);
         }
 
-        // Check el
+        // Check Element
         if(datetime.inst[el.getAttribute("data-tail-datetime")]){
             return datetime.inst[el.getAttribute("data-tail-datetime")];
         }
@@ -104,9 +118,10 @@
         this.id = ++datetime.count;
         this.con = clone(datetime.defaults, config);
         datetime.inst["tail-" + this.id] = this;
+        this.e.setAttribute("data-tail-datetime", "tail-" + this.id);
         return this.init();
     };
-    datetime.version = "0.4.12";
+    datetime.version = "0.4.13";
     datetime.status = "beta";
     datetime.count = 0;
     datetime.inst = {};
@@ -115,35 +130,36 @@
      |  STORAGE :: DEFAULT OPTIONS
      */
     datetime.defaults = {
-        animate: true,
-        classNames: false,
-        closeButton: true,
-        dateFormat: "YYYY-mm-dd",
-        dateStart: false,
-        dateRanges: [],
-        dateBlacklist: true,
-        dateEnd: false,
-        locale: "en",
-        position: "bottom",
-        rtl: "auto",
-        startOpen: false,
-        stayOpen: false,
-        timeFormat: "HH:ii:ss",
-        timeHours: null,
-        timeMinutes: null,
-        timeSeconds: 0,
-        timeIncrement: true,
-        timeStepHours: 1,
-        timeStepMinutes: 5,
-        timeStepSeconds: 5,
-        today: true,
-        tooltips: [],
-        viewDefault: "days",
-        viewDecades: true,
-        viewYears: true,
-        viewMonths: true,
-        viewDays: true,
-        weekStart: 0
+        animate: true,                  // [0.4.0]          Boolean
+        classNames: false,              // [0.3.0]          Boolean, String, Array, null
+        closeButton: true,              // [0.4.5]          Boolean
+        dateFormat: "YYYY-mm-dd",       // [0.1.0]          String (PHP similar Date)
+        dateStart: false,               // [0.4.0]          String, Date, Integer, False
+        dateRanges: [],                 // [0.3.0]          Array
+        dateBlacklist: true,            // [0.4.0]          Boolean
+        dateEnd: false,                 // [0.4.0]          String, Date, Integer, False
+        locale: "en",                   // [0.4.0]          String
+        position: "bottom",             // [0.1.0]          String
+        rtl: "auto",                    // [0.4.1]          String, Boolean
+        startOpen: false,               // [0.3.0]          Boolean
+        stayOpen: false,                // [0.3.0]          Boolean
+        time12h: false,                 // [0.4.13][NEW]    Boolean
+        timeFormat: "HH:ii:ss",         // [0.1.0]          String (PHP similar Date)
+        timeHours: true,                // [0.4.13][UPD]    Integer, Boolean, null
+        timeMinutes: true,              // [0.4.13][UPD]    Integer, Boolean, null
+        timeSeconds: 0,                 // [0.4.13][UPD]    Integer, Boolean, null
+        timeIncrement: true,            // [0.4.5]          Boolean
+        timeStepHours: 1,               // [0.4.3]          Integer
+        timeStepMinutes: 5,             // [0.4.3]          Integer
+        timeStepSeconds: 5,             // [0.4.3]          Integer
+        today: true,                    // [0.4.0]          Boolean
+        tooltips: [],                   // [0.4.0]          Array
+        viewDefault: "days",            // [0.4.0]          String
+        viewDecades: true,              // [0.4.0]          Boolean
+        viewYears: true,                // [0.4.0]          Boolean
+        viewMonths: true,               // [0.4.0]          Boolean
+        viewDays: true,                 // [0.4.0]          Boolean
+        weekStart: 0                    // [0.1.0]          String, Integer
     };
 
     /*
@@ -156,6 +172,13 @@
             shorts: ["أحد", "إثن", "ثلا", "أرب", "خمي", "جمع", "سبت"],
             time:   ["ساعة", "دقيقة", "ثانية"],
             header: ["إختر الشهر", "إخنر السنة", "إختر العقد", "إختر الوقت"]
+        },
+        cs: {
+            months: ["Leden", "Únor", "Březen", "Duben", "Květen", "Červen", "Červenec", "Srpen", "Září", "Říjen", "Listopad", "Prosinec"],
+            days:   ["Neděle", "Pondělí", "Úterý", "Středa", "Čtvrtek", "Pátek", "Sobota"],
+            shorts: ["NE", "PO", "ÚT", "ST", "ČT", "PÁ", "SO"],
+            time:   ["Hodiny", "Minuty", "Sekundy"],
+            header: ["Vyberte měsíc", "Vyberte rok", "Vyberte desetiletí", "Vyberte čas"]
         },
         de: {
             months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
@@ -171,6 +194,13 @@
             time:   ["Stunden", "Minuten", "Sekunden"],
             header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
         },
+        el: {
+            months: ["Ιανουάριος", "Φεβρουάριος", "Μάρτιος", "Απρίλιος", "Μάιος", "Ιούνιος", "Ιούλιος", "Αύγουστος", "Σεπτέμβριος", "Οκτώβριος", "Νοέμβριος", "Δεκέμβριος"],
+            days:   ["Κυριακή", "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο"],
+            shorts: ["ΚΥΡ", "ΔΕΥ", "ΤΡΙ", "ΤΕΤ", "ΠΕΜ", "ΠΑΡ", "ΣΑΒ"],
+            time:   ["Ώρες", "Λεπτά", "Δευτερόλεπτα"],
+            header: ["Επιλογή Μηνός", "Επιλογή Έτους", "Επιλογή Δεκαετίας", "Επιλογή Ώρας"]
+        },
         en: {
             months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             days:   ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
@@ -184,6 +214,13 @@
             shorts: ["DOM", "LUN", "MAR", "MIÉ", "JUE", "VIE", "SÁB"],
             time:   ["Horas", "Minutos", "Segundos"],
             header: ["Selecciona un mes", "Seleccione un año", "Seleccione un década", "Seleccione una hora"]
+        },
+        es_MX: {
+            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            days:   ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+            shorts: ["DO", "LU", "MA", "MI", "JU", "VI", "SÁ"],
+            time:   ["Horas", "Minutos", "Segundos"],
+            header: ["Selecciona un Mes", "Selecciona un Año", "Selecciona una Decada", "Selecciona la Hora"]
         },
         fi: {
             months: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kesäkuu", "Heinäkuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"],
@@ -276,17 +313,71 @@
     datetime.prototype = {
         /*
          |  INTERNAL :: INIT CALENDAR
-         |  @sicne  0.4.11 [0.2.0]
+         |  @since  0.4.13 [0.2.0]
          */
         init: function(){
-            var self = this, temp;
+            var self = this.prepare();
 
-            // Options
+            // Init Weekdays
+            var week = this.__["shorts"].slice(this.con.weekStart).concat(this.__["shorts"].slice(0, this.con.weekStart));
+            this.weekdays = "<thead>\n<tr>\n";
+            for(var i = 0; i < 7; i++){
+                this.weekdays += '<th class="calendar-week">' + week[i] + '</th>';
+            }
+            this.weekdays += "\n</tr>\n</thead>"
+
+            // Init Select
+            this.select = parse(this.e.getAttribute("data-value") || this.e.value);
+            if(!this.select || this.select < this.con.dateStart || this.select > this.con.dateEnd){
+                this.select = null;
+            }
+
+            // Init View
+            if(this.view == undefined){
+                this.view = {
+                    type: this.con.viewDefault,
+                    date: this.select || new Date()
+                };
+            }
+            for(var l = ["Hours", "Minutes", "Seconds"], i = 0; i < 3; i++){
+                if(typeof this.con["time" + l[i]] === "number"){
+                    this.view.date["set" + l[i]](this.con["time" + l[i]]);
+                } else {
+                    while(this.view.date["get" + l[i]]() % this.con["timeStep" + l[i]] !== 0){
+                        this.view.date["set" + l[i]](this.view.date["get" + l[i]]() + 1);
+                    }
+                }
+            }
+            this.ampm = this.view.date.getHours() > 12;
+
+            // Init Mains
+            this.events = {};
+            this.dt = this.renderCalendar();
+
+            // Store Instance and Return
+            if(this.con.startOpen){
+                this.open();
+            }
+            if(this.select){
+                this.selectDate(this.select);
+            }
+            return this.bind();
+        },
+
+        /*
+         |  INTERNAL :: PREPARE CALENDAR
+         |  @since  0.4.13 [0.4.13]
+         */
+        prepare: function(){
             this.__ = clone(datetime.strings.en, datetime.strings[this.con.locale] || {});
-            this.con.dateStart = parse(this.con.dateStart, true, true) || 0;
+
+            // Prepare Options
+            this.con.dateStart = parse(this.con.dateStart, true, true) || -9999999999999;
             this.con.dateEnd = parse(this.con.dateEnd, true, true) || 9999999999999;
             this.con.viewDefault = (!this.con.dateFormat)? "time": this.con.viewDefault;
-            if(typeof this.con.weekStart == "string"){
+
+            // Prepare Week Start
+            if(typeof this.con.weekStart === "string"){
                 this.con.weekStart = datetime.strings.en.shorts.indexOf(this.con.weekStart);
             }
             if(this.con.weekStart < 0 && this.con.weekStart > 6){
@@ -328,7 +419,7 @@
                 this.con.dateRanges = r;
             }
 
-            // Prepare Tooltips
+            // Preare Tooltips
             if(this.con.tooltips.length > 0){
                 for(var r = [], t = this.con.tooltips, l = t.length, i = 0, s, e; i < l; i++){
                     if(!(t[i] instanceof Object) || !t[i].date){
@@ -358,85 +449,57 @@
                 }
                 this.con.tooltips = r;
             }
+            return this;
+        },
 
-            // Prepare WeekDays
-            var week = this.__["shorts"].slice(this.con.weekStart).concat(this.__["shorts"].slice(0, this.con.weekStart));
-            this.weekdays = "<thead>\n<tr>\n";
-            for(var i = 0; i < 7; i++){
-                this.weekdays += '<th class="calendar-week">' + week[i] + '</th>';
-            }
-            this.weekdays += "\n</tr>\n</thead>"
+        /*
+         |  INTERNAL :: BIND CALENDAR
+         |  @since  0.4.13 [0.4.0]
+         */
+        bind: function(){
+            var self = this;
 
-            // Set Main Data and Render
-            this.select = parse(this.e.getAttribute("data-value") || this.e.value);
-            if(!this.select || this.select < this.con.dateStart || this.select > this.con.dateEnd){
-                this.select = null;
-            }
-            if(this.view == undefined){
-                this.view = {
-                    type: this.con.viewDefault,
-                    date: this.select || new Date()
-                };
-            }
-            for(var l = ["Hours", "Minutes", "Seconds"], i = 0; i < 3; i++){
-                if(typeof this.con["time" + l[i]] == "number"){
-                    this.view.date["set" + l[i]](this.con["time" + l[i]]);
-                }
-            }
-            this.events = {};
-            this.dt = this.renderCalendar();
-
-            // Hook Events
-            if(this._bind == undefined){
-                var e = "addEventListener";
-                this.e[e]("focusin", function(event){
+            // Bind Element
+            if(typeof this._bind === "undefined"){
+                this.e.addEventListener("focusin", function(event){
                     self.open.call(self);
                 });
-                this.e[e]("keyup", function(event){
-                    self.bind.call(self, event);
+                this.e.addEventListener("keyup", function(event){
+                    self.callback.call(self, event);
                 });
-                d[e]("keyup", function(event){
+                d.addEventListener("keyup", function(event){
                     if(self.dt.contains(event.target)){
-                        self.bind.call(self, event);
+                        self.callback.call(self, event);
                     }
                 });
-                d[e]("click", function(event){
+                d.addEventListener("click", function(event){
                     if(self.dt.contains(event.target)){
-                        self.bind.call(self, event);
+                        self.callback.call(self, event);
                     } else if(!self.e.contains(event.target) && cHAS(self.dt, "calendar-open")){
                         if(event.target != self.dt && event.target != self.e && !self.con.stayOpen){
                             self.close.call(self);
                         }
                     }
                 });
-                d[e]("mouseover", function(event){
+                d.addEventListener("mouseover", function(event){
                     if(self.dt.contains(event.target)){
-                        self.bind.call(self, event);
+                        self.callback.call(self, event);
                     }
                 });
                 this._bind = true;
-            }
-
-            // Store Instance and Return
-            this.e.setAttribute("data-tail-datetime", "tail-" + this.id);
-            if(this.con.startOpen){
-                this.open();
-            }
-            if(this.select){
-                this.selectDate(this.select);
             }
             return this;
         },
 
         /*
-         |  INTERNAL :: EVENT LISTENER
-         |  @since  0.4.1 [0.4.0]
+         |  INTERNAL :: HANDLE CALLBACKs
+         |  @since  0.4.13 [0.4.13]
          */
-        bind: function(event){
+        callback: function(event){
             var self = event.target, a = "getAttribute", d = "data-action", v = "data-view",
-                elem = self[a](d)? self: self.parentElement[a](d)? self.parentElement: self;
+            elem = self[a](d)? self: self.parentElement[a](d)? self.parentElement: self;
 
-            // Hover Events
+            // Bind HoverEvents
             var t = "data-tooltip", tip;
             if(event.type == "mouseover"){
                 if((tip = self[a](t)? self: elem[a](t)? elem: false) !== false){
@@ -448,7 +511,7 @@
                 }
             }
 
-            // Click Events
+            // Bind ClickEvents
             if(event.type == "click"){
                 if(!elem || (event.buttons != 1 && (event.which || event.button) != 1)){
                     return;
@@ -460,23 +523,26 @@
                     case "prev":    //@fallthrough
                     case "next":
                         return this.browseView(elem[a](d));
+
                     case "cancel":
                         if(!this.con.stayOpen){
                             this.close();
                         }
                         break;
+
                     case "submit":
                         if(!this.con.stayOpen){
                             this.close();
                         }
                         return this.selectDate(this.fetchDate(parseInt(elem[a]("data-date"))));
+
                     case "view":
                         this.switchDate(elem[a]("data-year") || null, elem[a]("data-month") || null, elem[a]("data-day") || null);
                         return this.switchView(elem[a](v));
                 }
             }
 
-            // KeyEvents
+            // Bind KeyEvents
             if(event.type == "keyup"){
                 if(event.target.tagName != "INPUT" && event.target !== this.e){
                     if(/calendar-(static|close)/i.test(this.dt.className)){
@@ -519,22 +585,20 @@
 
         /*
          |  HELPER :: CALCULATE POSITION
-         |  @since  0.4.2 [0.3.1]
+         |  @since  0.4.13 [0.3.1]
          */
         calcPosition: function(){
             var a = this.dt.style, b = w.getComputedStyle(this.dt),
                 x = parseInt(b.marginLeft)+parseInt(b.marginRight),
                 y = parseInt(b.marginTop) +parseInt(b.marginBottom),
-                p = (function(e, r){
-                    r = {
-                        top:    e.offsetTop    || 0, left:   e.offsetLeft   || 0,
-                        width:  e.offsetWidth  || 0, height: e.offsetHeight || 0
-                    };
-                    while(e = e.offsetParent){ r.top  += e.offsetTop; r.left += e.offsetLeft; }
-                    return r;
-                })(this.e, {});
+                p = {
+                    top:    this.e.getBoundingClientRect().top  + w.scrollY,
+                    left:   this.e.getBoundingClientRect().left - w.scrollX,
+                    width:  this.e.offsetWidth  || 0,
+                    height: this.e.offsetHeight || 0
+                };
 
-            // Set Position
+            // Calc Position
             a.visibility = "hidden";
             switch(this.con.position){
                 case "top":
@@ -542,11 +606,11 @@
                         left = (p.left + (p.width / 2)) - (this.dt.offsetWidth / 2 + x / 2);
                     break;
                 case "left":
-                    var top = (p.top + p.height/2) - (this.dt.offsetHeight / 2 + y),
+                    var top = (p.top + p.height / 2) - (this.dt.offsetHeight / 2 + y),
                         left = p.left - (this.dt.offsetWidth + x);
                     break;
                 case "right":
-                    var top = (p.top + p.height/2) - (this.dt.offsetHeight / 2 + y),
+                    var top = (p.top + p.height / 2) - (this.dt.offsetHeight / 2 + y),
                         left = p.left + p.width;
                     break;
                 default:
@@ -554,6 +618,8 @@
                         left = (p.left + (p.width / 2)) - (this.dt.offsetWidth / 2 + x / 2);
                     break;
             }
+
+            // Set Position
             a.top = ((top >= 0)? top: this.e.offsetTop) + "px";
             a.left = ((left >= 0)? left: 0) + "px";
             a.visibility = "visible";
@@ -593,47 +659,47 @@
 
         /*
          |  RENDER :: CALENDAR
-         |  @since  0.4.5 [0.4.0]
+         |  @since  0.4.13 [0.4.0]
          */
         renderCalendar: function(){
-            var _s, _c = ["tail-datetime-calendar", "calendar-close"], dt = d.createElement("DIV"),
-                _t = (this.con.classNames === true)? this.e.className: this.con.classNames;
+            var cls = ["tail-datetime-calendar", "calendar-close"],
+                cus = (this.con.classNames === true)? this.e.className.split(" "): this.con.classNames;
 
-            // Configure Calendar
+            // Classes
             if(["top", "left", "right", "bottom"].indexOf(this.con.position) < 0){
-                _s = d.querySelector(this.con.position);
-                _c.push("calendar-static");
+                var sta = d.querySelector(this.con.position);
+                cls.push("calendar-static");
             }
-            if(typeof _t == "string" || _t instanceof Array){
-                _c = _c.concat(((typeof _t == "string")? _t.split(" "): _t));
-            }
-            var rtl = ["ar", "he", "mdr", "sam", "syr"], _rt = this.con.rtl;
-            if(_rt === true || (_rt === "auto" && rtl.indexOf(this.con.locale) >= 0)){
-                _c.push("rtl");
+            if(this.con.rtl === true || ["ar", "he", "mdr", "sam", "syr"].indexOf(this.con.rtl) >= 0){
+                cls.push("rtl");
             }
             if(this.con.stayOpen){
-                _c.push("calendar-stay");
+                cls.push("calendar-stay");
             }
 
+            // Customs
+            cus = (typeof cus.split === "function")? cus.split(" "): cus;
+            if(cus instanceof Array){
+                cls = cls.concat(cus);
+            }
+
+            // Create
+            var dt = create("DIV", cls), ins = false;
             dt.id = "tail-datetime-" + this.id;
-            dt.className = _c.join(" ");
-            dt.style.cssText = (this.con.rtl)? "direction:rtl;": "direction:ltr;";
 
-            // Render Action
+            // Render Actions
             if(this.con.dateFormat){
-                var _a = '<span class="action action-prev" data-action="prev"></span>'
-                       + '<span class="label" data-action="view" data-view="up"></span>'
-                       + '<span class="action action-next" data-action="next"></span>'
+                ins = '<span class="action action-prev" data-action="prev"></span>'
+                    + '<span class="label" data-action="view" data-view="up"></span>'
+                    + '<span class="action action-next" data-action="next"></span>';
             } else if(this.con.timeFormat){
-                var _a = '<span class="action action-submit" data-action="submit"></span>'
-                       + '<span class="label"></span>'
-                       + '<span class="action action-cancel" data-action="cancel"></span>'
+                ins = '<span class="action action-submit" data-action="submit"></span>'
+                    + '<span class="label"></span>'
+                    + '<span class="action action-cancel" data-action="cancel"></span>';
             }
-            if(typeof _a != "undefined"){
-                dt.innerHTML = '<div class="calendar-actions">' + _a + '</div>';
-            }
+            dt.innerHTML = (ins)? '<div class="calendar-actions">' + ins + '</div>': '';
 
-            // Render Date and Time Picker
+            // Render Interfaces
             if(this.con.dateFormat){
                 this.renderDatePicker(dt, this.con.viewDefault);
             }
@@ -641,10 +707,9 @@
                 this.renderTimePicker(dt);
             }
 
-            // Render Close Button
-            if(this.con.closeButton && !_s){
-                var close = d.createElement("BUTTON"), self = this;
-                close.className = "calendar-close";
+            // Render Close
+            if(this.con.closeButton && !sta){
+                var close = create("BUTTON", "calendar-close"), self = this;
                 close.addEventListener("click", function(event){
                     event.preventDefault();
                     self.close();
@@ -653,12 +718,7 @@
             }
 
             // Append Calendar
-            if(_s){
-                dt.style.cssText = 'position:static;visibility:visible;';
-            } else {
-                dt.style.cssText = 'top:0;left:0;z-index:999;position:absolute;visibility:hidden;';
-            }
-            (_s || document.body).appendChild(dt);
+            (sta || d.body).appendChild(dt);
             return dt;
         },
 
@@ -690,82 +750,183 @@
 
         /*
          |  RENDER :: TIME PICKER
-         |  @since  0.4.5 [0.4.0]
+         |  @since  0.4.13 [0.4.0]
          */
         renderTimePicker: function(dt){
-            if(!this.con.timeFormat){ return false; }
-            var h = this.con.timeStepHours, m = this.con.timeStepMinutes, s = this.con.timeStepSeconds;
-            h ='<div class="timepicker-field timepicker-hours">'
-              + '<input type="number" name="dt[h]" value="" min="00" max="23" step="' + h + '" />'
-              + '<label>' + this.__["time"][0] + '</label>'
-              + '</div>',
-            m = '<div class="timepicker-field timepicker-minutes">'
-              + '<input type="number" name="dt[m]" value="" min="00" max="59" step="' + m + '" />'
-              + '<label>' + this.__["time"][1] + '</label>'
-              + '</div>',
-            s = '<div class="timepicker-field timepicker-seconds">'
-              + '<input type="number" name="dt[s]" value="" min="00" max="59" step="' + s + '" />'
-              + '<label>' + this.__["time"][2] + '</label>'
-              + '</div>';
+            if(!this.con.timeFormat){
+                return false;
+            }
+            var fields = [], input, i = 0;
+
+            // AM | PM Switch
+            if(this.con.time12h){
+                var checked = (this.view.date.getHours() > 12)? 'checked="checked" ': '';
+                fields.push(
+                    '<label class="timepicker-switch" data-am="AM" data-pm="PM">' +
+                        '<input type="checkbox" value="1" data-input="PM" ' + checked + '/><span></span>' +
+                    '</label>'
+                );
+            }
+
+            // Hours & Minutes & Seconds
+            for(var key in { Hours: 0, Minutes: 0, Seconds: 0 }){
+                if(this.con["time" + key] === false){
+                    fields.push((i++)? null: null);
+                    continue;
+                }
+
+                input = d.createElement("INPUT");
+                input.type = "text";
+                input.disabled = (this.con["time" + key] === null);
+                input.setAttribute("min", (key === "Hours" && this.con.time12h)? "01": "00");
+                input.setAttribute("max", (key !== "Hours")? "60": (this.con.time12h)? "13": "24");
+                input.setAttribute("step", this.con["timeStep" + key]);
+                input.setAttribute("value", function(n){ return (n < 10)? "0" + n: n; }(this.view.date["get" + key]()));
+                input.setAttribute("pattern", "\d*");
+                input.setAttribute("inputmode", "numeric");
+                input.setAttribute("data-input", key.toLowerCase());
+
+                fields.push(
+                    '<div class="timepicker-field timepicker-' + key.toLowerCase() + '">' +
+                        input.outerHTML +
+                        '<button class="picker-step step-up"></button>' +
+                        '<button class="picker-step step-down"></button>' +
+                        '<label>' + this.__["time"][i++] + '</label>' +
+                    '</div>'
+                );
+            }
 
             // Render View
-            var div = d.createElement("DIV");
-            div.className = "calendar-timepicker";
-            div.innerHTML = h + m + s;
+            var div = create("DIV", "calendar-timepicker"), self = this;
+            div.innerHTML = fields.join("\n");
 
-            // Set Data
-            var self = this, inp = div.querySelectorAll("input");
-            for(var l = ["Hours", "Minutes", "Seconds"], i = 0; i < 3; i++){
-                inp[i].value = this.view.date["get" + l[i]]();
-                inp[i].disabled = (this.con["time" + l[i]] === false);
-                inp[i].addEventListener("input", function(ev){ self.handleTime.call(self, ev, this) });
-                inp[i].addEventListener("keydown", function(ev){ self.handleTime.call(self, ev, this) });
+            // Bind Input
+            for(var inp = div.querySelectorAll("input"), i = 0; i < inp.length; i++){
+                if(inp[i].type === "checkbox"){
+                    inp[i].addEventListener("change", function(ev){
+                        self.handleTime.call(self, this);
+                    });
+                    continue;
+                }
+
+                inp[i].addEventListener("input", function(ev){
+                    self.handleTime.call(self, this);
+                });
+                inp[i].addEventListener("keydown", function(ev){
+                    var key = event.keyCode || event.which || 0;
+                    if(key === 38 || key === 40){
+                        ev.preventDefault();
+                        self.handleStep.call(self, this, (key === 38? "up": "down"));
+                        return false;
+                    }
+                });
+            }
+
+            // Bind Buttons
+            for(var inp = div.querySelectorAll("button"), i = 0; i < inp.length; i++){
+                inp[i].addEventListener("mousedown", function(ev){
+                    ev.preventDefault();
+
+                    var input = this.parentElement.querySelector("input");
+                    self.handleStep.call(self, input, cHAS(this, "step-up")? "up": "down");
+                    return false;
+                });
             }
 
             // Append Element
-            if(dt.querySelector(".calendar-timepicker")){
-                dt.replaceChild(div, dt.querySelector(".calendar-timepicker"));
-            } else {
-                dt.appendChild(div);
-            }
+            var ct = dt.querySelector(".calendar-timepicker");
+            dt[(ct)? "replaceChild": "appendChild"](div, ct);
             return this.handleLabel(dt);
         },
 
         /*
-         |  HANDLE :: TIME FIELDs
-         |  @since  0.4.5 [0.4.5]
+         |  HANDLE :: TIME FIELD
+         |  @since  0.4.13 [0.4.5]
          */
-        handleTime: function(event, element){
-            var min = parseInt(element.getAttribute("min")),
-                max = parseInt(element.getAttribute("max")),
-                step = parseInt(element.getAttribute("step")),
-                value = parseInt(element.value), action = "none";
-
-            if((event.keyCode || event.which) == 38 || value > max){
-                var action = "up";
-            } if((event.keyCode || event.which) == 40 || value < min){
-                var action = "down";
+        handleTime: function(input){
+            if(this.con.time12h && input.type === "checkbox"){
+                this.ampm = input.checked;
             }
 
-            // Increase Time
-            if(action == "up" && value + step > max){
-                var add = 1;
-                element.value = value - (max+1);
-            } else if(action == "down" && value - step < 0){
-                var add = -1;
-                element.value = (max+1) + value;
+            // Select Time
+            var time = input.parentElement.parentElement;
+                time = [
+                    (time.querySelector("input[data-input=hours]")   || {value: 0}),
+                    (time.querySelector("input[data-input=minutes]") || {value: 0}),
+                    (time.querySelector("input[data-input=seconds]") || {value: 0})
+                ];
+            this.selectTime(
+                parseInt(time[0].value) + (this.ampm? 12: 0),
+                parseInt(time[1].value),
+                parseInt(time[2].value)
+            );
+
+            // Handle Values
+            time[2].value = this.view.date.getSeconds();
+            time[1].value = this.view.date.getMinutes();
+            if(this.con.time12h){
+                time[0].value = (this.view.date.getHours() > 12)? this.view.date.getHours() - 12: this.view.date.getHours();
+            } else {
+                time[0].value = this.view.date.getHours();
             }
-            if(add && this.con.timeIncrement && element.parentElement.previousElementSibling){
-                var next = element.parentElement.previousElementSibling.querySelector("input");
-                if(next.disabled === false){
-                    next.value = parseInt(next.value) + add;
-                    return this.handleTime({}, next);
+        },
+
+        /*
+         |  HANDLE :: TIME STEPs
+         |  @since  0.4.13 [0.4.13]
+         */
+        handleStep: function(input, action, prevent){
+            var inc = false;
+            var name = input.getAttribute("data-input");
+            var step = this.con["timeStep" + first(name)];
+            var value = parseInt(input.value);
+            var limit = (name !== "hours")? 60: (this.con.time12h)? 13: 24;
+
+            // Calculate
+            if(action === "up" && value + step >= limit){
+                inc = this.con.timeIncrement && limit === 60;
+                input.value = (limit === 13)? 1: 0;
+                this.ampm = (this.view.date.getHours() + 1) >= 12;
+            } else if(action === "down" && value - step < (limit === 13? 1: 0)){
+                inc = this.con.timeIncrement && limit === 60;
+                input.value = limit - step;
+                this.ampm = (this.view.date.getHours() - 1) <= 0;
+            } else {
+                input.value = (action === "up")? value + step: value - step;
+            }
+
+            // Leading Zero
+            if(input.value < 10){
+                input.value = "0" + input.value;
+            }
+
+            // Increment
+            if(inc){
+                var prev = input.parentElement.previousElementSibling.querySelector("input");
+                if(prev && prev.disabled === false){
+                    this.handleStep(prev, action, true);
                 }
             }
 
             // Set Time
-            var time = element.parentElement.parentElement.querySelectorAll("input");
-            this.selectTime(time[0].value, time[1].value, time[2].value);
+            if(typeof prevent !== "undefined" && prevent === true){
+                return false;
+            }
+            var time = input.parentElement.parentElement;
+            this.selectTime(
+                parseInt((time.querySelector("input[data-input=hours]")   || {value: 0}).value) + (this.ampm? 12: 0),
+                parseInt((time.querySelector("input[data-input=minutes]") || {value: 0}).value),
+                parseInt((time.querySelector("input[data-input=seconds]") || {value: 0}).value)
+            );
+
+            // Check AM/PM
+            if(this.con.time12h){
+                var ampm = input.parentElement.parentElement.querySelector("input[type=checkbox]");
+                if(ampm && ampm.checked !== this.view.date.getHours() > 12){
+                    ampm.checked = this.view.date.getHours() > 12;
+                }
+            }
+            return true;
         },
 
         /*
@@ -776,17 +937,26 @@
             var label = dt.querySelector(".label"), text, year;
             switch(this.view.type){
                 case "days":
-                    text = this.__["months"][this.view.date.getMonth()] + ", " + this.view.date.getFullYear(); break;
+                    text = this.__["months"][this.view.date.getMonth()] + ", " + this.view.date.getFullYear();
+                    break;
+
                 case "months":
-                    text = this.view.date.getFullYear(); break;
+                    text = this.view.date.getFullYear();
+                    break;
+
                 case "years":
                     year = parseInt((this.view.date.getFullYear()).toString().slice(0, 3) + "0");
-                    text = year + " - " + (year+10); break;
+                    text = year + " - " + (year+10);
+                    break;
+
                 case "decades":
                     year = parseInt((this.view.date.getFullYear()).toString().slice(0, 2) + "00");
-                    text = year + " - " + (year+100); break;
+                    text = year + " - " + (year+100);
+                    break;
+
                 case "time":
                     text = this.__.header[3];
+                    break;
             }
             label.innerText = text;
             return dt;
@@ -1151,7 +1321,7 @@
 
         /*
          |  PUBLIC :: OPEN CALENDAR
-         |  @since  0.4.0 [0.1.0]
+         |  @since  0.4.13 [0.1.0]
          */
         open: function(){
             if(!cHAS(this.dt, "calendar-close")){
@@ -1160,12 +1330,17 @@
             var self = this, e = this.dt.style;
 
             // Animate
-            e.opacity = this.con.animate? 0: 1; e.display = "block";
-            cADD(cREM(this.dt, "calendar-close"), "calender-idle");
-            cHAS(this.dt, "calendar-static")? null: this.calcPosition();
+            e.display = "block";
+            e.opacity = (this.con.animate)? 0: 1;
+            cREM(this.dt, "calendar-close");
+            cADD(this.dt, "calendar-idle");
+            if(!cHAS(this.dt, "calendar-static")){
+                self.calcPosition();
+            }
             (function fade(){
                 if((e.opacity = parseFloat(e.opacity)+0.125) >= 1){
-                    cADD(cREM(self.dt, "calendar-idle"), "calendar-open");
+                    cREM(self.dt, "calendar-idle");
+                    cADD(self.dt, "calendar-open");
                     return self.trigger("open");
                 }
                 setTimeout(fade, 20);
@@ -1175,7 +1350,7 @@
 
         /*
          |  PUBLIC :: CLOSE CALENDAR
-         |  @since  0.4.0 [0.1.0]
+         |  @since  0.4.13 [0.1.0]
          */
         close: function(){
             if(!cHAS(this.dt, "calendar-open")){
@@ -1184,11 +1359,14 @@
             var self = this, e = this.dt.style;
 
             // Animate
-            cADD(cREM(this.dt, "calendar-open"), "calender-idle");
-            e.opacity = this.con.animate? 1: 0; e.display = "block";
+            e.display = "block";
+            e.opacity = (this.con.animate)? 1: 0;
+            cREM(this.dt, "calendar-open");
+            cADD(this.dt, "calendar-idle");
             (function fade(){
                 if((e.opacity -= 0.125) <= 0){
-                    cADD(cREM(self.dt, "calendar-idle"), "calendar-close");
+                    cREM(self.dt, "calendar-idle");
+                    cADD(self.dt, "calendar-close");
                     e.display = "none";
                     return self.trigger("close");
                 }
@@ -1272,7 +1450,7 @@
             }
             return this;
         }
-    }
+    };
 
     // Return
     return datetime;
