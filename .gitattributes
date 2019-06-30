@@ -1,2 +1,2 @@
 * text=auto
-less/* linguist-vendored
+less/*.less linguist-vendored
