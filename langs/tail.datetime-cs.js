@@ -1,5 +1,5 @@
 /*
- |  tail.datetime - A vanilla JavaScript DateTime Picker without dependencies!
+ |  tail.datetime - The vanilla way to select dates and times!
  |  @file       ./langs/tail.datetime-cs.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.13 - Beta

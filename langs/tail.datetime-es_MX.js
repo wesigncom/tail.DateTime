@@ -1,6 +1,6 @@
 /*
  |  tail.datetime - The vanilla way to select dates and times!
- |  @file       ./langs/tail.datetime-de.js
+ |  @file       ./langs/tail.datetime-es_MX.js
  |  @author     SamBrishes <sam@pytes.net>
  |  @version    0.4.13 - Beta
  |
@@ -9,8 +9,8 @@
  |  @copyright  Copyright © 2018 - 2019 SamBrishes, pytesNET <info@pytes.net>
  */
 /*
- |  Translator:     SamBrishes - (https://www.pytes.net)
- |  GitHub:         <internal>
+ |  Translator:     elPesecillo - (https://github.com/elPesecillo)
+ |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/34
  */
 ;(function(factory){
    if(typeof(define) == "function" && define.amd){
@@ -23,12 +23,12 @@
        }
    }
 }(function(datetime){
-    datetime.strings.register("de", {
-        months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-        days:   ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
-        shorts: ["SO", "MO", "DI", "MI", "DO", "FR", "SA"],
-        time:   ["Stunden", "Minuten", "Sekunden"],
-        header: ["Wähle einen Monat", "Wähle ein Jahr", "Wähle ein Jahrzehnt", "Wähle eine Uhrzeit"]
+    datetime.strings.register("es_MX", {
+        months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+        days:   ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        shorts: ["DO", "LU", "MA", "MI", "JU", "VI", "SÁ"],
+        time:   ["Horas", "Minutos", "Segundos"],
+        header: ["Selecciona un Mes", "Selecciona un Año", "Selecciona una Decada", "Selecciona la Hora"]
     });
     return datetime;
 }));

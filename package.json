@@ -1,7 +1,7 @@
 {
     "name": "tail.datetime",
-    "version": "0.4.12",
-    "description": "A powerful, translat- and configurable DateTime Picker, written in Vanilla JavaScript without any dependencies!",
+    "version": "0.4.13",
+    "description": "A powerful, extensive and configurable Date/Time Picker, written in Vanilla JavaScript without any dependencies!",
     "keywords": [
         "datetime-picker",
         "datetime",
@@ -26,7 +26,8 @@
         "url": "git+ssh://git@github.com/pytesNET/tail.DateTime.git"
     },
     "devDependencies": {
-        "less": ">=3.5.0"
+        "less": ">=3.5.0",
+        "clean-css": ">=4.1.0"
     },
 
     "reveal": true,

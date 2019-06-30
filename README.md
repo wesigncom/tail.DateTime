@@ -8,9 +8,11 @@ tail.DateTime
 
 The perfect Date/Time Picker for your perfect Website / Web-Application!
 
-<p align="center" atyle="text-align:center"><img src="https://repository-images.githubusercontent.com/157055836/51d40e80-9b33-11e9-8fbb-f05ce51a16c4" style="width:auto;max-width:640px;" /></p>
+<p align="center" style="text-align:center"><a href="https://github.pytes.net/tail.DateTime">
+<img src="https://repository-images.githubusercontent.com/157055836/51d40e80-9b33-11e9-8fbb-f05ce51a16c4" style="width:auto;max-width:640px;" />
+</a></p>
 
-The **tail.DateTime** script is a extensive and fully-featured Date/Time Picker, written in vanilla
+The **tail.DateTime** script is an extensive and fully-featured Date/Time Picker, written in vanilla
 JavaScfript and without any dependency. It is compatible with all major browsers, starting with
 **IE 10** and above, and is optimized for a direct use in the browser, as AMD (using requireJS) or
 as browserify module.
@@ -23,7 +25,7 @@ as browserify module.
 
 Support
 -------
-<p align="center" atyle="text-align:center">
+<p align="center" style="text-align:center">
 You really like my <b>tail.DateTime</b> script and want to support me and all of my projects?<br/>
 Then I would be extremely grateful for a coffee! (<b>Thanks to all Supporters</b>)<br/><br/>
 <a href="https://www.buymeacoffee.com/pytesNET"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" title="Buy Me A Coffee" /></a>
