@@ -15,7 +15,7 @@ const headerCSS = `@charset "UTF-8";
  |  tail.datetime - The vanilla way to select dates and times!
  |  @file       ./less/tail.datetime-{design}-{color}.less
  |  @author     SamBrishes <sam@pytes.net>
- |  @version    0.4.13 - Beta
+ |  @version    0.4.14 - Beta
  |
  |  @website    https://github.com/pytesNET/tail.DateTime
  |  @license    X11 / MIT License
@@ -26,7 +26,7 @@ const headerCSS = `@charset "UTF-8";
 /*# sourceMappingURL={source} */
 `; // Empty Last Line
 
-const headerMIN = `@charset "UTF-8"; /* pytesNET/tail.DateTime v.0.4.13 */
+const headerMIN = `@charset "UTF-8"; /* pytesNET/tail.DateTime v.0.4.14 */
 /* @author SamBrishes, pytesNET <sam@pytes.net> | @license MIT */
 {css}
 /*# sourceMappingURL={source} */`;

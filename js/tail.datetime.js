@@ -121,7 +121,7 @@
         this.e.setAttribute("data-tail-datetime", "tail-" + this.id);
         return this.init();
     };
-    datetime.version = "0.4.13";
+    datetime.version = "0.4.14";
     datetime.status = "beta";
     datetime.count = 0;
     datetime.inst = {};
@@ -201,7 +201,7 @@
     datetime.prototype = {
         /*
          |  INTERNAL :: INIT CALENDAR
-         |  @since  0.4.13 [0.2.0]
+         |  @since  0.4.14 [0.2.0]
          */
         init: function(){
             var self = this.prepare();
@@ -236,7 +236,7 @@
                     }
                 }
             }
-            this.ampm = this.view.date.getHours() > 12;
+            this.ampm = (this.con.time12h)? this.view.date.getHours() > 12: false;
 
             // Init Mains
             this.events = {};
@@ -761,26 +761,24 @@
 
         /*
          |  HANDLE :: TIME STEPs
-         |  @since  0.4.13 [0.4.13]
+         |  @since  0.4.14 [0.4.13]
          */
         handleStep: function(input, action, prevent){
-            var inc = false;
-            var name = input.getAttribute("data-input");
-            var step = this.con["timeStep" + first(name)];
-            var value = parseInt(input.value);
-            var limit = (name !== "hours")? 60: (this.con.time12h)? 13: 24;
+            var inc = null, value = parseInt(input.value),
+                min = parseInt(input.getAttribute("min")),
+                max = parseInt(input.getAttribute("max")),
+                name = input.getAttribute("data-input"),
+                step = parseInt(input.getAttribute("step"));
 
             // Calculate
-            if(action === "up" && value + step >= limit){
-                inc = this.con.timeIncrement && limit === 60;
-                input.value = (limit === 13)? 1: 0;
-                this.ampm = (this.view.date.getHours() + 1) >= 12;
-            } else if(action === "down" && value - step < (limit === 13? 1: 0)){
-                inc = this.con.timeIncrement && limit === 60;
-                input.value = limit - step;
-                this.ampm = (this.view.date.getHours() - 1) <= 0;
-            } else {
-                input.value = (action === "up")? value + step: value - step;
+            if(action === "up"){
+                inc = (value+step >= max)? true: null;
+                input.value = (value+step >= max)? ((max === 13)? 1: 0): value+step;
+                this.ampm = (this.con.time12h)? (this.view.date.getHours() + 1) >= 12: false;
+            } else if(action === "down"){
+                inc = (value-step < min)? false: null;
+                input.value = (value-step < min)? max-step: value-step;
+                this.ampm = (this.con.time12h)? (this.view.date.getHours() - 1) <= 0: false;
             }
 
             // Leading Zero
@@ -789,10 +787,12 @@
             }
 
             // Increment
-            if(inc){
-                var prev = input.parentElement.previousElementSibling.querySelector("input");
+            if(this.con.timeIncrement && inc !== null){
+                var prev = input.parentElement.previousElementSibling;
                 if(prev && prev.disabled === false){
-                    this.handleStep(prev, action, true);
+                    this.handleStep(prev.querySelector("input"), (inc)? "up": "down", true);
+                } else if(name == "hours"){
+                    this.view.date.setDate(this.view.date.getDate() + (inc? 1: -1));
                 }
             }
 

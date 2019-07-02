@@ -1,6 +1,6 @@
 {
     "name": "tail.datetime",
-    "version": "0.4.13",
+    "version": "0.4.14",
     "description": "A powerful, extensive and configurable Date/Time Picker, written in Vanilla JavaScript without any dependencies!",
     "keywords": [
         "datetime-picker",

@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+Version 0.4.14 - Beta
+---------------------
+-   Bugfix: Changing the Hours increases the Date (per Step).
+    - Thanks to [#43](https://github.com/pytesNET/tail.DateTime/issues/43).
+
 Version 0.4.13 - Beta
 ---------------------
 -   Add: The new Polish Translation.
