@@ -930,7 +930,7 @@
             var date = new Date(this.view.date.getTime()), time,
                 today = new Date().toDateString(),
                 month = date.getMonth(), c, a, t = [], r = [], i,
-                disabled = [0, []], check, ranges = [].concat(this.con.dateRanges),
+                disabled = [0, []], check,
                 tooltips = [].concat(this.con.tooltips), tooltip = [0, 0];
 
             // Reset Date
@@ -941,6 +941,7 @@
             // Create Table
             while(r.length < 6){
                 time = date.getTime();
+                ranges = [].concat(this.con.dateRanges);
 
                 // Attributes and ClassNames
                 a = 'data-action="submit" data-date="' + date.getTime() + '"';
@@ -953,8 +954,8 @@
                 // Calc Disabled
                 if(this.con.dateBlacklist && ((time) < this.con.dateStart || time > this.con.dateEnd)){
                     disabled = [(time < this.con.dateStart)? this.con.dateStart: Infinity, [0, 1, 2, 3, 4, 5, 6], true];
-                } else if(disabled[0] == 0){
-                    ranges = ranges.filter(function(obj){
+                } else if (this.con.dateRanges.length > 0) {
+                    ranges.filter(function(obj){
                         if(obj.start == Infinity || (time >= obj.start && time <= obj.end)){
                             disabled = [obj.end, obj.days];
                             return false;
