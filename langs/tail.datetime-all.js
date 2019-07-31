@@ -136,7 +136,7 @@
         days:   ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
         shorts: ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"],
         time:   ["Jam", "Menit", "Detik"],
-        header: ["Pilih Bulan", "Pilih Tahun", "Pilih Dekade", "Pilih Ja"]
+        header: ["Pilih Bulan", "Pilih Tahun", "Pilih Dekade", "Pilih Jam"]
     });
 
     /*
