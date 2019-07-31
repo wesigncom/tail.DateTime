@@ -924,13 +924,13 @@
 
         /*
          |  VIEW :: SHOW DAYs
-         |  @since  0.4.1 [0.4.0]
+         |  @since  0.4.14 [0.4.0]
          */
         viewDays: function(){
             var date = new Date(this.view.date.getTime()), time,
                 today = new Date().toDateString(),
                 month = date.getMonth(), c, a, t = [], r = [], i,
-                disabled = [0, []], check,
+                disabled = [0, []], check, ranges,
                 tooltips = [].concat(this.con.tooltips), tooltip = [0, 0];
 
             // Reset Date
@@ -1106,20 +1106,21 @@
 
         /*
          |  PUBLIC :: SWITCH DATE
-         |  @since  0.4.1 [0.4.0]
+         |  @since  0.4.14 [0.4.0]
          */
         switchDate: function(year, month, day, none){
-            this.view.date.setFullYear((year == undefined)? this.view.date.getFullYear(): year);
-            this.view.date.setMonth((month == undefined)? this.view.date.getMonth(): month);
-            if(day == "auto"){
-                var test = this.view.date, now = new Date();
-                if(test.getMonth() == now.getMonth() && test.getYear() == now.getYear()){
-                    day = now.getDate();
-                } else {
-                    day = 1;
+            if(day === "auto") {
+                day = this.view.date.getDate();
+                if((this.view.date.getMonth() === 1 && day >= 28) || day >= 30) {
+                    day = new Date(year, month+1, 0);
+                    day = day.getDate();
                 }
             }
-            this.view.date.setDate(day || this.view.date.getDate());
+            this.view.date.setFullYear(
+                (year == undefined? this.view.date.getFullYear(): year),
+                (month == undefined? this.view.date.getMonth(): month),
+                (day || this.view.date.getDate())
+            );
             return (none === true)? true: this.switchView(this.view.type);
         },
 

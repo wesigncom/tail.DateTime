@@ -236,12 +236,26 @@
             time:   ["Heure", "Minute", "Seconde"],
             header: ["Choisissez un mois", "Choisissez une année", "Choisissez une décénie", "Kies een Tijdstip"]
         },
+        id: {
+            months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+            days:   ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+            shorts: ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"],
+            time:   ["Jam", "Menit", "Detik"],
+            header: ["Pilih Bulan", "Pilih Tahun", "Pilih Dekade", "Pilih Ja"]
+        },
         it: {
             months: ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"],
             days:   ["Domenica", "Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato"],
             shorts: ["DOM", "LUN", "MAR", "MER", "GIO", "VEN", "SAB"],
             time:   ["Ore", "Minuti", "Secondi"],
             header: ["Seleziona un mese", "Seleziona un anno", "Seleziona un decennio", "Seleziona un orario"]
+        },
+        ko: {
+            months: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+            days:   ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+            shorts: ["일", "월", "화", "수", "목", "금", "토"],
+            time:   ["시", "분", "초"], 
+            header: ["월 선택", "연도 선택", "연대 선택", "시간 선택"]
         },
         nl: {
             months: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"],
@@ -1036,13 +1050,13 @@
 
         /*
          |  VIEW :: SHOW DAYs
-         |  @since  0.4.1 [0.4.0]
+         |  @since  0.4.14 [0.4.0]
          */
         viewDays: function(){
             var date = new Date(this.view.date.getTime()), time,
                 today = new Date().toDateString(),
                 month = date.getMonth(), c, a, t = [], r = [], i,
-                disabled = [0, []], check, ranges = [].concat(this.con.dateRanges),
+                disabled = [0, []], check, ranges,
                 tooltips = [].concat(this.con.tooltips), tooltip = [0, 0];
 
             // Reset Date
@@ -1053,6 +1067,7 @@
             // Create Table
             while(r.length < 6){
                 time = date.getTime();
+                ranges = [].concat(this.con.dateRanges);
 
                 // Attributes and ClassNames
                 a = 'data-action="submit" data-date="' + date.getTime() + '"';
@@ -1065,8 +1080,8 @@
                 // Calc Disabled
                 if(this.con.dateBlacklist && ((time) < this.con.dateStart || time > this.con.dateEnd)){
                     disabled = [(time < this.con.dateStart)? this.con.dateStart: Infinity, [0, 1, 2, 3, 4, 5, 6], true];
-                } else if(disabled[0] == 0){
-                    ranges = ranges.filter(function(obj){
+                } else if (this.con.dateRanges.length > 0) {
+                    ranges.filter(function(obj){
                         if(obj.start == Infinity || (time >= obj.start && time <= obj.end)){
                             disabled = [obj.end, obj.days];
                             return false;
@@ -1217,20 +1232,21 @@
 
         /*
          |  PUBLIC :: SWITCH DATE
-         |  @since  0.4.1 [0.4.0]
+         |  @since  0.4.14 [0.4.0]
          */
         switchDate: function(year, month, day, none){
-            this.view.date.setFullYear((year == undefined)? this.view.date.getFullYear(): year);
-            this.view.date.setMonth((month == undefined)? this.view.date.getMonth(): month);
-            if(day == "auto"){
-                var test = this.view.date, now = new Date();
-                if(test.getMonth() == now.getMonth() && test.getYear() == now.getYear()){
-                    day = now.getDate();
-                } else {
-                    day = 1;
+            if(day === "auto") {
+                day = this.view.date.getDate();
+                if((this.view.date.getMonth() === 1 && day >= 28) || day >= 30) {
+                    day = new Date(year, month+1, 0);
+                    day = day.getDate();
                 }
             }
-            this.view.date.setDate(day || this.view.date.getDate());
+            this.view.date.setFullYear(
+                (year == undefined? this.view.date.getFullYear(): year),
+                (month == undefined? this.view.date.getMonth(): month),
+                (day || this.view.date.getDate())
+            );
             return (none === true)? true: this.switchView(this.view.type);
         },
 

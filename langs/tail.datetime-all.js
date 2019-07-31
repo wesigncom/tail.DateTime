@@ -128,6 +128,18 @@
     });
 
     /*
+     |  Translator:     thenewzhugeliang - (https://github.com/thenewzhugeliang)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/53
+     */
+    datetime.strings.register("id", {
+        months: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+        days:   ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"],
+        shorts: ["MIN", "SEN", "SEL", "RAB", "KAM", "JUM", "SAB"],
+        time:   ["Jam", "Menit", "Detik"],
+        header: ["Pilih Bulan", "Pilih Tahun", "Pilih Dekade", "Pilih Ja"]
+    });
+
+    /*
      |  Translator:     Fabio Di Stasio - (https://github.com/Fabio286)
      |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/10
      */
@@ -149,6 +161,18 @@
         shorts: ["ZO", "MA", "DI", "WO", "DO", "VR", "ZA"],
         time:   ["Uur", "Minuten", "Seconden"],
         header: ["Kies een Maand", "Kies een Jaar", "Kies een Decennium", "Kies een Tijdstip"]
+    });
+
+    /*
+     |  Translator:     huhushow - (https://github.com/huhushow)
+     |  GitHub:         https://github.com/pytesNET/tail.DateTime/issues/49
+     */
+    datetime.strings.register("ko", {
+        months: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"],
+        days:   ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"],
+        shorts: ["일", "월", "화", "수", "목", "금", "토"],
+        time:   ["시", "분", "초"], 
+        header: ["월 선택", "연도 선택", "연대 선택", "시간 선택"]
     });
 
     /*

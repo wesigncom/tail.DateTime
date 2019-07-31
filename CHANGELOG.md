@@ -3,8 +3,20 @@ CHANGELOG
 
 Version 0.4.14 - Beta
 ---------------------
+-   Add: The new Indonesian Translation.
+    - Thanks to [thenewzhugeliang](https://github.com/thenewzhugeliang)
+    @ [#53](https://github.com/pytesNET/tail.DateTime/issues/53).
+-   Add: The new Korean Translation.
+    - Thanks to [huhushow](https://github.com/huhushow)
+    @ [#49](https://github.com/pytesNET/tail.DateTime/issues/49).
+-   Bugfix: Calendar won't go back a month from July 2019.
+    - Thanks to [#54](https://github.com/pytesNET/tail.DateTime/issues/54).
 -   Bugfix: Changing the Hours increases the Date (per Step).
-    - Thanks to [#43](https://github.com/pytesNET/tail.DateTime/issues/43).
+    - Thanks to [#43](https://github.com/pytesNET/tail.DateTime/issues/43),
+    - Thanks to [#46](https://github.com/pytesNET/tail.DateTime/issues/46).
+-   Bugfix: Multiple `dateRanges` aren't possible on some situations.
+    - Thanks to [#55](https://github.com/pytesNET/tail.DateTime/issues/55),
+    - Thanks to [#48](https://github.com/pytesNET/tail.DateTime/pull/48).
 
 Version 0.4.13 - Beta
 ---------------------
