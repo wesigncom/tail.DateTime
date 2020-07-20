@@ -28,7 +28,7 @@
         days:   ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
         shorts: ["DIM", "LUN", "MAR", "MER", "JEU", "VEN", "SAM"],
         time:   ["Heure", "Minute", "Seconde"],
-        header: ["Choisissez un mois", "Choisissez une année", "Choisissez une décénie", "Kies een Tijdstip"]
+        header: ["Choisissez un mois", "Choisissez une année", "Choisissez une décénie", "Choisissez un horaire"]
     });
     return datetime;
 }));
